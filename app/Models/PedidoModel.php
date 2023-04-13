@@ -1,0 +1,151 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class PedidoModel extends Model
+{
+  protected $table = 'pedidos';
+  protected $primaryKey = 'id';
+  protected $allowedFields = ['usuario_id', 'sistema_id', 'total', 'frete', 'forma_pagamento_id', 'status', 'codigo', 'troco', 'comprovante', 'observacao'];
+  protected $validationRules = [];
+
+  public function getAll($filtros = [])
+  {
+    $resultado = $this->where("sistema_id", session()->get("sistema")["id"]);
+
+    if (!empty($filtros["status"])) {
+      $resultado->where("status", $filtros["status"]);
+    }
+
+    return $resultado->findAll();
+  }
+
+  public function getAllForChart($ano = 2023)
+  {
+    $resultado = $this->select("COUNT(pedidos.id) AS total, EXTRACT(MONTH FROM created_at) mes, EXTRACT(YEAR FROM created_at) ano")
+      ->where("pedidos.sistema_id", session()->get("sistema")["id"])
+      ->where("status", RECEBIDO)
+      ->where('YEAR(created_at)', $ano)
+      ->groupBy("EXTRACT(MONTH FROM created_at), EXTRACT(YEAR FROM created_at)")
+      ->orderBy("ano", "DESC")
+      ->orderBy("mes", "ASC")
+      ->findAll();
+
+    $meses = ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"];
+
+    for ($i = 0; $i < count($resultado); $i++) {
+      for ($y = 0; $y < count($meses); $y++) {
+        if ($y + 1 == $resultado[$i]["mes"]) {
+          $meses[$y] = $resultado[$i]["total"];
+        }
+      }
+    }
+
+    return $meses;
+  }
+
+  public function getTotal($ano)
+  {
+    $resultado = $this->select("SUM(pedidos.total) AS total")
+      ->where("status", RECEBIDO)
+      ->where("pedidos.sistema_id", session()->get("sistema")["id"])
+      ->where('YEAR(created_at)', $ano)
+      ->first();
+
+    return empty($resultado["total"]) ? format_money(0) : format_money($resultado["total"]);
+  }
+
+  public function getPorcentagem($ano)
+  {
+    $resultado = $this->select("COUNT(pedidos.id) AS total, EXTRACT(MONTH FROM created_at) mes, EXTRACT(YEAR FROM created_at) ano")
+      ->where("status", RECEBIDO)
+      ->where("pedidos.sistema_id", session()->get("sistema")["id"])
+      ->where('YEAR(created_at)', $ano)
+      ->groupBy("EXTRACT(MONTH FROM created_at), EXTRACT(YEAR FROM created_at)")
+      ->orderBy("ano", "DESC")
+      ->orderBy("mes", "DESC")
+      ->limit(2)
+      ->findAll();
+
+    $base_porcentagem = 0;
+    $porcentagem_atual = 0;
+    if (count($resultado) >= 2) {
+      for ($i = 0; $i < count($resultado); $i++) {
+        $base_porcentagem = $resultado[1]["total"] * 100 / 100;
+        $porcentagem_atual = $resultado[0]["total"] * 100 / $base_porcentagem;
+      }
+    }
+
+    return empty($porcentagem_atual) ? 0 : format_money($porcentagem_atual, false);
+  }
+
+  public function cadastrar($usuario_id, $data)
+  {
+    $this->db->transBegin();
+
+    $pedidoProdutoModel = new PedidoProdutoModel();
+
+    $data->forma_pagamento_id = (int) $data->tipo_pagamento;
+    $data->usuario_id = $usuario_id;
+    $data->codigo = rand(1, 100);
+    $data->sistema_id = get_sistema();
+
+    $this->save($data);
+
+    $pedido_id = $this->getInsertID();
+
+    $pedidoProdutoModel->cadastrar($pedido_id, $data->carrinho);
+
+    if ($this->db->transStatus() === FALSE) {
+      $this->db->transRollback();
+      return [
+        "status" => false,
+        "message" => "Ocorreu uma falha ao salvar!"
+      ];
+    } else {
+      $this->db->transCommit();
+      return [
+        "status" => true,
+        "message" => "Pedido salvo com sucesso!"
+      ];
+    }
+  }
+
+  public function kanban($tipo)
+  {
+    $pedidoProdutoModel = new PedidoProdutoModel();
+    $pedidoProdutoModel = new PedidoProdutoModel();
+
+    $pedidos = $this->select("pedidos.*,
+    CONCAT(usuarios.nome, ' ', usuarios.sobrenome) AS usuario_nome, enderecos.endereco, enderecos.cep, enderecos.numero, enderecos.cep, enderecos.complemento,DATE_FORMAT(pedidos.updated_at, '%d/%m/%Y %T') AS data")
+      ->join("usuarios", "pedidos.usuario_id = usuarios.id")
+      ->join("enderecos", "enderecos.usuario_id = usuarios.id")
+      ->where([
+        "DATE_FORMAT(pedidos.updated_at, '%Y-%m-%d')" => date("Y-m-d"),
+        "sistema_id" => session()->get("sistema")["id"],
+        "pedidos.status" => $tipo,
+        "enderecos.status" => "A",
+      ])
+      ->orderBy("pedidos.updated_at", "DESC")
+      ->findAll();
+
+    for ($y = 0; $y < count($pedidos); $y++) {
+      $pedidos[$y]["produtos"] = $pedidoProdutoModel
+        ->select("produtos.*")
+        ->join("produtos", "produtos.id = pedidos_produtos.produto_id")
+        ->where("pedido_id", $pedidos[$y]["id"])
+        ->findAll();
+    }
+
+    return $pedidos;
+  }
+
+  public function setStatus($pedidoId, $status)
+  {
+    $resultado = $this->update($pedidoId, ["status" => $status]);
+
+    return $resultado;
+  }
+}
