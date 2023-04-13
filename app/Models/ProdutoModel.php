@@ -46,8 +46,8 @@ class ProdutoModel extends Model
         "quantidade <=" => $stockLimit
       ])
       ->orderBy("quantidade", "ASC")
-      ->limit($limit);
+      ->findAll($limit);
 
-    return $resultado->findAll();
+    return $resultado;
   }
 }

@@ -181,3 +181,25 @@ if (!function_exists('get_sistema')) {
     return $sistema_id;
   }
 }
+
+if (!function_exists('get_status_sistema')) {
+  function get_status_sistema($aberto, $fechado)
+  {
+    $status = false;
+
+    date_default_timezone_set('America/Sao_Paulo');
+
+    $aberto = new DateTime($aberto);
+    $fechado = new DateTime($fechado);
+
+    if (
+      $aberto->diff(new DateTime)->format('%R') == '+'
+      &&
+      $fechado->diff(new DateTime)->format('%R') == '-'
+    ) {
+      $status = true;
+    }
+
+    return $status;
+  }
+}

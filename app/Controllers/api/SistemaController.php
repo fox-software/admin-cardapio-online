@@ -24,6 +24,7 @@ class SistemaController extends ResourceController
     public function index()
     {
         $data = $this->sistemaModel->find(get_sistema());
+        $data["aberto"] = get_status_sistema($data["aberto"], $data["fechado"]);
 
         return $this->respond($data);
     }

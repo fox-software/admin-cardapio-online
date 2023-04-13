@@ -12,6 +12,7 @@ class SistemaModel extends Model
     'nome_fantasia', 'razao_social', 'cnpj', 'email', 'telefone', 'foto',
     'cep', 'endereco', 'numero', 'cidade', 'estado',
     'taxa_entrega', 'tempo_entrega_min', 'tempo_entrega_max', 'pix',
+    'aberto', 'fechado',
     'status'
   ];
   protected $validationRules = [

@@ -179,6 +179,37 @@
 
     </div>
 
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Configuração Disponibilidade</h3>
+      </div>
+      <form action="<?= base_url("admin/configuracao/" . $sistema["id"] . "/editar") ?>" method="post">
+
+        <div class="card-body">
+          <div class="row">
+
+            <div class="col-4">
+              <div class="form-group">
+                <label>Horário de abertura</label>
+                <input type="time" name="aberto" class="form-control" placeholder="Digite o horário de abertura" value="<?= $sistema["aberto"] ?>">
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label>Horário de fechamento</label>
+                <input type="time" name="fechado" class="form-control" placeholder="Digite o horário de fechamento" value="<?= $sistema["fechado"] ?>">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary">Atualizar Horários</button>
+        </div>
+      </form>
+
+    </div>
+
   </div>
 </section>
 <?= $this->endSection() ?>

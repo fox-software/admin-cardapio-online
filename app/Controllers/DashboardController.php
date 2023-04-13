@@ -26,13 +26,11 @@ class DashboardController extends BaseController
     {
         $data = [
             "page_title" => "dashboard",
-            "total_usuarios" => count($this->usuarioModel->getAll(["status" => "A"])),
-            "total_categorias" => count($this->categoriaModel->getAll(["status" => "A"])),
-            "total_produtos" => count($this->produtoModel->getAll(["status" => "A"])),
-            "total_pedidos" => count($this->pedidoModel->getAll(["status" => "A"])),
+            "total_usuarios" => count($this->usuarioModel->getAll(["status" => ATIVO])),
+            "total_categorias" => count($this->categoriaModel->getAll(["status" => ATIVO])),
+            "total_produtos" => count($this->produtoModel->getAll(["status" => ATIVO])),
+            "total_pedidos" => count($this->pedidoModel->getAll(["status" => RECEBIDO])),
             "estoque_produtos" => $this->produtoModel->getStockProducts(),
-
-            "porcentagem_pedidos" => $this->pedidoModel->getPorcentagem(2023),
         ];
 
         return view('page/dashboard', $data);

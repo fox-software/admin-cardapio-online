@@ -1,20 +1,5 @@
 <?= $this->section('navbar') ?>
-<?php
-$status = false;
 
-// date_default_timezone_set('America/Sao_Paulo');
-
-// $tempo_atual = date("H:i");
-// $aberto = format_date(session()->get("sistema")["aberto"], "H:i");
-// $fechado = format_date(session()->get("sistema")["fechado"], "H:i");
-
-// if (strtotime($tempo_atual) > strtotime($fechado)) {
-//   $status = false;
-// } else {
-//   $status = true;
-// }
-
-?>
 <!-- Navbar -->
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
   <!-- Left navbar links -->
@@ -25,8 +10,8 @@ $status = false;
     <li class="nav-item d-none d-sm-inline-block">
       <div class="d-flex h-100 p-1">
         <div class="d-flex align-items-center justify-content-center">
-          <div class="d-flex justify-content-center align-items-center p-1 rounded bg-<?= $status ? "success" : "danger" ?>">
-            <?= $status ? "ABERTO" : "FECHADO" ?>
+          <div class="d-flex justify-content-center align-items-center p-1 rounded bg-<?= get_status_sistema(session()->get("sistema")["aberto"], session()->get("sistema")["fechado"]) ? "success" : "danger" ?>">
+            <?= get_status_sistema(session()->get("sistema")["aberto"], session()->get("sistema")["fechado"]) ? "ABERTO" : "FECHADO" ?>
           </div>
         </div>
       </div>

@@ -28,6 +28,7 @@ class ConfiguracaoController extends BaseController
     public function editar(int $id)
     {
         $dados = $this->request->getVar();
+
         $img = $this->request->getFile('foto');
 
         if (isset($img) && $img->isValid()) {

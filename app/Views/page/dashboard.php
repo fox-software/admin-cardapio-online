@@ -61,10 +61,10 @@
 
     </div>
 
-    <div class="row">
+    <!-- <div class="row"> -->
 
-      <!-- PRODUTOS MAIS VENDIDOS -->
-      <div class="col-md-3">
+    <!-- PRODUTOS MAIS VENDIDOS -->
+    <!-- <div class="col-md-3">
         <div class="card">
           <div class="card-header border-0">
             <strong>Produtos mais vendidos</strong>
@@ -104,10 +104,10 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <!-- PRODUTOS MENOS VENDIDOS -->
-      <div class="col-md-3">
+    <!-- PRODUTOS MENOS VENDIDOS -->
+    <!-- <div class="col-md-3">
         <div class="card">
           <div class="card-header border-0">
             <strong>Produtos menos vendidos</strong>
@@ -147,10 +147,10 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <!-- PRODUTOS MAIS AVALIADOS -->
-      <div class="col-md-3">
+    <!-- PRODUTOS MAIS AVALIADOS -->
+    <!-- <div class="col-md-3">
         <div class="card">
           <div class="card-header border-0">
             <strong>Produtos mais avaliados</strong>
@@ -190,10 +190,10 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <!-- PRODUTOS MENOS AVALIADOS -->
-      <div class="col-md-3">
+    <!-- PRODUTOS MENOS AVALIADOS -->
+    <!-- <div class="col-md-3">
         <div class="card">
           <div class="card-header border-0">
             <strong>Produtos menos avaliados</strong>
@@ -233,9 +233,9 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
-    </div>
+    <!-- </div> -->
 
     <div class="row">
       <div class="col-lg-6 col-6">

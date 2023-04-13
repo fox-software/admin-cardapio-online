@@ -51,12 +51,16 @@ $routes->get('/logout', [LoginController::class, "logout"]);
 
 $routes->group('admin', ['filter' => 'authGuard'], function ($routes) {
 
-    $routes->get('painel', [PainelController::class, "index"]);
-    $routes->get('painel/kanban', [PainelController::class, "kanban"]);
-    $routes->get('painel/pedido/(:num)/status/(:any)', [PainelController::class, "status"]);
+    $routes->group('dashboard', function ($routes) {
+        $routes->get('', [DashboardController::class, "index"]);
+        $routes->get('graphic/(:num)', [DashboardController::class, "graphic"]);
+    });
 
-    $routes->get('dashboard', [DashboardController::class, "index"]);
-    $routes->get('dashboard/graphic/(:num)', [DashboardController::class, "graphic"]);
+    $routes->group('painel', function ($routes) {
+        $routes->get('', [PainelController::class, "index"]);
+        $routes->get('kanban', [PainelController::class, "kanban"]);
+        $routes->get('pedido/(:num)/status/(:any)', [PainelController::class, "status"]);
+    });
 
     $routes->group('forma_de_pagamentos', function ($routes) {
         $routes->get('', [FormaPagamentoController::class, "index"]);

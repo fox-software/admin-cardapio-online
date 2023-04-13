@@ -100,6 +100,10 @@ defined('TOAST_ERROR') || define('TOAST_ERROR', 'error');
 defined('TOAST_WARNING') || define('TOAST_WARNING', 'warning');
 defined('TOAST_SUCCESS') || define('TOAST_SUCCESS', 'success');
 
+// STATUS
+defined('ATIVO') || define('ATIVO', 'A');
+defined('INATIVO') || define('INATIVO', 'I');
+
 // STATUS PEDIDOS
 defined('PENDENTE') || define('PENDENTE', 'P');
 defined('ENTREGA') || define('ENTREGA', 'E');
