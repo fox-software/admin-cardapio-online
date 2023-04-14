@@ -71,7 +71,7 @@ class UsuarioModel extends Model
   public function getUserCompleteById($usuario_id)
   {
     $resultado = $this
-      ->where(["usuarios.id" => $usuario_id, "usuarios.status" => "A"])
+      ->where(["usuarios.id" => $usuario_id, "usuarios.status" => ATIVO])
       ->join("enderecos", "enderecos.usuario_id = usuarios.id")->first();
 
     return $resultado;
@@ -84,8 +84,8 @@ class UsuarioModel extends Model
       ->join("usuarios_sistemas", "usuario_id = usuarios.id")
       ->where([
         "email" => $email,
-        "sistema_id" => get_sistema(),
-        "usuarios_sistemas.status" => "A"
+        "sistema_id" => get_sistema_api(),
+        "usuarios_sistemas.status" => ATIVO
       ]);
 
     return $resultado->first();

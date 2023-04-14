@@ -30,7 +30,7 @@ class FormaPagamentoController extends BaseController
     public function status(int $formaPagamentoId)
     {
         $pagamento = $this->formaPagamentoModel->getById($formaPagamentoId);
-        $novo_status = $pagamento["status"] == "A" ? "I" : "A";
+        $novo_status = $pagamento["status"] == ATIVO ? INATIVO : ATIVO;
 
         try {
             $this->formaPagamentoSistemaModel->setStatus($pagamento["forma_pagamentos_sistemas_id"], $novo_status);

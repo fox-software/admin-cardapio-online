@@ -21,8 +21,8 @@
                 <td><?= $item["descricao"] ?></td>
                 <td>
                   <?php if (!empty($item["status"])) : ?>
-                    <a href="<?= base_url("admin/forma_de_pagamentos/" . $item["id"] . "/status") ?>" class="btn btn-<?= $item["status"] == "A" ? "success" : "danger" ?>">
-                      <i class="fa fa-<?= $item["status"] == "A" ? "check-circle" : "times-circle" ?>"></i>
+                    <a href="<?= base_url("admin/forma_de_pagamentos/" . $item["id"] . "/status") ?>" class="btn btn-<?= $item["status"] == ATIVO ? "success" : "danger" ?>">
+                      <i class="fa fa-<?= $item["status"] == ATIVO ? "check-circle" : "times-circle" ?>"></i>
                     </a>
                   <?php else : ?>
                     <a href="<?= base_url("admin/forma_de_pagamentos/" . $item["id"] . "/adicionar") ?>" class="btn btn-dark">

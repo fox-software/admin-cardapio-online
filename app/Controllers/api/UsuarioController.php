@@ -39,7 +39,7 @@ class UsuarioController extends ResourceController
             ->join("usuarios_sistemas", "usuario_id = usuarios.id")
             ->find($usuario_id);
 
-        return $this->respond($usuario["status"] == "A" ? true : false);
+        return $this->respond($usuario["status"] == ATIVO ? true : false);
     }
 
     public function cadastrar()

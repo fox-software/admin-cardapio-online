@@ -173,8 +173,8 @@ if (!function_exists('toast')) {
   }
 }
 
-if (!function_exists('get_sistema')) {
-  function get_sistema()
+if (!function_exists('get_sistema_api')) {
+  function get_sistema_api()
   {
     $sistema_id = apache_request_headers()["Sistema"];
 

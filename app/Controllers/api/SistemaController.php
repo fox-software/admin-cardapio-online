@@ -23,7 +23,7 @@ class SistemaController extends ResourceController
 
     public function index()
     {
-        $data = $this->sistemaModel->find(get_sistema());
+        $data = $this->sistemaModel->find(get_sistema_api());
         $data["aberto"] = get_status_sistema($data["aberto"], $data["fechado"]);
 
         return $this->respond($data);
@@ -34,8 +34,8 @@ class SistemaController extends ResourceController
         $data = $this->formaPagamentoModel
             ->select("forma_pagamentos.*")
             ->join("forma_pagamentos_sistemas", "forma_pagamentos_sistemas.forma_pagamento_id = forma_pagamentos.id")
-            ->where("sistema_id", get_sistema())
-            ->where("status", "A")
+            ->where("sistema_id", get_sistema_api())
+            ->where("status", ATIVO)
             ->orderBy("forma_pagamentos.id")
             ->findAll();
 

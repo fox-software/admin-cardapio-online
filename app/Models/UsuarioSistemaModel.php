@@ -14,7 +14,7 @@ class UsuarioSistemaModel extends Model
   public function cadastrar($usuario_id)
   {
     $resultado = $this->insert([
-      "sistema_id" => get_sistema(),
+      "sistema_id" => get_sistema_api(),
       "usuario_id" => $usuario_id,
     ]);
 

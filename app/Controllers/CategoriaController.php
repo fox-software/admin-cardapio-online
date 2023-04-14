@@ -45,7 +45,7 @@ class CategoriaController extends BaseController
     public function status(int $categoria_id)
     {
         $categoria = $this->categoriaModel->find($categoria_id);
-        $novo_status = $categoria["status"] == "A" ? "I" : "A";
+        $novo_status = $categoria["status"] == ATIVO ? INATIVO : ATIVO;
 
         try {
             $this->categoriaModel->update($categoria["id"], ["status" => $novo_status]);

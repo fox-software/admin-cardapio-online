@@ -12,8 +12,8 @@
 
               <select class="custom-select" id="status" name="status">
                 <option value="">Selecione um status</option>
-                <option value="A" <?= isset($filtros["status"]) && $filtros["status"] == "A" ? "selected" : "" ?>>Ativo</option>
-                <option value="I" <?= isset($filtros["status"]) && $filtros["status"] == "I" ? "selected" : "" ?>>Inativo</option>
+                <option value="A" <?= isset($filtros["status"]) && $filtros["status"] == ATIVO ? "selected" : "" ?>>Ativo</option>
+                <option value="I" <?= isset($filtros["status"]) && $filtros["status"] == INATIVO ? "selected" : "" ?>>Inativo</option>
               </select>
 
               <input type="search" name="search" placeholder="Pesquisar" class="form-control" value="<?= isset($filtros["search"]) ? $filtros["search"] : "" ?>">
@@ -48,8 +48,8 @@
                 <td><?= format_cpf_cnpj($item["cpf"]) ?></td>
                 <td><?= format_phone($item["telefone"]) ?></td>
                 <td>
-                  <a href="<?= base_url("admin/usuarios/" . $item["id"] . "/status") ?>" class="btn btn-<?= $item["status"] == "A" ? "success" : "danger" ?>">
-                    <i class="fa fa-<?= $item["status"] == "A" ? "check-circle" : "times-circle" ?>"></i>
+                  <a href="<?= base_url("admin/usuarios/" . $item["id"] . "/status") ?>" class="btn btn-<?= $item["status"] == ATIVO ? "success" : "danger" ?>">
+                    <i class="fa fa-<?= $item["status"] == ATIVO ? "check-circle" : "times-circle" ?>"></i>
                   </a>
                 </td>
               </tr>

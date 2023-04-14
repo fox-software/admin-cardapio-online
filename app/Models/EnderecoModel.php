@@ -14,7 +14,7 @@ class EnderecoModel extends Model
   public function getByUserId($usuario_id)
   {
     $resultado = $this->where([
-      "status" => "A",
+      "status" => ATIVO,
       "usuario_id" => $usuario_id
     ])->first();
 
@@ -26,7 +26,7 @@ class EnderecoModel extends Model
   public function getByCep($cep)
   {
     $resultado = $this->where([
-      "status" => "A",
+      "status" => ATIVO,
       "cep" => $cep
     ]);
 

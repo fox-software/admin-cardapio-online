@@ -33,7 +33,7 @@ class UsuarioController extends BaseController
     public function status(int $id)
     {
         $usuario = $this->usuarioModel->getById($id);
-        $novo_status = $usuario["status"] == "A" ? "I" : "A";
+        $novo_status = $usuario["status"] == ATIVO ? INATIVO : ATIVO;
 
         try {
             $this->usuarioSistemaModel->setStatus($usuario["usuarios_sistemas_id"], $novo_status);

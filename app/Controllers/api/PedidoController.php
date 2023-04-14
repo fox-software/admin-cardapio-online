@@ -31,7 +31,7 @@ class PedidoController extends ResourceController
     {
         $usuario_id = $this->usuarioModel->getAuthenticatedUser();
 
-        $data = $this->pedidoModel->where(["sistema_id" => get_sistema(), "usuario_id" => $usuario_id])
+        $data = $this->pedidoModel->where(["sistema_id" => get_sistema_api(), "usuario_id" => $usuario_id])
             ->orderBy("created_at", "DESC")
             ->findAll();
 

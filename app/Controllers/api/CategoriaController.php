@@ -19,7 +19,7 @@ class CategoriaController extends ResourceController
 
     public function index()
     {
-        $data = $this->categoriaModel->where("sistema_id", get_sistema())->findAll();
+        $data = $this->categoriaModel->where("sistema_id", get_sistema_api())->findAll();
 
         return $this->respond($data);
     }

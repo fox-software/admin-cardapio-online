@@ -90,7 +90,7 @@ class PedidoModel extends Model
     $data->forma_pagamento_id = (int) $data->tipo_pagamento;
     $data->usuario_id = $usuario_id;
     $data->codigo = rand(1, 100);
-    $data->sistema_id = get_sistema();
+    $data->sistema_id = get_sistema_api();
 
     $this->save($data);
 
@@ -115,20 +115,21 @@ class PedidoModel extends Model
 
   public function kanban($tipo)
   {
-    $pedidoProdutoModel = new PedidoProdutoModel();
+    date_default_timezone_set('America/Sao_Paulo');
+
     $pedidoProdutoModel = new PedidoProdutoModel();
 
     $pedidos = $this->select("pedidos.*,
-    CONCAT(usuarios.nome, ' ', usuarios.sobrenome) AS usuario_nome, enderecos.endereco, enderecos.cep, enderecos.numero, enderecos.cep, enderecos.complemento,DATE_FORMAT(pedidos.updated_at, '%d/%m/%Y %T') AS data")
+    CONCAT(usuarios.nome, ' ', usuarios.sobrenome) AS usuario_nome, enderecos.endereco, enderecos.cep, enderecos.numero, enderecos.cep, enderecos.complemento,DATE_FORMAT(pedidos.created_at, '%d/%m/%Y %T') AS data")
       ->join("usuarios", "pedidos.usuario_id = usuarios.id")
       ->join("enderecos", "enderecos.usuario_id = usuarios.id")
       ->where([
-        "DATE_FORMAT(pedidos.updated_at, '%Y-%m-%d')" => date("Y-m-d"),
+        "DATE_FORMAT(pedidos.created_at, '%Y-%m-%d')" => date("Y-m-d"),
         "sistema_id" => session()->get("sistema")["id"],
         "pedidos.status" => $tipo,
-        "enderecos.status" => "A",
+        "enderecos.status" => ATIVO,
       ])
-      ->orderBy("pedidos.updated_at", "DESC")
+      ->orderBy("pedidos.created_at", "DESC")
       ->findAll();
 
     for ($y = 0; $y < count($pedidos); $y++) {

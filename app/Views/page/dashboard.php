@@ -264,8 +264,8 @@
                       <?= $item["quantidade"] ?>
                     </td>
                     <td>
-                      <a href="<?= base_url("admin/produtos/" . $item["id"] . "/status?redirect=dashboard") ?>" class="btn btn-<?= $item["status"] == "A" ? "success" : "danger" ?>">
-                        <i class="fa fa-<?= $item["status"] == "A" ? "check-circle" : "times-circle" ?>"></i>
+                      <a href="<?= base_url("admin/produtos/" . $item["id"] . "/status?redirect=dashboard") ?>" class="btn btn-<?= $item["status"] == ATIVO ? "success" : "danger" ?>">
+                        <i class="fa fa-<?= $item["status"] == ATIVO ? "check-circle" : "times-circle" ?>"></i>
                       </a>
                     </td>
                   </tr>

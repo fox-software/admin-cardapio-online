@@ -21,7 +21,7 @@ class SistemaModel extends Model
 
   public function getAll()
   {
-    $resultado = $this->where("status", "A");
+    $resultado = $this->where("status", ATIVO);
 
     return $resultado->findAll();
   }

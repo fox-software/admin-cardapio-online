@@ -24,7 +24,7 @@ class ProdutoController extends BaseController
         $data = [
             "page_title" => "produtos",
             "produtos" => $this->produtoModel->getAll($filtros),
-            "categorias" => $this->categoriaModel->getAll(["status" => "A"]),
+            "categorias" => $this->categoriaModel->getAll(["status" => ATIVO]),
             "filtros" => $filtros
         ];
 
@@ -60,7 +60,7 @@ class ProdutoController extends BaseController
         $dados = $this->request->getVar();
 
         $produto = $this->produtoModel->find($id);
-        $novo_status = $produto["status"] == "A" ? "I" : "A";
+        $novo_status = $produto["status"] == ATIVO ? INATIVO : ATIVO;
 
         try {
             $this->produtoModel->update($produto["id"], ["status" => $novo_status]);
