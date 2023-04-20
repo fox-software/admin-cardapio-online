@@ -2,6 +2,8 @@
 
 namespace App\Controllers\Api;
 
+header("Access-Control-Allow-Origin: *");
+
 use App\Models\CategoriaModel;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
