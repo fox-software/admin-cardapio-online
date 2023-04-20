@@ -99,8 +99,13 @@ $routes->group('admin', ['filter' => 'authGuard'], function ($routes) {
  * --------------------------------------------------------------------
  */
 
+$routes->get('categorias', [CategoriaController::class, "index"]);
+
 // $routes->group('api', ['filter' => 'cors'], function ($routes) {
 $routes->group('api', function ($routes) {
+
+
+    $routes->get('produtos', [ProdutoController::class, "index"]);
 
     $routes->post('login', [AutenticacaoController::class, "login"]);
     $routes->post('logout', [AutenticacaoController::class, "logout"]);
@@ -140,10 +145,6 @@ $routes->group('api', function ($routes) {
         $routes->post('(:num)/status', [CartaoController::class, "status"]);
         $routes->post('(:num)/principal', [CartaoController::class, "principal"]);
     });
-
-    $routes->get('categorias', [CategoriaController::class, "index"]);
-
-    $routes->get('produtos', [ProdutoController::class, "index"]);
 });
 
 

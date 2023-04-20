@@ -21,6 +21,6 @@ class CategoriaController extends ResourceController
     {
         $data = $this->categoriaModel->where("sistema_id", get_sistema_api())->findAll();
 
-        return $this->response->setJSON($data);
+        return $this->respond($data);
     }
 }
