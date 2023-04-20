@@ -35,7 +35,7 @@ class Filters extends BaseConfig
      */
     public array $globals = [
         'before' => [
-            'cors'
+            // 'cors'
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
@@ -68,9 +68,9 @@ class Filters extends BaseConfig
      * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
      */
     public array $filters = [
-        'cors' => [
-            'before' => ['api/*'],
+        // 'cors' => [
+            // 'before' => ['api/*'],
             // 'after' => ['api/*']
-        ],
+        // ],
     ];
 }
