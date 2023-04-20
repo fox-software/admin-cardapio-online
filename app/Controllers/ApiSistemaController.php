@@ -21,8 +21,10 @@ class ApiSistemaController extends ResourceController
         $this->formaPagamentoModel = new FormaPagamentoModel();
     }
 
-    public function index()
+    public function getSistema(int $sistemaId)
     {
+        session()->set('sistema_api', $sistemaId);
+
         $data = $this->sistemaModel->find(get_sistema_api());
         $data["aberto"] = get_status_sistema($data["aberto"], $data["fechado"]);
 

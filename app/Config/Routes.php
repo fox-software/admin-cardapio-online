@@ -118,7 +118,7 @@ $routes->group('api', ['filter' => 'cors'], function ($routes) {
     });
 
     $routes->group('sistema', function ($routes) {
-        $routes->get('', [ApiSistemaController::class, "index"]);
+        $routes->get('(:num)', [ApiSistemaController::class, "getSistema"]);
         $routes->get('pagamentos', [ApiSistemaController::class, "formaPagamentos"]);
     });
 
