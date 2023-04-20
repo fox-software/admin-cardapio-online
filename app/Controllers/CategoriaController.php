@@ -29,7 +29,7 @@ class CategoriaController extends BaseController
 
     public function ind()
     {
-        $data = $this->categoriaModel->where("sistema_id", get_sistema_api())->findAll();
+        $data = $this->categoriaModel->findAll();
 
         return $this->response->setJSON($data);
     }
