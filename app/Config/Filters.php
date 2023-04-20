@@ -10,7 +10,7 @@ use CodeIgniter\Filters\DebugToolbar;
 use CodeIgniter\Filters\Honeypot;
 use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\SecureHeaders;
-use Fluent\Cors\Filters\CorsFilter;
+// use Fluent\Cors\Filters\CorsFilter;
 
 class Filters extends BaseConfig
 {
@@ -70,7 +70,7 @@ class Filters extends BaseConfig
     public array $filters = [
         'cors' => [
             'before' => ['api/*'],
-            'after' => ['api/*']
+            // 'after' => ['api/*']
         ],
     ];
 }
