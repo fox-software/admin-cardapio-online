@@ -8,6 +8,7 @@ use App\Controllers\ApiCategoriaController;
 use App\Controllers\ApiEnderecoController;
 use App\Controllers\ApiPagamentoController;
 use App\Controllers\ApiPedidoController;
+use App\Controllers\ApiProdutoController;
 use App\Controllers\ApiSistemaController;
 use App\Controllers\ApiUsuarioController;
 
