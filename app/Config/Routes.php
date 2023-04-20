@@ -123,7 +123,7 @@ $routes->group('api', ['filter' => 'cors'], function ($routes) {
     $routes->group('pedidos', function ($routes) {
         $routes->get('(:num)', [ApiPedidoController::class, "getPedidos"]);
         $routes->get('detalhes/(:num)', [ApiPedidoController::class, "detalhes"]);
-        $routes->post('cadastrar', [ApiPedidoController::class, "cadastrar"]);
+        $routes->post('(:num)/cadastrar', [ApiPedidoController::class, "cadastrar"]);
     });
 
     $routes->group('enderecos', function ($routes) {

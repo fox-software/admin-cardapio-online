@@ -58,7 +58,7 @@ class ApiPedidoController extends ResourceController
         return $this->respond($data);
     }
 
-    public function cadastrar()
+    public function cadastrar(int $sistemaId)
     {
         $data = $this->request->getVar();
 
@@ -74,7 +74,7 @@ class ApiPedidoController extends ResourceController
 
         $usuario_id = $this->usuarioModel->getAuthenticatedUser();
 
-        $pedido = $this->pedidoModel->cadastrar($usuario_id, $data);
+        $pedido = $this->pedidoModel->cadastrar($sistemaId, $usuario_id, $data);
 
         return $this->respond($pedido);
     }
