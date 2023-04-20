@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace App\Controllers;
 
 use App\Models\ProdutoModel;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 
-class ProdutoController extends ResourceController
+class ApiProdutoController extends ResourceController
 {
     use ResponseTrait;
 

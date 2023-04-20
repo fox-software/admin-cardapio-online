@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
@@ -8,7 +8,7 @@ use CodeIgniter\API\ResponseTrait;
 use App\Models\SistemaModel;
 use App\Models\FormaPagamentoModel;
 
-class SistemaController extends ResourceController
+class ApiSistemaController extends ResourceController
 {
     use ResponseTrait;
 

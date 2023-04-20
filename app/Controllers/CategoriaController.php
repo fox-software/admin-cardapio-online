@@ -27,13 +27,6 @@ class CategoriaController extends BaseController
         return view('page/categorias', $data);
     }
 
-    public function ind()
-    {
-        $data = $this->categoriaModel->findAll();
-
-        return $this->response->setJSON($data);
-    }
-
     public function cadastrar()
     {
         $data = $this->request->getVar();
