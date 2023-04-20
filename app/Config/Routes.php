@@ -29,7 +29,7 @@ $routes = Services::routes();
  * Router Setup
  * --------------------------------------------------------------------
  */
-$routes->setDefaultNamespace('App\Controllers');
+$routes->setDefaultNamespace('App');
 $routes->setDefaultController(LoginController::class);
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
