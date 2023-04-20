@@ -2,13 +2,14 @@
 
 namespace App\Controllers\Api;
 
-use App\Controllers\BaseController;
 use App\Models\CategoriaModel;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 
-class CategoriaController extends BaseController
+class CategoriaController extends ResourceController
 {
+    use ResponseTrait;
+
     protected $categoriaModel;
 
     public function __construct()
@@ -20,6 +21,6 @@ class CategoriaController extends BaseController
     {
         $data = $this->categoriaModel->where("sistema_id", get_sistema_api())->findAll();
 
-        return $this->response->setJSON($data);
+        return $this->respond($data, 200);
     }
 }
