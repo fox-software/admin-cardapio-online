@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace App\Controllers;
 
 use App\Models\CategoriaModel;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 
-class CategoriaController extends ResourceController
+class ApiCategoriaController extends ResourceController
 {
     use ResponseTrait;
 

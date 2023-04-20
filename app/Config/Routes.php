@@ -4,13 +4,14 @@ namespace Config;
 
 use App\Controllers\Api\AutenticacaoController;
 use App\Controllers\Api\CartaoController;
-use App\Controllers\Api\CategoriaController;
 use App\Controllers\Api\EnderecoController;
 use App\Controllers\Api\PagamentoController;
 use App\Controllers\Api\PedidoController;
 use App\Controllers\Api\ProdutoController;
 use App\Controllers\Api\SistemaController;
 use App\Controllers\Api\UsuarioController;
+
+use App\Controllers\ApiCategoriaController;
 
 use App\Controllers\CategoriaController as CategoriaAdminController;
 use App\Controllers\ProdutoController as ProdutoAdminController;
@@ -29,7 +30,7 @@ $routes = Services::routes();
  * Router Setup
  * --------------------------------------------------------------------
  */
-$routes->setDefaultNamespace('App');
+$routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController(LoginController::class);
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
@@ -104,7 +105,7 @@ $routes->group('admin', ['filter' => 'authGuard'], function ($routes) {
 
 $routes->group('api', ['filter' => 'cors'], function ($routes) {
 
-    $routes->get('categorias', [CategoriaController::class, "index"]);
+    $routes->get('categorias', [ApiCategoriaController::class, "index"]);
 
     $routes->get('produtos', [ProdutoController::class, "index"]);
 
