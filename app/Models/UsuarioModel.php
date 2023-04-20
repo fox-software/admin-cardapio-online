@@ -97,7 +97,7 @@ class UsuarioModel extends Model
 
     $usuarioSistemaModel = new UsuarioSistemaModel();
 
-    $data->senha = password_hash($data->senha, PASSWORD_DEFAULT);
+    $data["senha"] = password_hash($data["senha"], PASSWORD_DEFAULT);
 
     $this->save($data);
 
