@@ -103,9 +103,9 @@ $routes->group('admin', ['filter' => 'authGuard'], function ($routes) {
 
 $routes->group('api', ['filter' => 'cors'], function ($routes) {
 
-    $routes->get('categorias', [ApiCategoriaController::class, "index"]);
+    $routes->get('(:num)/categorias', [ApiCategoriaController::class, "getCategorias"]);
 
-    $routes->get('produtos', [ApiProdutoController::class, "index"]);
+    $routes->get('(:num)/produtos', [ApiProdutoController::class, "getProdutos"]);
 
     $routes->post('login', [ApiAutenticacaoController::class, "login"]);
     $routes->post('logout', [ApiAutenticacaoController::class, "logout"]);
@@ -117,8 +117,9 @@ $routes->group('api', ['filter' => 'cors'], function ($routes) {
         $routes->get('endereco/(:num)', [ApiUsuarioController::class, "endereco/$1"]);
     });
 
+    $routes->get('(:num)/sistema', [ApiSistemaController::class, "getSistema"]);
+
     $routes->group('sistema', function ($routes) {
-        $routes->get('(:num)', [ApiSistemaController::class, "getSistema"]);
         $routes->get('pagamentos', [ApiSistemaController::class, "formaPagamentos"]);
     });
 
