@@ -49,8 +49,7 @@ $routes->get('/', [LoginController::class, "index"]);
 $routes->post('/login', [LoginController::class, "login"]);
 $routes->get('/logout', [LoginController::class, "logout"]);
 
-$routes->get('api-categorias', [CategoriaController::class, "index"]);
-
+$routes->get('api-categorias', [CategoriaAdminController::class, "ind"]);
 
 $routes->group('admin', ['filter' => 'authGuard'], function ($routes) {
 
