@@ -42,9 +42,42 @@ class ApiUsuarioController extends ResourceController
         return $this->respond($usuario["status"] == ATIVO ? true : false);
     }
 
-    public function cadastrar()
+    public function login(int $sistemaId)
     {
-        $data = $this->usuarioModel->cadastrar($this->request->getVar());
+        $email = $this->request->getVar('email');
+        $senha = $this->request->getVar('senha');
+
+        $usuario = $this->usuarioModel->getByEmail($sistemaId, $email);
+
+        if (is_null($usuario)) {
+            return $this->respond(['status' => false, 'message' => 'E-mail ou senha inválidos.'], 400);
+        }
+
+        $pwd_verify = password_verify($senha, $usuario['senha']);
+
+        if (!$pwd_verify) {
+            return $this->respond(['status' => false, 'message' => 'E-mail ou senha inválidos.'], 400);
+        }
+
+        $response = [
+            'message' => 'Login bem-sucedido',
+            'authorization' => $this->usuarioModel->createToken($usuario["id"], $usuario["sistema_id"])
+        ];
+
+        return $this->respond($response, 200);
+    }
+
+    public function logout()
+    {
+        return $this->respond([
+            'status' => TRUE,
+            'message' => 'Logout efetuado'
+        ], 200);
+    }
+
+    public function cadastrar(int $sistemaId)
+    {
+        $data = $this->usuarioModel->cadastrar($sistemaId, $this->request->getVar());
 
         return $this->respond($data);
     }

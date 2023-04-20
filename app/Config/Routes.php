@@ -2,7 +2,6 @@
 
 namespace Config;
 
-use App\Controllers\ApiAutenticacaoController;
 use App\Controllers\ApiCartaoController;
 use App\Controllers\ApiCategoriaController;
 use App\Controllers\ApiEnderecoController;
@@ -107,24 +106,22 @@ $routes->group('api', ['filter' => 'cors'], function ($routes) {
 
     $routes->get('(:num)/produtos', [ApiProdutoController::class, "getProdutos"]);
 
-    $routes->post('login', [ApiAutenticacaoController::class, "login"]);
-    $routes->post('logout', [ApiAutenticacaoController::class, "logout"]);
-
     $routes->group('usuarios', function ($routes) {
         $routes->get('', [ApiUsuarioController::class, "index"]);
+        $routes->post('(:num)/login', [ApiUsuarioController::class, "login"]);
+        $routes->post('(:num)/cadastrar', [ApiUsuarioController::class, "cadastrar"]);
+        $routes->post('logout', [ApiUsuarioController::class, "logout"]);
         $routes->get('status', [ApiUsuarioController::class, "status"]);
-        $routes->post('cadastrar', [ApiUsuarioController::class, "cadastrar"]);
         $routes->get('endereco/(:num)', [ApiUsuarioController::class, "endereco/$1"]);
     });
-
-    $routes->get('(:num)/sistema', [ApiSistemaController::class, "getSistema"]);
-
+    
     $routes->group('sistema', function ($routes) {
-        $routes->get('pagamentos', [ApiSistemaController::class, "formaPagamentos"]);
+        $routes->get('(:num)', [ApiSistemaController::class, "getSistema"]);
+        $routes->get('(:num)/pagamentos', [ApiSistemaController::class, "formaPagamentos"]);
     });
 
     $routes->group('pedidos', function ($routes) {
-        $routes->get('', [ApiPedidoController::class, "index"]);
+        $routes->get('(:num)', [ApiPedidoController::class, "getPedidos"]);
         $routes->get('detalhes/(:num)', [ApiPedidoController::class, "detalhes"]);
         $routes->post('cadastrar', [ApiPedidoController::class, "cadastrar"]);
     });

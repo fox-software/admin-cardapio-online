@@ -77,33 +77,33 @@ class UsuarioModel extends Model
     return $resultado;
   }
 
-  public function getByEmail($email)
+  public function getByEmail($sistemaId, $email)
   {
     $resultado = $this
       ->select("usuarios.*, usuarios_sistemas.sistema_id, usuarios_sistemas.status")
       ->join("usuarios_sistemas", "usuario_id = usuarios.id")
       ->where([
         "email" => $email,
-        "sistema_id" => get_sistema_api(),
+        "sistema_id" => $sistemaId,
         "usuarios_sistemas.status" => ATIVO
       ]);
 
     return $resultado->first();
   }
 
-  public function cadastrar($data)
+  public function cadastrar($sistemaId, $data)
   {
     $this->db->transBegin();
 
     $usuarioSistemaModel = new UsuarioSistemaModel();
 
-    $data["senha"] = password_hash($data["senha"], PASSWORD_DEFAULT);
+    $data->senha = password_hash($data->senha, PASSWORD_DEFAULT);
 
     $this->save($data);
 
     $usuario_id = $this->getInsertID();
 
-    $usuarioSistemaModel->cadastrar($usuario_id);
+    $usuarioSistemaModel->cadastrar($sistemaId, $usuario_id);
 
     if ($this->db->transStatus() === FALSE) {
       $this->db->transRollback();

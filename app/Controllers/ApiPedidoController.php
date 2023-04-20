@@ -27,11 +27,14 @@ class ApiPedidoController extends ResourceController
         $this->pedidoProdutoModel = new PedidoProdutoModel();
     }
 
-    public function index()
+    public function getPedidos(int $sistemaId)
     {
         $usuario_id = $this->usuarioModel->getAuthenticatedUser();
 
-        $data = $this->pedidoModel->where(["sistema_id" => get_sistema_api(), "usuario_id" => $usuario_id])
+        $data = $this->pedidoModel->where([
+            "sistema_id" => $sistemaId,
+            "usuario_id" => $usuario_id
+        ])
             ->orderBy("created_at", "DESC")
             ->findAll();
 

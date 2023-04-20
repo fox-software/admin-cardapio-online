@@ -19,6 +19,8 @@ class ApiCategoriaController extends ResourceController
 
     public function getCategorias(int $sistemaId)
     {
+        session()->set('sistema_api', $sistemaId);
+
         $data = $this->categoriaModel->where("sistema_id", $sistemaId)->findAll();
 
         return $this->respond($data, 200);
