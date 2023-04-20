@@ -49,6 +49,9 @@ $routes->get('/', [LoginController::class, "index"]);
 $routes->post('/login', [LoginController::class, "login"]);
 $routes->get('/logout', [LoginController::class, "logout"]);
 
+$routes->get('api-categorias', [CategoriaController::class, "index"]);
+
+
 $routes->group('admin', ['filter' => 'authGuard'], function ($routes) {
 
     $routes->group('dashboard', function ($routes) {
@@ -99,11 +102,10 @@ $routes->group('admin', ['filter' => 'authGuard'], function ($routes) {
  * --------------------------------------------------------------------
  */
 
-$routes->get('categorias', [CategoriaController::class, "index"]);
 
-// $routes->group('api', ['filter' => 'cors'], function ($routes) {
-$routes->group('api', function ($routes) {
+$routes->group('api', ['filter' => 'cors'], function ($routes) {
 
+    $routes->get('categorias', [CategoriaController::class, "index"]);
 
     $routes->get('produtos', [ProdutoController::class, "index"]);
 

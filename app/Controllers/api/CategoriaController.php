@@ -2,21 +2,17 @@
 
 namespace App\Controllers\Api;
 
+use App\Controllers\BaseController;
 use App\Models\CategoriaModel;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 
-class CategoriaController extends ResourceController
+class CategoriaController extends BaseController
 {
-    use ResponseTrait;
-
     protected $categoriaModel;
 
     public function __construct()
     {
-        header('Access-Control-Allow-Headers:TORI-API-KEY, Authorization, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Access-Control-Allow-Credentials');
-        header('Access-Control-Allow-Methods:GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
         $this->categoriaModel = new CategoriaModel();
     }
 
@@ -24,6 +20,6 @@ class CategoriaController extends ResourceController
     {
         $data = $this->categoriaModel->where("sistema_id", get_sistema_api())->findAll();
 
-        return $this->respond($data);
+        return $this->response->setJSON($data);
     }
 }
