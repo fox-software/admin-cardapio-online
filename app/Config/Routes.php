@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Controllers\ApiAutenticacaoController;
 use App\Controllers\ApiCartaoController;
 use App\Controllers\ApiCategoriaController;
 use App\Controllers\ApiEnderecoController;
@@ -9,6 +10,8 @@ use App\Controllers\ApiPagamentoController;
 use App\Controllers\ApiPedidoController;
 use App\Controllers\ApiSistemaController;
 use App\Controllers\ApiUsuarioController;
+
+
 use App\Controllers\CategoriaController;
 use App\Controllers\ConfiguracaoController;
 use App\Controllers\DashboardController;
