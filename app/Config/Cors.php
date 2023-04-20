@@ -48,7 +48,8 @@ class Cors extends \Fluent\Cors\Config\Cors
      *
      * @var array
      */
-    public $allowedOrigins = ['*'];
+    // public $allowedOrigins = ['*'];
+    public $allowedOrigins = ['https://app-cardapio-online.vercel.app'];
 
     /**
      * --------------------------------------------------------------------------
