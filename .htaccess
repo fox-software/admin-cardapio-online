@@ -6,3 +6,10 @@ RewriteCond $1 !^public/(index\.php|images|assets|css|js|robots\.txt|favicon\.ic
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule (.*) public/index.php/$1 [L]
+
+<FilesMatch ".(ttf|otf|eot|woff|woff2)$">
+  <IfModule mod_headers.c>
+    Allow from all
+    Header set Access-Control-Allow-Origin "*"
+  </IfModule>
+</FilesMatch>
