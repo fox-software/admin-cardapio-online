@@ -99,7 +99,8 @@ $routes->group('admin', ['filter' => 'authGuard'], function ($routes) {
  * --------------------------------------------------------------------
  */
 
-$routes->group('api', ['filter' => 'cors'], function ($routes) {
+// $routes->group('api', ['filter' => 'cors'], function ($routes) {
+$routes->group('api', function ($routes) {
 
     $routes->post('login', [AutenticacaoController::class, "login"]);
     $routes->post('logout', [AutenticacaoController::class, "logout"]);
