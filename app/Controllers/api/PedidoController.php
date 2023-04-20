@@ -43,7 +43,7 @@ class PedidoController extends ResourceController
         $data = $this->pedidoModel->find($pedidoId);
 
         $data["produtos"] = $this->pedidoProdutoModel
-            ->select("produtos.*")
+            ->select("produtos.*, pedidos_produtos.quantidade")
             ->join("produtos", "produtos.id = pedidos_produtos.produto_id")
             ->where("pedido_id", $pedidoId)
             ->findAll();

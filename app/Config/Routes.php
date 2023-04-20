@@ -133,7 +133,11 @@ $routes->group('api', ['filter' => 'cors'], function ($routes) {
     });
 
     $routes->group('cartoes', function ($routes) {
+        $routes->get('', [CartaoController::class, "index"]);
         $routes->post('cadastrar', [CartaoController::class, "cadastrar"]);
+        $routes->post('editar', [CartaoController::class, "editar"]);
+        $routes->post('(:num)/status', [CartaoController::class, "status"]);
+        $routes->post('(:num)/principal', [CartaoController::class, "principal"]);
     });
 
     $routes->get('categorias', [CategoriaController::class, "index"]);
