@@ -14,6 +14,9 @@ class CategoriaController extends ResourceController
 
     public function __construct()
     {
+        header('Access-Control-Allow-Headers:TORI-API-KEY, Authorization, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Access-Control-Allow-Credentials');
+        header('Access-Control-Allow-Methods:GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
         $this->categoriaModel = new CategoriaModel();
     }
 
