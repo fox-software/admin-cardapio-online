@@ -26,8 +26,9 @@ class Cors implements FilterInterface
     if (in_array($origin, $allowed_domains)) {
       header('Access-Control-Allow-Origin: ' . $origin);
     }
-
-    // header("Access-Control-Allow-Headers: Origin, X-API-KEY, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Access-Control-Allow-Headers, Authorization, sistema, observe, enctype, Content-Length, X-Csrf-Token");
+    
+    header('Access-Control-Allow-Origin: https://app-cardapio-online.vercel.app');
+    header("Access-Control-Allow-Headers: Content-Type, Accept, Authorization, sistema");
     // header("Access-Control-Allow-Methods: GET, PUT, POST, DELETE, PATCH, OPTIONS");
     // header("Access-Control-Allow-Credentials: true");
     // header("Access-Control-Max-Age: 3600");
