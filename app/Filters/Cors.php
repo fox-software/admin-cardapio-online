@@ -28,8 +28,8 @@ class Cors implements FilterInterface
     }
     
     header('Access-Control-Allow-Origin: https://app-cardapio-online.vercel.app');
-    header("Access-Control-Allow-Headers: Content-Type, Accept, Authorization, sistema");
-    // header("Access-Control-Allow-Methods: GET, PUT, POST, DELETE, PATCH, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type, Accept, Authorization, Sistema");
+    header("Access-Control-Allow-Methods: GET, PUT, POST, DELETE, PATCH, OPTIONS");
     // header("Access-Control-Allow-Credentials: true");
     // header("Access-Control-Max-Age: 3600");
     // header('content-type: application/json; charset=utf-8');
