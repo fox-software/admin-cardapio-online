@@ -21,22 +21,20 @@ class ApiSistemaController extends ResourceController
         $this->formaPagamentoModel = new FormaPagamentoModel();
     }
 
-    public function getSistema(int $sistemaId)
+    public function index()
     {
-        session()->set('sistema_api', $sistemaId);
-
-        $data = $this->sistemaModel->find($sistemaId);
+        $data = $this->sistemaModel->find(get_sistema_api());
         $data["aberto"] = get_status_sistema($data["aberto"], $data["fechado"]);
 
         return $this->respond($data);
     }
 
-    public function formaPagamentos(int $sistemaId)
+    public function formaPagamentos()
     {
         $data = $this->formaPagamentoModel
             ->select("forma_pagamentos.*")
             ->join("forma_pagamentos_sistemas", "forma_pagamentos_sistemas.forma_pagamento_id = forma_pagamentos.id")
-            ->where("sistema_id", $sistemaId)
+            ->where("sistema_id", get_sistema_api())
             ->where("status", ATIVO)
             ->orderBy("forma_pagamentos.id")
             ->findAll();

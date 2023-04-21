@@ -17,14 +17,12 @@ class ApiProdutoController extends ResourceController
         $this->produtoModel = new ProdutoModel();
     }
 
-    public function getProdutos(int $sistemaId)
+    public function index()
     {
-        session()->set('sistema_api', $sistemaId);
-
         $data = $this->produtoModel
             ->select("produtos.*")
             ->join("categorias", "categorias.id = produtos.categoria_id")
-            ->where("categorias.sistema_id", $sistemaId)
+            ->where("categorias.sistema_id", get_sistema_api())
             ->where("produtos.status", ATIVO)
             ->findAll();
 

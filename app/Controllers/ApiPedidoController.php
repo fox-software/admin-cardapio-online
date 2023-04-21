@@ -27,12 +27,12 @@ class ApiPedidoController extends ResourceController
         $this->pedidoProdutoModel = new PedidoProdutoModel();
     }
 
-    public function getPedidos(int $sistemaId)
+    public function index()
     {
         $usuario_id = $this->usuarioModel->getAuthenticatedUser();
 
         $data = $this->pedidoModel->where([
-            "sistema_id" => $sistemaId,
+            "sistema_id" => get_sistema_api(),
             "usuario_id" => $usuario_id
         ])
             ->orderBy("created_at", "DESC")
@@ -58,7 +58,7 @@ class ApiPedidoController extends ResourceController
         return $this->respond($data);
     }
 
-    public function cadastrar(int $sistemaId)
+    public function cadastrar()
     {
         $data = $this->request->getVar();
 
@@ -74,7 +74,7 @@ class ApiPedidoController extends ResourceController
 
         $usuario_id = $this->usuarioModel->getAuthenticatedUser();
 
-        $pedido = $this->pedidoModel->cadastrar($sistemaId, $usuario_id, $data);
+        $pedido = $this->pedidoModel->cadastrar($usuario_id, $data);
 
         return $this->respond($pedido);
     }

@@ -77,21 +77,21 @@ class UsuarioModel extends Model
     return $resultado;
   }
 
-  public function getByEmail($sistemaId, $email)
+  public function getByEmail($email)
   {
     $resultado = $this
       ->select("usuarios.*, usuarios_sistemas.sistema_id, usuarios_sistemas.status")
       ->join("usuarios_sistemas", "usuario_id = usuarios.id")
       ->where([
         "email" => $email,
-        "sistema_id" => $sistemaId,
+        "sistema_id" => get_sistema_api(),
         "usuarios_sistemas.status" => ATIVO
       ]);
 
     return $resultado->first();
   }
 
-  public function cadastrar($sistemaId, $data)
+  public function cadastrar($data)
   {
     $this->db->transBegin();
 
@@ -103,7 +103,7 @@ class UsuarioModel extends Model
 
     $usuario_id = $this->getInsertID();
 
-    $usuarioSistemaModel->cadastrar($sistemaId, $usuario_id);
+    $usuarioSistemaModel->cadastrar($usuario_id);
 
     if ($this->db->transStatus() === FALSE) {
       $this->db->transRollback();
@@ -120,7 +120,7 @@ class UsuarioModel extends Model
     }
   }
 
-  public function createToken($usuario_id, $sistema_id)
+  public function createToken($usuario_id)
   {
     $key = getenv('JWT_SECRET');
     $iat = time(); // current timestamp value
@@ -133,7 +133,7 @@ class UsuarioModel extends Model
       "iat" => $iat, //Time the JWT issued at
       "exp" => $exp, // Expiration time of token
       "usuario_id" => $usuario_id,
-      "sistema_id" => $sistema_id,
+      "sistema_id" => get_sistema_api(),
     );
 
     $token = JWT::encode($payload, $key, 'HS256');

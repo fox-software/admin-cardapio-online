@@ -176,8 +176,7 @@ if (!function_exists('toast')) {
 if (!function_exists('get_sistema_api')) {
   function get_sistema_api()
   {
-    // $sistema_id = apache_request_headers()["Sistema"];
-    $sistema_id = session()->get("sistema_api");
+    $sistema_id = apache_request_headers()["Sistema"];
 
     return $sistema_id;
   }

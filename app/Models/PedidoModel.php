@@ -81,7 +81,7 @@ class PedidoModel extends Model
     return empty($porcentagem_atual) ? 0 : format_money($porcentagem_atual, false);
   }
 
-  public function cadastrar($sistemaId, $usuario_id, $data)
+  public function cadastrar($usuario_id, $data)
   {
     $this->db->transBegin();
 
@@ -90,7 +90,7 @@ class PedidoModel extends Model
     $data->forma_pagamento_id = (int) $data->tipo_pagamento;
     $data->usuario_id = $usuario_id;
     $data->codigo = rand(1, 100);
-    $data->sistema_id = $sistemaId;
+    $data->sistema_id = get_sistema_api();
 
     $this->save($data);
 

@@ -11,10 +11,10 @@ class UsuarioSistemaModel extends Model
   protected $allowedFields = ['id', 'usuario_id', 'sistema_id', 'status'];
   protected $validationRules = [];
 
-  public function cadastrar($sistemaId, $usuario_id)
+  public function cadastrar($usuario_id)
   {
     $resultado = $this->insert([
-      "sistema_id" => $sistemaId,
+      "sistema_id" => get_sistema_api(),
       "usuario_id" => $usuario_id,
     ]);
 

@@ -102,28 +102,28 @@ $routes->group('admin', ['filter' => 'authGuard'], function ($routes) {
 
 $routes->group('api', ['filter' => 'cors'], function ($routes) {
 
-    $routes->get('(:num)/categorias', [ApiCategoriaController::class, "getCategorias"]);
+    $routes->get('categorias', [ApiCategoriaController::class, "index"]);
 
-    $routes->get('(:num)/produtos', [ApiProdutoController::class, "getProdutos"]);
+    $routes->get('produtos', [ApiProdutoController::class, "index"]);
 
     $routes->group('usuarios', function ($routes) {
         $routes->get('', [ApiUsuarioController::class, "index"]);
-        $routes->post('(:num)/login', [ApiUsuarioController::class, "login"]);
-        $routes->post('(:num)/cadastrar', [ApiUsuarioController::class, "cadastrar"]);
+        $routes->post('login', [ApiUsuarioController::class, "login"]);
+        $routes->post('cadastrar', [ApiUsuarioController::class, "cadastrar"]);
         $routes->post('logout', [ApiUsuarioController::class, "logout"]);
         $routes->get('status', [ApiUsuarioController::class, "status"]);
-        $routes->get('endereco/(:num)', [ApiUsuarioController::class, "endereco/$1"]);
+        $routes->get('endereco/(:num)', [ApiUsuarioController::class, "endereco"]);
     });
     
     $routes->group('sistema', function ($routes) {
-        $routes->get('(:num)', [ApiSistemaController::class, "getSistema"]);
-        $routes->get('(:num)/pagamentos', [ApiSistemaController::class, "formaPagamentos"]);
+        $routes->get('', [ApiSistemaController::class, "index"]);
+        $routes->get('pagamentos', [ApiSistemaController::class, "formaPagamentos"]);
     });
 
     $routes->group('pedidos', function ($routes) {
-        $routes->get('(:num)', [ApiPedidoController::class, "getPedidos"]);
+        $routes->get('', [ApiPedidoController::class, "index"]);
+        $routes->post('cadastrar', [ApiPedidoController::class, "cadastrar"]);
         $routes->get('detalhes/(:num)', [ApiPedidoController::class, "detalhes"]);
-        $routes->post('(:num)/cadastrar', [ApiPedidoController::class, "cadastrar"]);
     });
 
     $routes->group('enderecos', function ($routes) {
