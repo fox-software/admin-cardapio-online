@@ -19,7 +19,9 @@ class ApiCategoriaController extends ResourceController
 
     public function index()
     {
-        $data = $this->categoriaModel->where("sistema_id", get_sistema_api())->findAll();
+        $data = $this->categoriaModel->where("sistema_id", get_sistema_api())
+        ->orderBy('nome')
+        ->findAll();
 
         return $this->respond($data, 200);
     }

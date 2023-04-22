@@ -24,6 +24,7 @@ class ApiProdutoController extends ResourceController
             ->join("categorias", "categorias.id = produtos.categoria_id")
             ->where("categorias.sistema_id", get_sistema_api())
             ->where("produtos.status", ATIVO)
+            ->orderBy('produtos.nome')
             ->findAll();
 
         return $this->respond($data);
