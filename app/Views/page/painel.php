@@ -1,7 +1,7 @@
 <?= $this->extend('layout/template') ?>
 
 <?= $this->section('template') ?>
-<section class="content pb-3">
+<section id="kanban" class="content pb-4">
   <div class="container-fluid h-100">
 
     <!-- FAZER -->
