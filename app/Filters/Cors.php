@@ -10,10 +10,10 @@ class Cors implements FilterInterface
 {
   public function before(RequestInterface $request, $arguments = null)
   {
-    header('Access-Control-Allow-Origin: https://app-cardapio-online.vercel.app, http://localhost');
+    header('Access-Control-Allow-Origin: https://app-cardapio-online.vercel.app');
     
     header("Access-Control-Allow-Headers: Content-Type, Accept, Authorization, Sistema");
-    
+
     header("Access-Control-Allow-Methods: GET, PUT, POST, DELETE, PATCH, OPTIONS");
 
     $method = $_SERVER['REQUEST_METHOD'];
