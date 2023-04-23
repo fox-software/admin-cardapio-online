@@ -2,9 +2,9 @@
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="<?= base_url("/") ?>" class="brand-link">
-    <img src="<?= base_url("assets/img/AdminLTELogo.png") ?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-    <span class="brand-text font-weight-light">Adega Online</span>
+  <a href="<?= base_url("admin/dashboard") ?>" class="brand-link">
+    <img src="<?= base_url("favicon_2.png") ?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <span class="brand-text font-weight-light">Cardápio Online</span>
   </a>
 
   <!-- Sidebar -->
@@ -15,7 +15,7 @@
         <img src="<?= session()->get("sistema")["foto"] ?>" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block"><?= session()->get("sistema")["nome_fantasia"] ?></a>
+        <a href="<?= base_url("admin/configuracao") ?>" class="d-block"><?= session()->get("sistema")["nome_fantasia"] ?></a>
       </div>
     </div>
 
