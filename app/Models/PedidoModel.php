@@ -8,7 +8,7 @@ class PedidoModel extends Model
 {
   protected $table = 'pedidos';
   protected $primaryKey = 'id';
-  protected $allowedFields = ['usuario_id', 'sistema_id', 'total', 'frete', 'forma_pagamento_id', 'status', 'codigo', 'troco', 'comprovante', 'observacao'];
+  protected $allowedFields = ['usuario_id', 'sistema_id', 'cartao_id', 'endereco_id', 'total', 'frete', 'forma_pagamento_id', 'status', 'codigo', 'troco', 'comprovante', 'observacao'];
   protected $validationRules = [];
 
   public function getAll($filtros = [])
@@ -87,10 +87,13 @@ class PedidoModel extends Model
 
     $pedidoProdutoModel = new PedidoProdutoModel();
 
-    $data->forma_pagamento_id = (int) $data->tipo_pagamento;
-    $data->usuario_id = $usuario_id;
-    $data->codigo = rand(1, 100);
-    $data->sistema_id = get_sistema_api();
+    $data->forma_pagamento_id = (int) $data->forma_pagamento->id;
+    $data->usuario_id = (int) $usuario_id;
+    $data->cartao_id = (int) $data->cartao->id;
+    $data->endereco_id = (int) $data->endereco->id;
+    $data->sistema_id = (int) get_sistema_api();
+
+    $data->codigo = rand(1, 100); //Código será gerado pelo pagarme
 
     $this->save($data);
 
