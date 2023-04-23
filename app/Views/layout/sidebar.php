@@ -32,9 +32,7 @@
 
         <li class="nav-item">
           <a href="<?= base_url("admin/painel") ?>" class="nav-link <?= $page_title === "painel" ? "active" : "" ?>">
-            <!-- <i class="nav-icon fas fa-tachometer-alt"></i> -->
             <i class="nav-icon fa fa-th-large" aria-hidden="true"></i>
-
             <p>Painel</p>
           </a>
         </li>
@@ -61,7 +59,7 @@
         </li>
 
         <li class="nav-item">
-          <a href="../widgets.html" class="nav-link">
+          <a href="<?= base_url("admin/pedidos") ?>" class="nav-link <?= $page_title === "pedidos" ? "active" : "" ?>">
             <i class="nav-icon fa fa-scroll"></i>
             <p>Pedidos</p>
           </a>

@@ -19,6 +19,7 @@ class CartaoModel extends Model
         "status" => ATIVO,
         "usuario_id" => $usuario_id
       ])
+      ->orderBy("principal", "DESC")
       ->orderBy("updated_at", "DESC")
       ->findAll();
 

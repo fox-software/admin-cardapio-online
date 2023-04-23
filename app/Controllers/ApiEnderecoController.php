@@ -35,7 +35,7 @@ class ApiEnderecoController extends ResourceController
     $data = $this->request->getVar();
 
     $usuario_id = $this->usuarioModel->getAuthenticatedUser();
-    
+
     $resultado = $this->enderecoModel->cadastrar($usuario_id, $data);
 
     return $this->respond($resultado);
@@ -48,6 +48,22 @@ class ApiEnderecoController extends ResourceController
     $usuario_id = $this->usuarioModel->getAuthenticatedUser();
 
     $resultado = $this->enderecoModel->editar($usuario_id, $data);
+
+    return $this->respond($resultado);
+  }
+
+  public function status($enderecoId)
+  {
+    $resultado = $this->enderecoModel->setStatus($enderecoId);
+    
+    return $this->respond($resultado);
+  }
+  
+  public function principal($enderecoId)
+  {
+    $usuario_id = $this->usuarioModel->getAuthenticatedUser();
+
+    $resultado = $this->enderecoModel->setPrincipal($usuario_id, $enderecoId);
 
     return $this->respond($resultado);
   }

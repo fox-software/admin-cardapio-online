@@ -13,11 +13,23 @@ class PedidoModel extends Model
 
   public function getAll($filtros = [])
   {
-    $resultado = $this->where("sistema_id", session()->get("sistema")["id"]);
+    $resultado = $this
+      ->select("pedidos.*, enderecos.endereco, CONCAT(usuarios.nome, ' ', usuarios.sobrenome) AS usuario_nome, forma_pagamentos.descricao AS forma_pagamento")
+      ->join('usuarios', 'usuarios.id = pedidos.usuario_id')
+      ->join('forma_pagamentos', 'forma_pagamentos.id = pedidos.forma_pagamento_id')
+      ->join('enderecos', 'enderecos.id = pedidos.endereco_id', 'LEFT')
+      ->where("sistema_id", session()->get("sistema")["id"])
+      ->orderBy('updated_at', 'DESC');
 
     if (!empty($filtros["status"])) {
-      $resultado->where("status", $filtros["status"]);
+      $resultado->where("pedidos.status", $filtros["status"]);
     }
+
+    if (!empty($filtros["search"])) {
+      $resultado->like(["usuarios.nome" => $filtros["search"]]);
+      $resultado->orLike(["usuarios.sobrenome" => $filtros["search"]]);
+    }
+    
 
     return $resultado->findAll();
   }

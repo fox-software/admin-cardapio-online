@@ -18,6 +18,7 @@ use App\Controllers\DashboardController;
 use App\Controllers\FormaPagamentoController;
 use App\Controllers\LoginController;
 use App\Controllers\PainelController;
+use App\Controllers\PedidoController;
 use App\Controllers\ProdutoController;
 use App\Controllers\UsuarioController;
 
@@ -87,6 +88,10 @@ $routes->group('admin', ['filter' => 'authGuard'], function ($routes) {
         $routes->get('(:num)/status', [UsuarioController::class, "status"]);
     });
 
+    $routes->group('pedidos', function ($routes) {
+        $routes->get('', [PedidoController::class, "index"]);
+    });
+
     $routes->group('configuracao', function ($routes) {
         $routes->get('', [ConfiguracaoController::class, "index"]);
         $routes->post('(:num)/editar', [ConfiguracaoController::class, "editar/$1"]);
@@ -114,7 +119,7 @@ $routes->group('api', ['filter' => 'cors'], function ($routes) {
         $routes->get('status', [ApiUsuarioController::class, "status"]);
         $routes->get('endereco/(:num)', [ApiUsuarioController::class, "endereco"]);
     });
-    
+
     $routes->group('sistema', function ($routes) {
         $routes->get('', [ApiSistemaController::class, "index"]);
         $routes->get('pagamentos', [ApiSistemaController::class, "formaPagamentos"]);
@@ -128,8 +133,10 @@ $routes->group('api', ['filter' => 'cors'], function ($routes) {
 
     $routes->group('enderecos', function ($routes) {
         $routes->get('', [ApiEnderecoController::class, "index"]);
-        $routes->post('editar', [ApiEnderecoController::class, "editar"]);
         $routes->post('cadastrar', [ApiEnderecoController::class, "cadastrar"]);
+        $routes->post('editar', [ApiEnderecoController::class, "editar"]);
+        $routes->post('(:num)/status', [ApiEnderecoController::class, "status"]);
+        $routes->post('(:num)/principal', [ApiEnderecoController::class, "principal"]);
     });
 
     $routes->group('pagamentos', function ($routes) {
