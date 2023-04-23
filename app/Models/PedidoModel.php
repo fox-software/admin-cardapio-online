@@ -125,7 +125,7 @@ class PedidoModel extends Model
     $pedidos = $this->select("pedidos.*,
     CONCAT(usuarios.nome, ' ', usuarios.sobrenome) AS usuario_nome, enderecos.endereco, enderecos.cep, enderecos.numero, enderecos.cep, enderecos.complemento,DATE_FORMAT(pedidos.created_at, '%d/%m/%Y %T') AS data")
       ->join("usuarios", "pedidos.usuario_id = usuarios.id")
-      ->join("enderecos", "enderecos.usuario_id = usuarios.id")
+      ->join("enderecos", "pedidos.endereco_id = enderecos.id")
       ->where([
         "DATE_FORMAT(pedidos.created_at, '%Y-%m-%d')" => date("Y-m-d"),
         "sistema_id" => session()->get("sistema")["id"],
