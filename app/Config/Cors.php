@@ -50,7 +50,6 @@ class Cors extends \Fluent\Cors\Config\Cors
      */
     public $allowedOrigins = [
         'https://app-cardapio-online.vercel.app',
-        'http://localhost:8100'
     ];
 
     /**

@@ -11,7 +11,6 @@ class Cors implements FilterInterface
   public function before(RequestInterface $request, $arguments = null)
   {
     header('Access-Control-Allow-Origin: https://app-cardapio-online.vercel.app');
-    header('Access-Control-Allow-Origin: http://localhost:8100');
     
     header("Access-Control-Allow-Headers: Content-Type, Accept, Authorization, Sistema");
     header("Access-Control-Allow-Methods: GET, PUT, POST, DELETE, PATCH, OPTIONS");
