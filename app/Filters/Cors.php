@@ -18,6 +18,7 @@ class Cors implements FilterInterface
     } else {
       $origin = $_SERVER['REMOTE_ADDR'];
     }
+
     $allowed_domains = array(
       'https://app-cardapio-online.vercel.app',
       'http://localhost'
@@ -28,11 +29,6 @@ class Cors implements FilterInterface
       header('Access-Control-Allow-Origin: ' . $origin);
     }
 
-
-
-
-    // header('Access-Control-Allow-Origin: https://app-cardapio-online.vercel.app, http://localhost');
-    
     header("Access-Control-Allow-Headers: Content-Type, Accept, Authorization, Sistema");
 
     header("Access-Control-Allow-Methods: GET, PUT, POST, DELETE, PATCH, OPTIONS");
