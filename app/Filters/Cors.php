@@ -20,6 +20,7 @@ class Cors implements FilterInterface
     }
     $allowed_domains = array(
       'https://app-cardapio-online.vercel.app',
+      'http://localhost'
     );
 
 
