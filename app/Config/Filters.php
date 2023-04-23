@@ -3,7 +3,7 @@
 namespace Config;
 
 use App\Filters\AuthGuard;
-use App\Filters\Cors;
+// use App\Filters\Cors;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
@@ -68,9 +68,9 @@ class Filters extends BaseConfig
      * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
      */
     public array $filters = [
-        'cors' => [
-            'before' => ['api/*'],
+        // 'cors' => [
+            // 'before' => ['api/*'],
             // 'after' => ['api/*']
-        ],
+        // ],
     ];
 }
