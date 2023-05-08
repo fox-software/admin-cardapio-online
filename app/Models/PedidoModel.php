@@ -8,16 +8,28 @@ class PedidoModel extends Model
 {
   protected $table = 'pedidos';
   protected $primaryKey = 'id';
-  protected $allowedFields = ['usuario_id', 'sistema_id', 'total', 'frete', 'forma_pagamento_id', 'status', 'codigo', 'troco', 'comprovante', 'observacao'];
+  protected $allowedFields = ['usuario_id', 'sistema_id', 'cartao_id', 'endereco_id', 'total', 'frete', 'forma_pagamento_id', 'status', 'codigo', 'troco', 'comprovante', 'observacao'];
   protected $validationRules = [];
 
   public function getAll($filtros = [])
   {
-    $resultado = $this->where("sistema_id", session()->get("sistema")["id"]);
+    $resultado = $this
+      ->select("pedidos.*, enderecos.endereco, CONCAT(usuarios.nome, ' ', usuarios.sobrenome) AS usuario_nome, forma_pagamentos.descricao AS forma_pagamento")
+      ->join('usuarios', 'usuarios.id = pedidos.usuario_id')
+      ->join('forma_pagamentos', 'forma_pagamentos.id = pedidos.forma_pagamento_id')
+      ->join('enderecos', 'enderecos.id = pedidos.endereco_id', 'LEFT')
+      ->where("sistema_id", session()->get("sistema")["id"])
+      ->orderBy('updated_at', 'DESC');
 
     if (!empty($filtros["status"])) {
-      $resultado->where("status", $filtros["status"]);
+      $resultado->where("pedidos.status", $filtros["status"]);
     }
+
+    if (!empty($filtros["search"])) {
+      $resultado->like(["usuarios.nome" => $filtros["search"]]);
+      $resultado->orLike(["usuarios.sobrenome" => $filtros["search"]]);
+    }
+    
 
     return $resultado->findAll();
   }
@@ -87,10 +99,13 @@ class PedidoModel extends Model
 
     $pedidoProdutoModel = new PedidoProdutoModel();
 
-    $data->forma_pagamento_id = (int) $data->tipo_pagamento;
-    $data->usuario_id = $usuario_id;
-    $data->codigo = rand(1, 100);
-    $data->sistema_id = get_sistema_api();
+    $data->forma_pagamento_id = (int) $data->forma_pagamento->id;
+    $data->usuario_id = (int) $usuario_id;
+    $data->cartao_id = (int) $data->cartao->id;
+    $data->endereco_id = (int) $data->endereco->id;
+    $data->sistema_id = (int) get_sistema_api();
+
+    $data->codigo = rand(1, 100); //Código será gerado pelo pagarme
 
     $this->save($data);
 
@@ -122,7 +137,7 @@ class PedidoModel extends Model
     $pedidos = $this->select("pedidos.*,
     CONCAT(usuarios.nome, ' ', usuarios.sobrenome) AS usuario_nome, enderecos.endereco, enderecos.cep, enderecos.numero, enderecos.cep, enderecos.complemento,DATE_FORMAT(pedidos.created_at, '%d/%m/%Y %T') AS data")
       ->join("usuarios", "pedidos.usuario_id = usuarios.id")
-      ->join("enderecos", "enderecos.usuario_id = usuarios.id")
+      ->join("enderecos", "pedidos.endereco_id = enderecos.id")
       ->where([
         "DATE_FORMAT(pedidos.created_at, '%Y-%m-%d')" => date("Y-m-d"),
         "sistema_id" => session()->get("sistema")["id"],

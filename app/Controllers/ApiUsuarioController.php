@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
@@ -8,7 +8,7 @@ use CodeIgniter\API\ResponseTrait;
 use App\Models\UsuarioModel;
 use App\Models\EnderecoModel;
 
-class UsuarioController extends ResourceController
+class ApiUsuarioController extends ResourceController
 {
     use ResponseTrait;
 
@@ -40,6 +40,39 @@ class UsuarioController extends ResourceController
             ->find($usuario_id);
 
         return $this->respond($usuario["status"] == ATIVO ? true : false);
+    }
+
+    public function login()
+    {
+        $email = $this->request->getVar('email');
+        $senha = $this->request->getVar('senha');
+
+        $usuario = $this->usuarioModel->getByEmail($email);
+
+        if (is_null($usuario)) {
+            return $this->respond(['status' => false, 'message' => 'E-mail ou senha inválidos.'], 400);
+        }
+
+        $pwd_verify = password_verify($senha, $usuario['senha']);
+
+        if (!$pwd_verify) {
+            return $this->respond(['status' => false, 'message' => 'E-mail ou senha inválidos.'], 400);
+        }
+
+        $response = [
+            'message' => 'Login bem-sucedido',
+            'authorization' => $this->usuarioModel->createToken($usuario["id"])
+        ];
+
+        return $this->respond($response, 200);
+    }
+
+    public function logout()
+    {
+        return $this->respond([
+            'status' => TRUE,
+            'message' => 'Logout efetuado'
+        ], 200);
     }
 
     public function cadastrar()

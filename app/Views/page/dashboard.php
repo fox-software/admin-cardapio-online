@@ -12,7 +12,7 @@
         <div class="small-box bg-info">
           <div class="inner">
             <h3><?= $total_usuarios ?></h3>
-            <p>Total de Usuários</p>
+            <p>Total de Clientes</p>
           </div>
           <div class="icon">
             <i class="ion ion-bag"></i>
@@ -22,7 +22,7 @@
 
       <div class="col-lg-3 col-6">
 
-        <div class="small-box bg-success">
+        <div class="small-box bg-danger">
           <div class="inner">
             <h3><?= $total_pedidos ?></h3>
             <p>Total de Pedidos</p>
@@ -48,7 +48,7 @@
 
       <div class="col-lg-3 col-6">
 
-        <div class="small-box bg-danger">
+        <div class="small-box bg-success">
           <div class="inner">
             <h3><?= $total_produtos ?></h3>
             <p>Total de Produtos</p>
@@ -238,7 +238,7 @@
     <!-- </div> -->
 
     <div class="row">
-      <div class="col-lg-6 col-6">
+      <div class="col-lg-6">
 
         <div class="card">
           <div class="card-header border-0">

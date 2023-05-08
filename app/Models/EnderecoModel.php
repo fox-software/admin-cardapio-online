@@ -8,7 +8,7 @@ class EnderecoModel extends Model
 {
   protected $table = 'enderecos';
   protected $primaryKey = 'id';
-  protected $allowedFields = ['usuario_id', 'cep', 'endereco', 'numero', 'bairro', 'cidade', 'estado', 'complemento', 'status'];
+  protected $allowedFields = ['usuario_id', 'principal', 'cep', 'endereco', 'numero', 'bairro', 'cidade', 'estado', 'complemento', 'status'];
   protected $validationRules = [];
 
   public function getByUserId($usuario_id)
@@ -16,9 +16,10 @@ class EnderecoModel extends Model
     $resultado = $this->where([
       "status" => ATIVO,
       "usuario_id" => $usuario_id
-    ])->first();
-
-    if (!isset($resultado["id"])) return [];
+    ])
+      ->orderBy("principal", "DESC")
+      ->orderBy("updated_at", "DESC")
+      ->findAll();
 
     return $resultado;
   }
@@ -68,6 +69,52 @@ class EnderecoModel extends Model
     return [
       "status" => $resultado,
       "message" => "Endereço salvo com sucesso!"
+    ];
+  }
+
+  public function setStatus($enderecoId)
+  {
+    $resultado = $this->update($enderecoId, ["status" => INATIVO, "principal" => 0]);
+
+    if (!$resultado) {
+      return [
+        "status" => $resultado,
+        "message" => "Ocorreu uma falha ao remover!"
+      ];
+    }
+
+    return [
+      "status" => $resultado,
+      "message" => "Endereço removido com sucesso!"
+    ];
+  }
+
+  public function setPrincipal($usuario_id, $enderecoId)
+  {
+    $enderecos = $this->where([
+      "usuario_id" => $usuario_id,
+      "principal" => 1
+    ])->findAll();
+
+
+    if (count($enderecos) > 0) {
+      for ($i = 0; $i < count($enderecos); $i++) {
+        $this->update($enderecos[$i]["id"], ["principal" => 0]);
+      }
+    }
+
+    $resultado = $this->update($enderecoId, ["principal" => 1]);
+
+    if (!$resultado) {
+      return [
+        "status" => $resultado,
+        "message" => "Ocorreu uma falha ao salvar!"
+      ];
+    }
+
+    return [
+      "status" => $resultado,
+      "message" => "Endereço principal salvo com sucesso!"
     ];
   }
 }

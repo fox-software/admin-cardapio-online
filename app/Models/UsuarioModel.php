@@ -120,7 +120,7 @@ class UsuarioModel extends Model
     }
   }
 
-  public function createToken($usuario_id, $sistema_id)
+  public function createToken($usuario_id)
   {
     $key = getenv('JWT_SECRET');
     $iat = time(); // current timestamp value
@@ -133,7 +133,7 @@ class UsuarioModel extends Model
       "iat" => $iat, //Time the JWT issued at
       "exp" => $exp, // Expiration time of token
       "usuario_id" => $usuario_id,
-      "sistema_id" => $sistema_id,
+      "sistema_id" => get_sistema_api(),
     );
 
     $token = JWT::encode($payload, $key, 'HS256');

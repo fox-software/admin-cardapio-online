@@ -84,14 +84,14 @@ function card(data) {
 
             <button class="btn btn-warning ${data.status == 'R' || data.status == 'E' ? 'disabled opacity-25' : ''}"
             ${data.status == 'R' || data.status == 'E' ? 'disabled' : ''}
-              title="MOVER PARA FAZENDO"
+              title="MOVER PARA EM ROTA"
               onclick="setStatus(${data.id}, 'E')">
               <i class="fas fa-arrow-right"></i>
             </button>
 
             <button class="btn btn-success ${data.status == 'P' || data.status == 'R' ? 'disabled opacity-25' : ''}"
             ${data.status == 'P' || data.status == 'R' ? 'disabled' : ''}
-              title="PEDIDO FEITO" 
+              title="PEDIDO RECEBIDO" 
               onclick="setStatus(${data.id}, 'R')">
               <i class="fas fa-check"></i>
             </button>

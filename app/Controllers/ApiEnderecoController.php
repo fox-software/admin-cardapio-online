@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
@@ -8,7 +8,7 @@ use CodeIgniter\API\ResponseTrait;
 use App\Models\EnderecoModel;
 use App\Models\UsuarioModel;
 
-class EnderecoController extends ResourceController
+class ApiEnderecoController extends ResourceController
 {
   use ResponseTrait;
 
@@ -35,7 +35,7 @@ class EnderecoController extends ResourceController
     $data = $this->request->getVar();
 
     $usuario_id = $this->usuarioModel->getAuthenticatedUser();
-    
+
     $resultado = $this->enderecoModel->cadastrar($usuario_id, $data);
 
     return $this->respond($resultado);
@@ -48,6 +48,22 @@ class EnderecoController extends ResourceController
     $usuario_id = $this->usuarioModel->getAuthenticatedUser();
 
     $resultado = $this->enderecoModel->editar($usuario_id, $data);
+
+    return $this->respond($resultado);
+  }
+
+  public function status($enderecoId)
+  {
+    $resultado = $this->enderecoModel->setStatus($enderecoId);
+    
+    return $this->respond($resultado);
+  }
+  
+  public function principal($enderecoId)
+  {
+    $usuario_id = $this->usuarioModel->getAuthenticatedUser();
+
+    $resultado = $this->enderecoModel->setPrincipal($usuario_id, $enderecoId);
 
     return $this->respond($resultado);
   }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace App\Controllers;
 
 use App\Models\CategoriaModel;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 
-class CategoriaController extends ResourceController
+class ApiCategoriaController extends ResourceController
 {
     use ResponseTrait;
 
@@ -19,8 +19,10 @@ class CategoriaController extends ResourceController
 
     public function index()
     {
-        $data = $this->categoriaModel->where("sistema_id", get_sistema_api())->findAll();
+        $data = $this->categoriaModel->where("sistema_id", get_sistema_api())
+        ->orderBy('nome')
+        ->findAll();
 
-        return $this->respond($data);
+        return $this->respond($data, 200);
     }
 }

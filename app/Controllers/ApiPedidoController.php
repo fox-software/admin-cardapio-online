@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
@@ -10,7 +10,7 @@ use App\Models\PedidoProdutoModel;
 use App\Models\ProdutoModel;
 use App\Models\UsuarioModel;
 
-class PedidoController extends ResourceController
+class ApiPedidoController extends ResourceController
 {
     use ResponseTrait;
 
@@ -31,7 +31,10 @@ class PedidoController extends ResourceController
     {
         $usuario_id = $this->usuarioModel->getAuthenticatedUser();
 
-        $data = $this->pedidoModel->where(["sistema_id" => get_sistema_api(), "usuario_id" => $usuario_id])
+        $data = $this->pedidoModel->where([
+            "sistema_id" => get_sistema_api(),
+            "usuario_id" => $usuario_id
+        ])
             ->orderBy("created_at", "DESC")
             ->findAll();
 
@@ -43,7 +46,7 @@ class PedidoController extends ResourceController
         $data = $this->pedidoModel->find($pedidoId);
 
         $data["produtos"] = $this->pedidoProdutoModel
-            ->select("produtos.*")
+            ->select("produtos.*, pedidos_produtos.quantidade")
             ->join("produtos", "produtos.id = pedidos_produtos.produto_id")
             ->where("pedido_id", $pedidoId)
             ->findAll();

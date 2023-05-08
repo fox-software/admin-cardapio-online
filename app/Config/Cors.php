@@ -25,7 +25,7 @@ class Cors extends \Fluent\Cors\Config\Cors
      *
      * @var array
      */
-    public $allowedHeaders = ['*'];
+    public $allowedHeaders = ['Content-Type', 'Accept', 'Authorization', 'Sistema'];
 
     /**
      * --------------------------------------------------------------------------
@@ -36,7 +36,7 @@ class Cors extends \Fluent\Cors\Config\Cors
      *
      * @var array
      */
-    public $allowedMethods = ['*'];
+    public $allowedMethods = ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'];
 
     /**
      * --------------------------------------------------------------------------
@@ -48,7 +48,10 @@ class Cors extends \Fluent\Cors\Config\Cors
      *
      * @var array
      */
-    public $allowedOrigins = ['*'];
+    public $allowedOrigins = [
+        'https://app-cardapio-online.vercel.app',
+        "http://localhost",
+    ];
 
     /**
      * --------------------------------------------------------------------------

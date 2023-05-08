@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace App\Controllers;
 
 use App\Models\ProdutoModel;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 
-class ProdutoController extends ResourceController
+class ApiProdutoController extends ResourceController
 {
     use ResponseTrait;
 
@@ -24,6 +24,7 @@ class ProdutoController extends ResourceController
             ->join("categorias", "categorias.id = produtos.categoria_id")
             ->where("categorias.sistema_id", get_sistema_api())
             ->where("produtos.status", ATIVO)
+            ->orderBy('produtos.nome')
             ->findAll();
 
         return $this->respond($data);
