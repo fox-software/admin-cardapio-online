@@ -7,8 +7,8 @@
     <div class="card">
       <div class="card-header">
         <form action="<?= base_url("admin/categorias") ?>" method="get" class="form form-inline">
-          <div class="d-flex justify-content-between w-100">
-            <div class="d-flex" style="gap: 5px;">
+          <div class="d-flex flex-md-row flex-column justify-content-between w-100">
+            <div class="d-flex flex-md-row flex-column w-100 mb-md-0 mb-1" style="gap: 5px;">
               <input type="search" name="search" placeholder="Pesquisar" class="form-control" value="<?= $search ?>">
               <button type="submit" class="btn btn-dark">
                 <i class="fa fa-search" aria-hidden="true"></i>
@@ -20,7 +20,7 @@
           </div>
         </form>
       </div>
-      <div class="card-body">
+      <div class="card-body table-responsive">
         <table class="table table-condensed">
           <thead>
             <tr>

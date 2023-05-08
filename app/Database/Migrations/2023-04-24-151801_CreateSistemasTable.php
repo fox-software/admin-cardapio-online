@@ -21,6 +21,10 @@ class CreateSistemasTable extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 200,
             ],
+            'nome_fantasia' => [
+                'type' => 'VARCHAR',
+                'constraint' => 200,
+            ],
             'cnpj' => [
                 'type' => 'VARCHAR',
                 'constraint' => 200,
