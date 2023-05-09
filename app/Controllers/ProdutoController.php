@@ -34,13 +34,29 @@ class ProdutoController extends BaseController
     public function cadastrar()
     {
         $dados = $this->request->getVar();
+
+        $validate = $this->validate([
+            'foto' => [
+                'uploaded[foto]',
+                'mime_in[foto,image/jpg,image/jpeg,image/png]',
+                'max_size[foto,1024]',
+            ]
+        ]);
+
         $img = $this->request->getFile('foto');
 
         if (isset($img) && $img->isValid()) {
-            $fileName = $img->getRandomName();
+            if (!$validate) {
+                toast(TOAST_ERROR, "Falha", 'Tipo de arquivo não permitido!');
+                return redirect()->to("admin/produtos");
+            } else {
+                // $fileName = $img->getRandomName();
+                // $ext = pathinfo($img->getName(), PATHINFO_EXTENSION);
 
-            $img->move(ROOTPATH . 'public/uploads', $fileName);
-            $dados["foto"] = base_url("uploads/$fileName");
+                $fileName = date("Y-m-d_H-i-s") . '_' . $img->getName();
+                $img->move(ROOTPATH . 'public/uploads', $fileName);
+                $dados["foto"] = base_url("uploads/$fileName");
+            }
         }
 
         try {
@@ -79,13 +95,29 @@ class ProdutoController extends BaseController
     public function editar(int $id)
     {
         $dados = $this->request->getVar();
+
+        $validate = $this->validate([
+            'foto' => [
+                'uploaded[foto]',
+                'mime_in[foto,image/jpg,image/jpeg,image/png]',
+                'max_size[foto,1024]',
+            ]
+        ]);
+
         $img = $this->request->getFile('foto');
 
         if (isset($img) && $img->isValid()) {
-            $fileName = $img->getRandomName();
+            if (!$validate) {
+                toast(TOAST_ERROR, "Falha", 'Tipo de arquivo não permitido!');
+                return redirect()->to("admin/produtos");
+            } else {
+                // $fileName = $img->getRandomName();
+                // $ext = pathinfo($img->getName(), PATHINFO_EXTENSION);
 
-            $img->move(ROOTPATH . 'public/uploads', $fileName);
-            $dados["foto"] = base_url("uploads/$fileName");
+                $fileName = date("Y-m-d_H-i-s") . '_' . $img->getName();
+                $img->move(ROOTPATH . 'public/uploads', $fileName);
+                $dados["foto"] = base_url("uploads/$fileName");
+            }
         }
 
         $produto = $this->produtoModel->find($id);
@@ -95,7 +127,7 @@ class ProdutoController extends BaseController
             toast(TOAST_SUCCESS, "Sucesso", "Produto salvo com sucesso!");
             return redirect()->to("admin/produtos");
         } catch (Exception $e) {
-            toast(TOAST_SUCCESS, "Falha", $e->getMessage());
+            toast(TOAST_ERROR, "Falha", $e->getMessage());
             return redirect()->to("admin/produtos");
         }
     }

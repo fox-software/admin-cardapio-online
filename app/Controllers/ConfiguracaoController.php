@@ -29,13 +29,28 @@ class ConfiguracaoController extends BaseController
     {
         $dados = $this->request->getVar();
 
+        $validate = $this->validate([
+            'foto' => [
+                'uploaded[foto]',
+                'mime_in[foto,image/jpg,image/jpeg,image/png]',
+                'max_size[foto,1024]',
+            ]
+        ]);
+
         $img = $this->request->getFile('foto');
 
         if (isset($img) && $img->isValid()) {
-            $fileName = $img->getRandomName();
+            if (!$validate) {
+                toast(TOAST_ERROR, "Falha", 'Tipo de arquivo não permitido!');
+                return redirect()->to("admin/configuracao");
+            } else {
+                // $fileName = $img->getRandomName();
+                // $ext = pathinfo($img->getName(), PATHINFO_EXTENSION);
 
-            $img->move(ROOTPATH . 'public/uploads', $fileName);
-            $dados["foto"] = base_url("uploads/$fileName");
+                $fileName = date("Y-m-d_H-i-s") . '_' . $img->getName();
+                $img->move(ROOTPATH . 'public/uploads', $fileName);
+                $dados["foto"] = base_url("uploads/$fileName");
+            }
         }
 
         try {
