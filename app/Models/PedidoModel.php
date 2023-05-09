@@ -95,6 +95,8 @@ class PedidoModel extends Model
 
   public function cadastrar($usuario_id, $data)
   {
+    date_default_timezone_set('America/Sao_Paulo');
+
     $this->db->transBegin();
 
     $pedidoProdutoModel = new PedidoProdutoModel();
