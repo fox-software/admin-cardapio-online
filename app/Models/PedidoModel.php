@@ -29,7 +29,7 @@ class PedidoModel extends Model
       $resultado->like(["usuarios.nome" => $filtros["search"]]);
       $resultado->orLike(["usuarios.sobrenome" => $filtros["search"]]);
     }
-    
+
 
     return $resultado->findAll();
   }
@@ -99,11 +99,12 @@ class PedidoModel extends Model
 
     $pedidoProdutoModel = new PedidoProdutoModel();
 
-    $data->forma_pagamento_id = (int) $data->forma_pagamento->id;
     $data->usuario_id = (int) $usuario_id;
-    $data->cartao_id = (int) $data->cartao->id;
     $data->endereco_id = (int) $data->endereco->id;
     $data->sistema_id = (int) get_sistema_api();
+    $data->forma_pagamento_id = (int) $data->forma_pagamento->id;
+
+    if ($data->cartao->id) $data->cartao_id = (int) $data->cartao->id;
 
     $data->codigo = rand(1, 100); //Código será gerado pelo pagarme
 
@@ -149,7 +150,7 @@ class PedidoModel extends Model
 
     for ($y = 0; $y < count($pedidos); $y++) {
       $pedidos[$y]["produtos"] = $pedidoProdutoModel
-        ->select("produtos.*")
+        ->select("produtos.*, pedidos_produtos.quantidade")
         ->join("produtos", "produtos.id = pedidos_produtos.produto_id")
         ->where("pedido_id", $pedidos[$y]["id"])
         ->findAll();

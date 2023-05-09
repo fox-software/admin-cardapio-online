@@ -8,7 +8,7 @@
       <div class="card-header">
         <form action="<?= base_url("admin/pedidos") ?>" method="get" class="form form-inline">
           <div class="d-flex justify-content-between w-100">
-            <div class="d-flex" style="gap: 5px;">
+            <div class="d-flex flex-md-row flex-column w-100" style="gap: 5px;">
 
               <select class="custom-select" id="status" name="status">
                 <option value="">Selecione um status</option>
@@ -26,7 +26,7 @@
           </div>
         </form>
       </div>
-      <div class="card-body">
+      <div class="card-body table-responsive">
         <table class="table table-condensed">
           <thead>
             <tr>

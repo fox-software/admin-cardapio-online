@@ -2,8 +2,10 @@
 
 namespace Config;
 
-use App\Filters\AuthGuard;
+use App\Filters\AuthAdmin;
+use App\Filters\AuthApi;
 use App\Filters\Cors;
+// use Fluent\Cors\Filters\CorsFilter;
 
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
@@ -11,7 +13,6 @@ use CodeIgniter\Filters\DebugToolbar;
 use CodeIgniter\Filters\Honeypot;
 use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\SecureHeaders;
-// use Fluent\Cors\Filters\CorsFilter;
 
 class Filters extends BaseConfig
 {
@@ -25,9 +26,10 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
-        // 'cors'          => CorsFilter::class,
+        'authAdmin'     => AuthAdmin::class,
+        'authApi'       => AuthApi::class,
         'cors'          => Cors::class,
-        'authGuard'     => AuthGuard::class,
+        // 'cors'          => CorsFilter::class,
     ];
 
     /**
@@ -70,8 +72,8 @@ class Filters extends BaseConfig
      */
     public array $filters = [
         // 'cors' => [
-            // 'before' => ['api/*'],
-            // 'after' => ['api/*']
+        // 'before' => ['api/*'],
+        // 'after' => ['api/*']
         // ],
     ];
 }

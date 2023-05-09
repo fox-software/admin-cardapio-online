@@ -25,6 +25,10 @@ class CreatePedidosTable extends Migration
             ],
             'cartao_id' => [
                 'type' => 'INT',
+                'null' => true,
+            ],
+            'forma_pagamento_id' => [
+                'type' => 'INT',
             ],
             'codigo' => [
                 'type' => 'TEXT',
@@ -37,18 +41,21 @@ class CreatePedidosTable extends Migration
             ],
             'troco' => [
                 'type' => 'FLOAT',
+                'null' => true,
             ],
             'comprovante' => [
                 'type' => 'TEXT',
+                'null' => true,
             ],
             'observacao' => [
                 'type' => 'TEXT',
+                'null' => true,
             ],
             'status' => [
                 'type' => 'ENUM',
-                'constraint' => ["A", "I"],
-                "comment" => "A: ATIVO | I: INATIVO",
-                "default" => "A",
+                'constraint' => ["P", "E", "R", "F", "T"],
+                "comment" => "P: PENDENTE | E: ENTREGA | R: RECEBIDO | F: FALHA | T: TESTE",
+                "default" => "P",
             ],
             'created_at' => [
                 'type' => 'TIMESTAMP',
@@ -66,6 +73,7 @@ class CreatePedidosTable extends Migration
         $this->forge->addForeignKey('usuario_id', 'usuarios', 'id');
         $this->forge->addForeignKey('endereco_id', 'enderecos', 'id');
         $this->forge->addForeignKey('cartao_id', 'cartoes', 'id');
+        $this->forge->addForeignKey('forma_pagamento_id', 'forma_pagamentos', 'id');
 
         $this->forge->createTable('pedidos');
     }

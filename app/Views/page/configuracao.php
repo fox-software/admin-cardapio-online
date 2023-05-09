@@ -151,16 +151,20 @@
 
             <div class="col-sm">
               <div class="form-group">
-                <label>Taxa de Entrega R$</label>
+                <label>Taxa de Entrega (R$)</label>
                 <input type="text" name="taxa_entrega" class="form-control" placeholder="Digite a taxa de entrega" value="<?= $sistema["taxa_entrega"] ?>">
               </div>
             </div>
             <div class="col-sm">
               <div class="form-group">
-                <label>Tempo de Entrega</label>
-                <div class="d-flex">
+                <label>Tempo de Entrega (minutos)</label>
+                <div class="row">
+                <div class="col-6">
                   <input type="number" name="tempo_entrega_min" class="form-control" placeholder="Entrega minimo" value="<?= $sistema["tempo_entrega_min"] ?>">
-                  <input type="number" name="tempo_entrega_max" class="form-control" placeholder="Entrega maximo" value="<?= $sistema["tempo_entrega_max"] ?>">
+                </div>
+                  <div class="col-6">
+                    <input type="number" name="tempo_entrega_max" class="form-control" placeholder="Entrega maximo" value="<?= $sistema["tempo_entrega_max"] ?>">
+                  </div>
                 </div>
               </div>
             </div>
@@ -189,13 +193,13 @@
         <div class="card-body">
           <div class="row">
 
-            <div class="col-4">
+            <div class="col-md-4 col-6">
               <div class="form-group">
                 <label>Horário de abertura</label>
                 <input type="time" name="aberto" class="form-control" placeholder="Digite o horário de abertura" value="<?= $sistema["aberto"] ?>">
               </div>
             </div>
-            <div class="col-4">
+            <div class="col-md-4 col-6">
               <div class="form-group">
                 <label>Horário de fechamento</label>
                 <input type="time" name="fechado" class="form-control" placeholder="Digite o horário de fechamento" value="<?= $sistema["fechado"] ?>">

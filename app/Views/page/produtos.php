@@ -7,8 +7,8 @@
     <div class="card">
       <div class="card-header">
         <form action="<?= base_url("admin/produtos") ?>" method="get" class="form form-inline">
-          <div class="d-flex justify-content-between w-100">
-            <div class="d-flex" style="gap: 5px;">
+          <div class="d-flex flex-md-row flex-column justify-content-between w-100">
+            <div class="d-flex flex-md-row flex-column w-100 mb-md-0 mb-1" style="gap: 5px;">
 
               <select class="custom-select" id="categoria_id" name="categoria_id">
                 <option value="">Selecione uma categoria</option>
@@ -33,7 +33,7 @@
           </div>
         </form>
       </div>
-      <div class="card-body">
+      <div class="card-body table-responsive">
         <table class="table table-condensed">
           <thead>
             <tr>
