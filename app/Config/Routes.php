@@ -50,7 +50,7 @@ $routes->get('/', [LoginController::class, "index"]);
 $routes->post('/login', [LoginController::class, "login"]);
 $routes->get('/logout', [LoginController::class, "logout"]);
 
-$routes->group('admin', ['filter' => 'authGuard'], function ($routes) {
+$routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
 
     $routes->group('dashboard', function ($routes) {
         $routes->get('', [DashboardController::class, "index"]);
@@ -107,10 +107,6 @@ $routes->group('admin', ['filter' => 'authGuard'], function ($routes) {
 
 $routes->group('api', ['filter' => 'cors'], function ($routes) {
 
-    $routes->get('categorias', [ApiCategoriaController::class, "index"]);
-
-    $routes->get('produtos', [ApiProdutoController::class, "index"]);
-
     $routes->group('usuarios', function ($routes) {
         $routes->get('', [ApiUsuarioController::class, "index"]);
         $routes->post('login', [ApiUsuarioController::class, "login"]);
@@ -125,30 +121,37 @@ $routes->group('api', ['filter' => 'cors'], function ($routes) {
         $routes->get('pagamentos', [ApiSistemaController::class, "formaPagamentos"]);
     });
 
-    $routes->group('pedidos', function ($routes) {
-        $routes->get('', [ApiPedidoController::class, "index"]);
-        $routes->post('cadastrar', [ApiPedidoController::class, "cadastrar"]);
-        $routes->get('detalhes/(:num)', [ApiPedidoController::class, "detalhes"]);
-    });
 
-    $routes->group('enderecos', function ($routes) {
-        $routes->get('', [ApiEnderecoController::class, "index"]);
-        $routes->post('cadastrar', [ApiEnderecoController::class, "cadastrar"]);
-        $routes->post('editar', [ApiEnderecoController::class, "editar"]);
-        $routes->post('(:num)/status', [ApiEnderecoController::class, "status"]);
-        $routes->post('(:num)/principal', [ApiEnderecoController::class, "principal"]);
-    });
+    $routes->get('produtos', [ApiProdutoController::class, "index"]);
+    $routes->get('categorias', [ApiCategoriaController::class, "index"]);
+    
+    
+    $routes->group('', ['filter' => 'authApi'], function ($routes) {
+        $routes->group('enderecos', function ($routes) {
+            $routes->get('', [ApiEnderecoController::class, "index"]);
+            $routes->post('cadastrar', [ApiEnderecoController::class, "cadastrar"]);
+            $routes->post('editar', [ApiEnderecoController::class, "editar"]);
+            $routes->post('(:num)/status', [ApiEnderecoController::class, "status"]);
+            $routes->post('(:num)/principal', [ApiEnderecoController::class, "principal"]);
+        });
 
-    $routes->group('pagamentos', function ($routes) {
-        $routes->post('cartao-credito', [ApiPagamentoController::class, "checkoutCreditCard"]);
-    });
+        $routes->group('cartoes', function ($routes) {
+            $routes->get('', [ApiCartaoController::class, "index"]);
+            $routes->post('cadastrar', [ApiCartaoController::class, "cadastrar"]);
+            $routes->post('editar', [ApiCartaoController::class, "editar"]);
+            $routes->post('(:num)/status', [ApiCartaoController::class, "status"]);
+            $routes->post('(:num)/principal', [ApiCartaoController::class, "principal"]);
+        });
 
-    $routes->group('cartoes', function ($routes) {
-        $routes->get('', [ApiCartaoController::class, "index"]);
-        $routes->post('cadastrar', [ApiCartaoController::class, "cadastrar"]);
-        $routes->post('editar', [ApiCartaoController::class, "editar"]);
-        $routes->post('(:num)/status', [ApiCartaoController::class, "status"]);
-        $routes->post('(:num)/principal', [ApiCartaoController::class, "principal"]);
+        $routes->group('pedidos', function ($routes) {
+            $routes->get('', [ApiPedidoController::class, "index"]);
+            $routes->get('detalhes/(:num)', [ApiPedidoController::class, "detalhes"]);
+            $routes->post('cadastrar', [ApiPedidoController::class, "cadastrar"]);
+        });
+
+        $routes->group('pagamentos', function ($routes) {
+            $routes->post('cartao-credito', [ApiPagamentoController::class, "checkoutCreditCard"]);
+        });
     });
 });
 
