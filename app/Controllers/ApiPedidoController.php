@@ -65,10 +65,10 @@ class ApiPedidoController extends ResourceController
         if (!$data->comprovante == NULL) {
             $comprovante = md5(time() . uniqid()) . "_comprovante.jpg";
             $decoded = base64_decode($data->comprovante);
-            if (!file_put_contents("uploads/" . $comprovante, $decoded)) {
+            if (!file_put_contents("assets/uploads/" . $comprovante, $decoded)) {
                 $data->comprovante = null;
             } else {
-                $data->comprovante = base_url("uploads/$comprovante");
+                $data->comprovante = base_url("assets/uploads/$comprovante");
             }
         }
 

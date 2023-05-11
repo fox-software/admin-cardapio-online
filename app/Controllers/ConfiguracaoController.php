@@ -48,8 +48,8 @@ class ConfiguracaoController extends BaseController
                 // $ext = pathinfo($img->getName(), PATHINFO_EXTENSION);
 
                 $fileName = date("Y-m-d_H-i-s") . '_' . $img->getName();
-                $img->move(ROOTPATH . 'public/uploads', $fileName);
-                $dados["foto"] = base_url("uploads/$fileName");
+                $img->move(ROOTPATH . 'public/assets/uploads', $fileName);
+                $dados["foto"] = base_url("assets/uploads/$fileName");
             }
         }
 
