@@ -1,14 +1,21 @@
 let cards = "";
 let card_color = "";
 let produto = "";
+let filtro_data = "";
 
 $().ready(() => {
   request();
 });
 
+$("#data").change(function () {
+  filtro_data = $("#data").val();
+  limparKanban();
+  request();
+});
+
 function request() {
   $.ajax({
-    url: window.location.href + `/kanban`,
+    url: window.location.href + `/kanban${filtro_data != "" ? `?data=${filtro_data}` : ""}`,
     "dataType": "json",
     "type": "GET",
     success: function (response) {

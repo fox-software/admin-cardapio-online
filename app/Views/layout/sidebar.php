@@ -3,8 +3,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="<?= base_url("admin/dashboard") ?>" class="brand-link">
-    <img src="<?= base_url("favicon_2.png") ?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-    <span class="brand-text font-weight-light">Cardápio Online</span>
+    <img src="<?= base_url("favicon_2.png") ?>" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: 0.8">
+    <span class="brand-text font-weight-light">We Delivery</span>
   </a>
 
   <!-- Sidebar -->

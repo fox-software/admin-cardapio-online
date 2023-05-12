@@ -15,8 +15,13 @@ class PainelController extends BaseController
 
     public function index()
     {
+        $filtro_data = date("Y-m-d");
+
         $data = [
-            "page_title" => "painel"
+            "page_title" => "painel",
+            "filtros" => [
+                "data" => $filtro_data
+            ]
         ];
 
         return view('page/painel', $data);
@@ -24,14 +29,16 @@ class PainelController extends BaseController
 
     public function kanban()
     {
-        $fazer = $this->pedidoModel->kanban(PENDENTE);
-        $fazendo = $this->pedidoModel->kanban(ENTREGA);
-        $feito = $this->pedidoModel->kanban(RECEBIDO);
+        $filtro_data = $this->request->getVar();
+
+        $fazer = $this->pedidoModel->kanban(PENDENTE, $filtro_data);
+        $fazendo = $this->pedidoModel->kanban(ENTREGA, $filtro_data);
+        $feito = $this->pedidoModel->kanban(RECEBIDO, $filtro_data);
 
         $data = [
             "fazer" => $fazer,
             "fazendo" => $fazendo,
-            "feito" => $feito,
+            "feito" => $feito
         ];
 
         return $this->response->setJSON($data);

@@ -18,3 +18,7 @@ function toast(title = "", message = "", type = "", position = "topRight") {
       break;
   }
 }
+
+$(function () {
+  $('.money').mask('000.000.000.000.000,00', { reverse: true });
+});
