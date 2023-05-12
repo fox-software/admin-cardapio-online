@@ -42,6 +42,7 @@ class DashboardController extends BaseController
             "chart" => [
                 "chart_clientes" => $this->usuarioModel->getAllForChart($ano),
                 "chart_pedidos" => $this->pedidoModel->getAllForChart($ano),
+                "chart_faturamentos" => $this->pedidoModel->getFaturamentoForChart($ano),
             ],
             "soma_total_pedidos" => $this->pedidoModel->getTotal($ano),
             "porcentagem_pedidos" => $this->pedidoModel->getPorcentagem($ano),

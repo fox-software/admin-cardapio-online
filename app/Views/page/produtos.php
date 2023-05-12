@@ -105,7 +105,7 @@
             <div class="col-3">
               <div class="form-group">
                 <label for="quantidade">Qtde</label>
-                <input type="number" class="form-control" name="quantidade" id="quantidade" value="0">
+                <input type="number" class="form-control" name="quantidade" id="quantidade" min="0">
               </div>
             </div>
           </div>
@@ -127,7 +127,7 @@
             <div class="col-3">
               <div class="form-group">
                 <label for="preco">Preço</label>
-                <input type="number" class="form-control" name="preco" id="preco" value="0">
+                <input type="text" class="form-control money" name="preco" id="preco" min="0">
               </div>
             </div>
 
@@ -177,7 +177,7 @@
               <div class="col-3">
                 <div class="form-group">
                   <label for="quantidade">Qtde</label>
-                  <input type="number" class="form-control" name="quantidade" id="quantidade" value="<?= $item["quantidade"] ?>">
+                  <input type="number" class="form-control" name="quantidade" id="quantidade" value="<?= $item["quantidade"] ?>" min="0">
                 </div>
               </div>
             </div>
@@ -200,7 +200,7 @@
               <div class="col-3">
                 <div class="form-group">
                   <label for="preco">Preço</label>
-                  <input type="number" class="form-control" name="preco" id="preco" value="<?= $item["preco"] ?>">
+                  <input type="text" class="form-control money" name="preco" id="preco" value="<?= $item["preco"] ?>" min="0">
                 </div>
               </div>
             </div>

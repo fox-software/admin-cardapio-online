@@ -34,9 +34,9 @@ class PedidoModel extends Model
     return $resultado->findAll();
   }
 
-  public function getAllForChart($ano = 2023)
+  public function getAllForChart($ano)
   {
-    $resultado = $this->select("COUNT(pedidos.id) AS total, EXTRACT(MONTH FROM created_at) mes, EXTRACT(YEAR FROM created_at) ano")
+    $resultado = $this->select("COUNT(pedidos.id) AS total, SUM(pedidos.total) AS faturamento, EXTRACT(MONTH FROM created_at) mes, EXTRACT(YEAR FROM created_at) ano")
       ->where("pedidos.sistema_id", session()->get("sistema")["id"])
       ->where("status", RECEBIDO)
       ->where('YEAR(created_at)', $ano)
@@ -51,6 +51,30 @@ class PedidoModel extends Model
       for ($y = 0; $y < count($meses); $y++) {
         if ($y + 1 == $resultado[$i]["mes"]) {
           $meses[$y] = $resultado[$i]["total"];
+        }
+      }
+    }
+
+    return $meses;
+  }
+
+  public function getFaturamentoForChart($ano)
+  {
+    $resultado = $this->select("COUNT(pedidos.id) AS total, SUM(pedidos.total) AS faturamento, EXTRACT(MONTH FROM created_at) mes, EXTRACT(YEAR FROM created_at) ano")
+      ->where("pedidos.sistema_id", session()->get("sistema")["id"])
+      ->where("status", RECEBIDO)
+      ->where('YEAR(created_at)', $ano)
+      ->groupBy("EXTRACT(MONTH FROM created_at), EXTRACT(YEAR FROM created_at)")
+      ->orderBy("ano", "DESC")
+      ->orderBy("mes", "ASC")
+      ->findAll();
+
+    $meses = ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"];
+
+    for ($i = 0; $i < count($resultado); $i++) {
+      for ($y = 0; $y < count($meses); $y++) {
+        if ($y + 1 == $resultado[$i]["mes"]) {
+          $meses[$y] = $resultado[$i]["faturamento"];
         }
       }
     }
@@ -131,18 +155,21 @@ class PedidoModel extends Model
     }
   }
 
-  public function kanban($tipo)
+  public function kanban($tipo, $data = '')
   {
     date_default_timezone_set('America/Sao_Paulo');
 
     $pedidoProdutoModel = new PedidoProdutoModel();
 
+    if (empty($data)) $data = date("Y-m-d");
+
     $pedidos = $this->select("pedidos.*,
-    CONCAT(usuarios.nome, ' ', usuarios.sobrenome) AS usuario_nome, enderecos.endereco, enderecos.cep, enderecos.numero, enderecos.cep, enderecos.complemento,DATE_FORMAT(pedidos.created_at, '%d/%m/%Y %T') AS data")
+    CONCAT(usuarios.nome, ' ', usuarios.sobrenome) AS usuario_nome, 
+    enderecos.endereco, enderecos.cep, enderecos.numero, enderecos.cep, enderecos.complemento, DATE_FORMAT(pedidos.created_at, '%d/%m/%Y %T') AS data")
       ->join("usuarios", "pedidos.usuario_id = usuarios.id")
       ->join("enderecos", "pedidos.endereco_id = enderecos.id")
       ->where([
-        "DATE_FORMAT(pedidos.created_at, '%Y-%m-%d')" => date("Y-m-d"),
+        "DATE_FORMAT(pedidos.created_at, '%Y-%m-%d')" => $data,
         "sistema_id" => session()->get("sistema")["id"],
         "pedidos.status" => $tipo,
         "enderecos.status" => ATIVO,

@@ -28,7 +28,7 @@ class CreateProdutosTable extends Migration
                 'type' => 'TEXT',
             ],
             'preco' => [
-                'type' => 'FLOAT',
+                'type' => 'DOUBLE(10,2)',
             ],
             'quantidade' => [
                 'type' => 'INT',

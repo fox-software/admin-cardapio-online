@@ -152,7 +152,7 @@
             <div class="col-sm">
               <div class="form-group">
                 <label>Taxa de Entrega (R$)</label>
-                <input type="text" name="taxa_entrega" class="form-control" placeholder="Digite a taxa de entrega" value="<?= $sistema["taxa_entrega"] ?>">
+                <input type="text" name="taxa_entrega" class="form-control money" placeholder="Digite a taxa de entrega" value="<?= format_money($sistema["taxa_entrega"]) ?>">
               </div>
             </div>
             <div class="col-sm">
@@ -193,13 +193,13 @@
         <div class="card-body">
           <div class="row">
 
-            <div class="col-md-4 col-6">
+            <div class="col-md-2 col-6">
               <div class="form-group">
                 <label>Horário de abertura</label>
                 <input type="time" name="aberto" class="form-control" placeholder="Digite o horário de abertura" value="<?= $sistema["aberto"] ?>">
               </div>
             </div>
-            <div class="col-md-4 col-6">
+            <div class="col-md-2 col-6">
               <div class="form-group">
                 <label>Horário de fechamento</label>
                 <input type="time" name="fechado" class="form-control" placeholder="Digite o horário de fechamento" value="<?= $sistema["fechado"] ?>">

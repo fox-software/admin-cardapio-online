@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cardápio Online | <?= format_text($page_title) ?></title>
+  <title>We Delivery | <?= format_text($page_title) ?></title>
 
   <!-- FAVICON -->
   <link rel="icon" type="image/x-icon" href="<?= base_url("favicon_2.png") ?>">
@@ -72,16 +72,18 @@
 
   <!-- Bootstrap 4 -->
   <script src="<?= base_url("assets/plugins/bootstrap/js/bootstrap.bundle.min.js") ?>"></script>
+
   <!-- AdminLTE App -->
   <script src="<?= base_url("assets/js/adminlte/js/adminlte.min.js") ?>"></script>
 
   <!-- Toast -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js" integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+  <!-- MASK -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
   <!-- ChartJS -->
   <script src="<?= base_url("assets/plugins/chart.js/Chart.min.js") ?>"></script>
-
-
 
   <!-- ALERT AND TOAST -->
   <script>

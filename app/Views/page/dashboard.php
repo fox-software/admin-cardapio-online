@@ -5,58 +5,43 @@
 
 <section class="content">
   <div class="container-fluid">
-    <!-- Small boxes (Stat box) -->
-    <div class="row">
-      <div class="col-lg-3 col-6">
 
-        <div class="small-box bg-info">
+    <div class="row">
+
+      <div class="col-lg-3 col-6">
+        <a href="<?= base_url("admin/usuarios") ?>" class="small-box bg-info">
           <div class="inner">
             <h3><?= $total_usuarios ?></h3>
             <p>Total de Clientes</p>
           </div>
-          <div class="icon">
-            <i class="ion ion-bag"></i>
-          </div>
-        </div>
+        </a>
       </div>
 
       <div class="col-lg-3 col-6">
-
-        <div class="small-box bg-danger">
+        <a href="<?= base_url("admin/pedidos") ?>" class="small-box bg-danger">
           <div class="inner">
             <h3><?= $total_pedidos ?></h3>
             <p>Total de Pedidos</p>
           </div>
-          <div class="icon">
-            <i class="ion ion-stats-bars"></i>
-          </div>
-        </div>
+        </a>
       </div>
 
       <div class="col-lg-3 col-6">
-
-        <div class="small-box bg-warning">
+        <a href="<?= base_url("admin/categorias") ?>" class="small-box bg-warning">
           <div class="inner">
             <h3><?= $total_categorias ?></h3>
             <p>Total de Categorias</p>
           </div>
-          <div class="icon">
-            <i class="ion ion-person-add"></i>
-          </div>
-        </div>
+        </a>
       </div>
 
       <div class="col-lg-3 col-6">
-
-        <div class="small-box bg-success">
+        <a href="<?= base_url("admin/produtos") ?>" class="small-box bg-success">
           <div class="inner">
             <h3><?= $total_produtos ?></h3>
             <p>Total de Produtos</p>
           </div>
-          <div class="icon">
-            <i class="ion ion-pie-graph"></i>
-          </div>
-        </div>
+        </a>
       </div>
 
     </div>
@@ -281,7 +266,7 @@
         <div class="card">
           <div class="card-header border-0">
             <div class="d-flex justify-content-between">
-              <h3 class="card-title">Pedidos e Clientes</h3>
+              <h3 class="card-title">Gráfico da empresa</h3>
 
               <select id="ano" name="ano" class="custom-select w-25">
                 <?php for ($i = 0; $i < 5; $i++) : ?>
@@ -294,7 +279,7 @@
             <div class="d-flex">
               <p class="d-flex flex-column">
                 <span id="soma-total-pedidos" class="text-bold text-lg"></span>
-                <span>Total de Pedidos</span>
+                <span>Faturamento</span>
               </p>
               <p class="ml-auto d-flex flex-column text-right">
                 <span class="text-success">

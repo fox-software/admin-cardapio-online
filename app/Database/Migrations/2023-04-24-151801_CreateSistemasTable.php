@@ -64,7 +64,7 @@ class CreateSistemasTable extends Migration
                 'constraint' => 200,
             ],
             'taxa_entrega' => [
-                'type' => 'FLOAT',
+                'type' => 'DOUBLE(10,2)',
             ],
             'tempo_entrega_min' => [
                 'type' => 'INT',

@@ -34,13 +34,13 @@ class CreatePedidosTable extends Migration
                 'type' => 'TEXT',
             ],
             'total' => [
-                'type' => 'FLOAT',
+                'type' => 'DOUBLE(10,2)',
             ],
             'frete' => [
-                'type' => 'FLOAT',
+                'type' => 'DOUBLE(10,2)',
             ],
             'troco' => [
-                'type' => 'FLOAT',
+                'type' => 'DOUBLE(10,2)',
                 'null' => true,
             ],
             'comprovante' => [

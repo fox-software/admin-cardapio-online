@@ -7,7 +7,7 @@
 .vagrant
 Vagrantfile
 public/temp
-public/uploads/*
+public/assets/uploads/*
 
 #-------------------------
 # Dump database

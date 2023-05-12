@@ -32,7 +32,7 @@ class UsuarioModel extends Model
     return $resultado->findAll();
   }
 
-  public function getAllForChart($ano = 2023)
+  public function getAllForChart($ano)
   {
     $resultado = $this->select("COUNT(usuarios.id) AS total, EXTRACT(MONTH FROM created_at) mes, EXTRACT(YEAR FROM created_at) ano")
       ->join("usuarios_sistemas", "usuario_id = usuarios.id")
