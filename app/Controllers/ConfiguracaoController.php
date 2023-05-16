@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Libraries\AwsS3;
+
 use App\Models\SistemaModel;
 
 class ConfiguracaoController extends BaseController
@@ -27,6 +29,8 @@ class ConfiguracaoController extends BaseController
 
     public function editar(int $id)
     {
+        ini_set('memory_limit', '512M');
+
         $dados = $this->request->getVar();
 
         $validate = $this->validate([
@@ -44,12 +48,8 @@ class ConfiguracaoController extends BaseController
                 toast(TOAST_ERROR, "Falha", 'Tipo de arquivo não permitido!');
                 return redirect()->to("admin/configuracao");
             } else {
-                // $fileName = $img->getRandomName();
-                // $ext = pathinfo($img->getName(), PATHINFO_EXTENSION);
-
-                $fileName = date("Y-m-d_H-i-s") . '_' . $img->getName();
-                $img->move(ROOTPATH . 'public/assets', $fileName);
-                $dados["foto"] = base_url("assets/$fileName");
+                $s3 = new AwsS3();
+                $dados["foto"] = $s3->store($_FILES['foto']);
             }
         }
 

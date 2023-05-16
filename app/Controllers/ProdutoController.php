@@ -2,9 +2,11 @@
 
 namespace App\Controllers;
 
+use Exception;
+use App\Libraries\AwsS3;
+
 use App\Models\CategoriaModel;
 use App\Models\ProdutoModel;
-use Exception;
 
 class ProdutoController extends BaseController
 {
@@ -50,12 +52,8 @@ class ProdutoController extends BaseController
                 toast(TOAST_ERROR, "Falha", 'Tipo de arquivo não permitido!');
                 return redirect()->to("admin/produtos");
             } else {
-                // $fileName = $img->getRandomName();
-                // $ext = pathinfo($img->getName(), PATHINFO_EXTENSION);
-
-                $fileName = date("Y-m-d_H-i-s") . '_' . $img->getName();
-                $img->move(ROOTPATH . 'public/assets', $fileName);
-                $dados["foto"] = base_url("assets/$fileName");
+                $s3 = new AwsS3();
+                $dados["foto"] = $s3->store($_FILES['foto']);
             }
         }
 
@@ -111,12 +109,8 @@ class ProdutoController extends BaseController
                 toast(TOAST_ERROR, "Falha", 'Tipo de arquivo não permitido!');
                 return redirect()->to("admin/produtos");
             } else {
-                // $fileName = $img->getRandomName();
-                // $ext = pathinfo($img->getName(), PATHINFO_EXTENSION);
-
-                $fileName = date("Y-m-d_H-i-s") . '_' . $img->getName();
-                $img->move(ROOTPATH . 'public/assets', $fileName);
-                $dados["foto"] = base_url("assets/$fileName");
+                $s3 = new AwsS3();
+                $dados["foto"] = $s3->store($_FILES['foto']);
             }
         }
 

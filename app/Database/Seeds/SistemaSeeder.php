@@ -14,9 +14,9 @@ class SistemaSeeder extends Seeder
 
         $sistemaModel->insert([
             "id" => 1,
-            "codigo" => 1,
-            "razao_social" => "Fox Software",
-            "nome_fantasia" => "Fox Software LTDA",
+            "codigo" => "1",
+            "razao_social" => "Fox Software LTDA",
+            "nome_fantasia" => "Fox Software",
             "cnpj" => "48.760.810/0001-72",
             "telefone" => "(11) 9950-5237",
             "email" => "foxsoftware@gmail.com",

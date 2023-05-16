@@ -5,6 +5,8 @@ namespace App\Controllers;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 
+use App\Libraries\AwsS3;
+
 use App\Models\PedidoModel;
 use App\Models\PedidoProdutoModel;
 use App\Models\ProdutoModel;
@@ -68,7 +70,8 @@ class ApiPedidoController extends ResourceController
             if (!file_put_contents("assets/" . $comprovante, $decoded)) {
                 $data->comprovante = null;
             } else {
-                $data->comprovante = base_url("assets/$comprovante");
+                $s3 = new AwsS3();
+                $data->comprovante = $s3->store($comprovante);
             }
         }
 
