@@ -151,12 +151,6 @@
 
             <div class="col-sm">
               <div class="form-group">
-                <label>Taxa de Entrega (R$)</label>
-                <input type="text" name="taxa_entrega" class="form-control money" placeholder="Digite a taxa de entrega" value="<?= format_money($sistema["taxa_entrega"]) ?>">
-              </div>
-            </div>
-            <div class="col-sm">
-              <div class="form-group">
                 <label>Tempo de Entrega (minutos)</label>
                 <div class="row">
                 <div class="col-6">
@@ -168,6 +162,7 @@
                 </div>
               </div>
             </div>
+
             <div class="col-sm">
               <div class="form-group">
                 <label>Chave PIX</label>

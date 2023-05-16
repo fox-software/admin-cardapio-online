@@ -25,6 +25,19 @@ class CreateSistemasTable extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 200,
             ],
+            'ramo_sistema' => [
+                'type' => 'ENUM',
+                'constraint' => [
+                    "adega",
+                    "açaiteria",
+                    "confeitaria",
+                    "hortifruti",
+                    "hamburgueria",
+                    "pizzaria",
+                    "restaurante"
+                ],
+                "default" => "adega",
+            ],
             'cnpj' => [
                 'type' => 'VARCHAR',
                 'constraint' => 200,
@@ -62,9 +75,6 @@ class CreateSistemasTable extends Migration
             'cidade' => [
                 'type' => 'VARCHAR',
                 'constraint' => 200,
-            ],
-            'taxa_entrega' => [
-                'type' => 'DOUBLE(10,2)',
             ],
             'tempo_entrega_min' => [
                 'type' => 'INT',

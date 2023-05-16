@@ -73,12 +73,18 @@
         </li>
 
         <li class="nav-item">
+          <a href="<?= base_url("admin/regioes") ?>" class="nav-link <?= $page_title === "regioes" ? "active" : "" ?>">
+            <i class="nav-icon fas fa-map"></i>
+            <p>Regiões</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
           <a href="<?= base_url("admin/configuracao") ?>" class="nav-link <?= $page_title === "configurações" ? "active" : "" ?>">
             <i class="nav-icon fa fa-cog"></i>
             <p>Configurações</p>
           </a>
         </li>
-
 
         <li class="nav-item">
           <a href="<?= base_url("logout") ?>" class="nav-link bg-light">
@@ -86,7 +92,6 @@
             <p class="color-custom-primary fw-bold">Sair</p>
           </a>
         </li>
-
 
 
         <!-- NAV COM OPÇÕES -->
