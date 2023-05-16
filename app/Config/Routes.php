@@ -20,6 +20,7 @@ use App\Controllers\LoginController;
 use App\Controllers\PainelController;
 use App\Controllers\PedidoController;
 use App\Controllers\ProdutoController;
+use App\Controllers\RegiaoController;
 use App\Controllers\UsuarioController;
 
 // Create a new instance of our RouteCollection class.
@@ -76,6 +77,13 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
         $routes->post('(:num)/editar', [CategoriaController::class, "editar"]);
     });
 
+    $routes->group('regioes', function ($routes) {
+        $routes->get('', [RegiaoController::class, "index"]);
+        $routes->post('cadastrar', [RegiaoController::class, "cadastrar"]);
+        $routes->get('(:num)/status', [RegiaoController::class, "status"]);
+        $routes->post('(:num)/editar', [RegiaoController::class, "editar"]);
+    });
+
     $routes->group('produtos', function ($routes) {
         $routes->get('', [ProdutoController::class, "index"]);
         $routes->post('cadastrar', [ProdutoController::class, "cadastrar"]);
@@ -118,14 +126,13 @@ $routes->group('api', ['filter' => 'cors'], function ($routes) {
 
     $routes->group('sistema', function ($routes) {
         $routes->get('', [ApiSistemaController::class, "index"]);
+        $routes->get('regioes/(:num)', [ApiSistemaController::class, "regioes"]);
         $routes->get('pagamentos', [ApiSistemaController::class, "formaPagamentos"]);
     });
-
-
+    
     $routes->get('produtos', [ApiProdutoController::class, "index"]);
     $routes->get('categorias', [ApiCategoriaController::class, "index"]);
-    
-    
+
     $routes->group('', ['filter' => 'authApi'], function ($routes) {
         $routes->group('enderecos', function ($routes) {
             $routes->get('', [ApiEnderecoController::class, "index"]);

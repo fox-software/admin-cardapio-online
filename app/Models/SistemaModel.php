@@ -9,9 +9,8 @@ class SistemaModel extends Model
   protected $table = 'sistemas';
   protected $primaryKey = 'id';
   protected $allowedFields = [
-    'nome_fantasia', 'razao_social', 'cnpj', 'email', 'telefone', 'foto',
-    'cep', 'endereco', 'numero', 'cidade', 'estado',
-    'taxa_entrega', 'tempo_entrega_min', 'tempo_entrega_max', 'pix',
+    'nome_fantasia', 'razao_social', 'ramo_sistema', 'cnpj', 'email', 'telefone', 'foto',
+    'cep', 'endereco', 'numero', 'cidade', 'estado', 'tempo_entrega_min', 'tempo_entrega_max', 'pix',
     'aberto', 'fechado',
     'status'
   ];
