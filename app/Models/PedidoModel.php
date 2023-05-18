@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use CodeIgniter\I18n\Time;
 use CodeIgniter\Model;
 
 class PedidoModel extends Model
 {
   protected $table = 'pedidos';
   protected $primaryKey = 'id';
-  protected $allowedFields = ['usuario_id', 'sistema_id', 'cartao_id', 'endereco_id', 'total', 'frete', 'forma_pagamento_id', 'status', 'codigo', 'troco', 'comprovante', 'observacao'];
+  protected $allowedFields = ['usuario_id', 'sistema_id', 'cartao_id', 'data', 'endereco_id', 'total', 'frete', 'forma_pagamento_id', 'status', 'codigo', 'troco', 'comprovante', 'observacao'];
   protected $validationRules = [];
 
   public function getAll($filtros = [])
@@ -36,11 +37,11 @@ class PedidoModel extends Model
 
   public function getAllForChart($ano)
   {
-    $resultado = $this->select("COUNT(pedidos.id) AS total, SUM(pedidos.total) AS faturamento, EXTRACT(MONTH FROM created_at) mes, EXTRACT(YEAR FROM created_at) ano")
+    $resultado = $this->select("COUNT(pedidos.id) AS total, SUM(pedidos.total) AS faturamento, EXTRACT(MONTH FROM data) mes, EXTRACT(YEAR FROM data) ano")
       ->where("pedidos.sistema_id", session()->get("sistema")["id"])
       ->where("status", RECEBIDO)
-      ->where('YEAR(created_at)', $ano)
-      ->groupBy("EXTRACT(MONTH FROM created_at), EXTRACT(YEAR FROM created_at)")
+      ->where('YEAR(data)', $ano)
+      ->groupBy("EXTRACT(MONTH FROM data), EXTRACT(YEAR FROM data)")
       ->orderBy("ano", "DESC")
       ->orderBy("mes", "ASC")
       ->findAll();
@@ -60,11 +61,11 @@ class PedidoModel extends Model
 
   public function getFaturamentoForChart($ano)
   {
-    $resultado = $this->select("COUNT(pedidos.id) AS total, SUM(pedidos.total) AS faturamento, EXTRACT(MONTH FROM created_at) mes, EXTRACT(YEAR FROM created_at) ano")
+    $resultado = $this->select("COUNT(pedidos.id) AS total, SUM(pedidos.total) AS faturamento, EXTRACT(MONTH FROM data) mes, EXTRACT(YEAR FROM data) ano")
       ->where("pedidos.sistema_id", session()->get("sistema")["id"])
       ->where("status", RECEBIDO)
-      ->where('YEAR(created_at)', $ano)
-      ->groupBy("EXTRACT(MONTH FROM created_at), EXTRACT(YEAR FROM created_at)")
+      ->where('YEAR(data)', $ano)
+      ->groupBy("EXTRACT(MONTH FROM data), EXTRACT(YEAR FROM data)")
       ->orderBy("ano", "DESC")
       ->orderBy("mes", "ASC")
       ->findAll();
@@ -87,7 +88,7 @@ class PedidoModel extends Model
     $resultado = $this->select("SUM(pedidos.total) AS total")
       ->where("status", RECEBIDO)
       ->where("pedidos.sistema_id", session()->get("sistema")["id"])
-      ->where('YEAR(created_at)', $ano)
+      ->where('YEAR(data)', $ano)
       ->first();
 
     return empty($resultado["total"]) ? format_money(0) : format_money($resultado["total"]);
@@ -95,11 +96,11 @@ class PedidoModel extends Model
 
   public function getPorcentagem($ano)
   {
-    $resultado = $this->select("COUNT(pedidos.id) AS total, EXTRACT(MONTH FROM created_at) mes, EXTRACT(YEAR FROM created_at) ano")
+    $resultado = $this->select("COUNT(pedidos.id) AS total, EXTRACT(MONTH FROM data) mes, EXTRACT(YEAR FROM data) ano")
       ->where("status", RECEBIDO)
       ->where("pedidos.sistema_id", session()->get("sistema")["id"])
-      ->where('YEAR(created_at)', $ano)
-      ->groupBy("EXTRACT(MONTH FROM created_at), EXTRACT(YEAR FROM created_at)")
+      ->where('YEAR(data)', $ano)
+      ->groupBy("EXTRACT(MONTH FROM data), EXTRACT(YEAR FROM data)")
       ->orderBy("ano", "DESC")
       ->orderBy("mes", "DESC")
       ->limit(2)
@@ -129,6 +130,7 @@ class PedidoModel extends Model
     $data->endereco_id = (int) $data->endereco->id;
     $data->sistema_id = (int) get_sistema_api();
     $data->forma_pagamento_id = (int) $data->forma_pagamento->id;
+    $data->data = Time::now();
 
     if ($data->cartao->id) $data->cartao_id = (int) $data->cartao->id;
 
@@ -165,16 +167,16 @@ class PedidoModel extends Model
 
     $pedidos = $this->select("pedidos.*,
     CONCAT(usuarios.nome, ' ', usuarios.sobrenome) AS usuario_nome, 
-    enderecos.endereco, enderecos.cep, enderecos.numero, enderecos.cep, enderecos.complemento, DATE_FORMAT(pedidos.created_at, '%d/%m/%Y %T') AS data")
+    enderecos.endereco, enderecos.cep, enderecos.numero, enderecos.cep, enderecos.complemento, DATE_FORMAT(pedidos.data, '%d/%m/%Y %T') AS data")
       ->join("usuarios", "pedidos.usuario_id = usuarios.id")
       ->join("enderecos", "pedidos.endereco_id = enderecos.id")
       ->where([
-        "DATE_FORMAT(pedidos.created_at, '%Y-%m-%d')" => $data,
+        "DATE_FORMAT(pedidos.data, '%Y-%m-%d')" => $data,
         "sistema_id" => session()->get("sistema")["id"],
         "pedidos.status" => $tipo,
         "enderecos.status" => ATIVO,
       ])
-      ->orderBy("pedidos.created_at", "DESC")
+      ->orderBy("pedidos.data", "DESC")
       ->findAll();
 
     for ($y = 0; $y < count($pedidos); $y++) {
