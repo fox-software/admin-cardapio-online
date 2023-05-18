@@ -15,7 +15,7 @@
         <img src="<?= session()->get("sistema")["foto"] ?>" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="<?= base_url("admin/configuracao") ?>" class="d-block"><?= session()->get("sistema")["nome_fantasia"] ?></a>
+        <a href="<?= base_url("admin/configuracoes") ?>" class="d-block"><?= session()->get("sistema")["nome_fantasia"] ?></a>
       </div>
     </div>
 

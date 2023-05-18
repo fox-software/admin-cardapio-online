@@ -8,7 +8,7 @@
       <div class="card-header">
         <h3 class="card-title">Dados Empresa</h3>
       </div>
-      <form action="<?= base_url("admin/configuracao/" . $sistema["id"] . "/editar") ?>" method="post" enctype="multipart/form-data">
+      <form action="<?= base_url("admin/configuracoes/" . $sistema["id"] . "/editar") ?>" method="post" enctype="multipart/form-data">
         <div class="card-body">
           <div class="row">
             <div class="col">
@@ -72,7 +72,7 @@
       <div class="card-header">
         <h3 class="card-title">Contatos</h3>
       </div>
-      <form action="<?= base_url("admin/configuracao/" . $sistema["id"] . "/editar") ?>" method="post">
+      <form action="<?= base_url("admin/configuracoes/" . $sistema["id"] . "/editar") ?>" method="post">
 
         <div class="card-body">
 
@@ -105,7 +105,7 @@
       <div class="card-header">
         <h3 class="card-title">Endereços</h3>
       </div>
-      <form action="<?= base_url("admin/configuracao/" . $sistema["id"] . "/editar") ?>" method="post">
+      <form action="<?= base_url("admin/configuracoes/" . $sistema["id"] . "/editar") ?>" method="post">
 
         <div class="card-body">
 
@@ -184,7 +184,7 @@
       <div class="card-header">
         <h3 class="card-title">Configuração Entrega</h3>
       </div>
-      <form action="<?= base_url("admin/configuracao/" . $sistema["id"] . "/editar") ?>" method="post">
+      <form action="<?= base_url("admin/configuracoes/" . $sistema["id"] . "/editar") ?>" method="post">
 
         <div class="card-body">
           <div class="row">
@@ -222,7 +222,7 @@
       <div class="card-header">
         <h3 class="card-title">Configuração Disponibilidade</h3>
       </div>
-      <form action="<?= base_url("admin/configuracao/" . $sistema["id"] . "/editar") ?>" method="post">
+      <form action="<?= base_url("admin/configuracoes/" . $sistema["id"] . "/editar") ?>" method="post">
 
         <div class="card-body">
           <div class="row">

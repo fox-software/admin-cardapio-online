@@ -47,7 +47,7 @@ class ConfiguracaoController extends BaseController
         if (isset($img) && $img->isValid()) {
             if (!$validate) {
                 toast(TOAST_ERROR, "Falha", 'Tipo de arquivo não permitido!');
-                return redirect()->to("admin/configuracao");
+                return redirect()->to("admin/configuracoes");
             } else {
                 $s3 = new AwsS3();
                 $dados["foto"] = $s3->store($_FILES['foto']);
