@@ -51,6 +51,21 @@
               </div>
             </div>
 
+            <div class="col-sm">
+              <div class="form-group">
+                <label>Ramo sistema</label>
+                <select name="ramo_sistema" class="form-control">
+                  <option <?= $sistema["ramo_sistema"] == "adega" ? "selected" : "" ?> value="adega">Adega</option>
+                  <option <?= $sistema["ramo_sistema"] == "açaiteria" ? "selected" : "" ?> value="açaiteria">Açaiteria</option>
+                  <option <?= $sistema["ramo_sistema"] == "confeitaria" ? "selected" : "" ?> value="confeitaria">Confeitaria</option>
+                  <option <?= $sistema["ramo_sistema"] == "hortifruti" ? "selected" : "" ?> value="hortifruti">Hortifruti</option>
+                  <option <?= $sistema["ramo_sistema"] == "hamburgueria" ? "selected" : "" ?> value="hamburgueria">Hamburgueria</option>
+                  <option <?= $sistema["ramo_sistema"] == "pizzaria" ? "selected" : "" ?> value="pizzaria">Pizzaria</option>
+                  <option <?= $sistema["ramo_sistema"] == "restaurante" ? "selected" : "" ?> value="restaurante">Restaurante</option>
+                </select>
+              </div>
+            </div>
+
           </div>
 
         </div>
@@ -153,9 +168,9 @@
               <div class="form-group">
                 <label>Tempo de Entrega (minutos)</label>
                 <div class="row">
-                <div class="col-6">
-                  <input type="number" name="tempo_entrega_min" class="form-control" placeholder="Entrega minimo" value="<?= $sistema["tempo_entrega_min"] ?>">
-                </div>
+                  <div class="col-6">
+                    <input type="number" name="tempo_entrega_min" class="form-control" placeholder="Entrega minimo" value="<?= $sistema["tempo_entrega_min"] ?>">
+                  </div>
                   <div class="col-6">
                     <input type="number" name="tempo_entrega_max" class="form-control" placeholder="Entrega maximo" value="<?= $sistema["tempo_entrega_max"] ?>">
                   </div>
