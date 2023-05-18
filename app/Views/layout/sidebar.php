@@ -80,7 +80,7 @@
         </li>
 
         <li class="nav-item">
-          <a href="<?= base_url("admin/configuracao") ?>" class="nav-link <?= $page === "configuracoes" ? "active" : "" ?>">
+          <a href="<?= base_url("admin/configuracoes") ?>" class="nav-link <?= $page === "configuracoes" ? "active" : "" ?>">
             <i class="nav-icon fa fa-cog"></i>
             <p>Configurações</p>
           </a>

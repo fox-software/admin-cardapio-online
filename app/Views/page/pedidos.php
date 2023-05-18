@@ -44,7 +44,7 @@
             <?php foreach ($pedidos as $item) : ?>
               <tr>
                 <td><?= $item["codigo"] ?></td>
-                <td><?= format_date($item["created_at"], "d/m/Y h:m:s" ) ?></td>
+                <td><?= format_date($item["data"], "d/m/Y h:m:s" ) ?></td>
                 <td><?= $item["usuario_nome"] ?></td>
                 <td><?= $item["endereco"] ?></td>
                 <td><?= $item["forma_pagamento"] ?></td>

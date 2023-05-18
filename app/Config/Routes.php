@@ -100,7 +100,7 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
         $routes->get('', [PedidoController::class, "index"]);
     });
 
-    $routes->group('configuracao', function ($routes) {
+    $routes->group('configuracoes', function ($routes) {
         $routes->get('', [ConfiguracaoController::class, "index"]);
         $routes->post('(:num)/editar', [ConfiguracaoController::class, "editar/$1"]);
     });

@@ -20,7 +20,7 @@ class ConfiguracaoController extends BaseController
         $sistema = $this->sistemaModel->find(session()->get("sistema")["id"]);
 
         $data = [
-            "page" => "configuracao",
+            "page" => "configuracoes",
             "page_title" => "Configurações",
             "sistema" => $sistema
         ];
