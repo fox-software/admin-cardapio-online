@@ -63,10 +63,10 @@ class ConfiguracaoController extends BaseController
 
             toast(TOAST_SUCCESS, "Sucesso", "Configuração salva com sucesso!");
 
-            return redirect()->to('admin/configuracao');
+            return redirect()->to('admin/configuracoes');
         } catch (\Exception $e) {
             toast(TOAST_ERROR, "Erro", $e->getMessage());
-            return redirect()->to('admin/configuracao');
+            return redirect()->to('admin/configuracoes');
         }
     }
 }
