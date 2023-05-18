@@ -11,7 +11,7 @@
 
   <!-- STYLES -->
   <link rel="stylesheet" href="<?= base_url("assets/css/global.css") ?>">
-  <link rel="stylesheet" href="<?= base_url("assets/css/$page_title.css") ?>">
+  <link rel="stylesheet" href="<?= base_url("assets/css/$page.css") ?>">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -40,7 +40,7 @@
   <!-- PAGES AUTH -->
   <?= $this->renderSection("auth") ?>
 
-  <?php if ($page_title != "login") : ?>
+  <?php if ($page != "login") : ?>
     <div class="wrapper">
 
       <!-- NAVBAR -->
@@ -49,7 +49,7 @@
       <!-- SIDEBAR -->
       <?= $this->renderSection("sidebar") ?>
 
-      <div class="content-wrapper <?= $page_title == "painel" ? "kanban" : "" ?>">
+      <div class="content-wrapper <?= $page == "painel" ? "kanban" : "" ?>">
         <!-- BREADCRUMB -->
         <?= $this->renderSection('breadcrumb'); ?>
 
@@ -65,7 +65,7 @@
 
   <!-- SCRIPTS -->
   <script src="<?= base_url("assets/js/global.js") ?>"></script>
-  <script src="<?= base_url("assets/js/$page_title.js") ?>"></script>
+  <script src="<?= base_url("assets/js/$page.js") ?>"></script>
 
   <!-- jQuery -->
   <script src="<?= base_url("assets/plugins/jquery/jquery.min.js") ?>"></script>

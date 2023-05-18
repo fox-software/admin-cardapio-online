@@ -24,13 +24,14 @@ class ProdutoController extends BaseController
         $filtros = $this->request->getVar();
 
         $data = [
-            "page_title" => "produtos",
+            "page" => "produtos",
+            "page_title" => "Produtos",
             "produtos" => $this->produtoModel->getAll($filtros),
             "categorias" => $this->categoriaModel->getAll(["status" => ATIVO]),
             "filtros" => $filtros
         ];
 
-        return view('page/produtos', $data);
+        return view('page/' . $data["page"], $data);
     }
 
     public function cadastrar()

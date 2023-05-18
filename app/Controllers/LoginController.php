@@ -16,14 +16,15 @@ class LoginController extends BaseController
     public function index()
     {
         $data = [
-            "page_title" => "login"
+            "page" => "login",
+            "page_title" => "Login"
         ];
 
         if (session()->get("isLoggedIn") && session()->get("connected") == "on") {
             return redirect()->to(base_url("admin/dashboard"));
         }
 
-        return view('page/auth/login', $data);
+        return view('page/auth/' . $data["page"], $data);
     }
 
     public function login()

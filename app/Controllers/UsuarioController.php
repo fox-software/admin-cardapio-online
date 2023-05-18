@@ -22,12 +22,13 @@ class UsuarioController extends BaseController
         $filtros = $this->request->getVar();
 
         $data = [
-            "page_title" => "usuarios",
+            "page" => "usuarios",
+            "page_title" => "Usuários",
             "usuarios" => $this->usuarioModel->getAll($filtros),
             "filtros" => $filtros
         ];
 
-        return view('page/usuarios', $data);
+        return view('page/' . $data["page"], $data);
     }
 
     public function status(int $id)

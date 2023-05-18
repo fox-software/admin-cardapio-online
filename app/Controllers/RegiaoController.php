@@ -20,12 +20,13 @@ class RegiaoController extends BaseController
         $filtros = $this->request->getVar();
 
         $data = [
-            "page_title" => "regioes",
+            "page" => "regioes",
+            "page_title" => "Regiões",
             "regioes" => $this->regiaoModel->getAll($filtros),
             "search" => !empty($filtros["search"]) ? $filtros["search"] : ""
         ];
 
-        return view('page/regioes', $data);
+        return view('page/' . $data["page"], $data);
     }
 
     public function cadastrar()

@@ -24,63 +24,63 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
         <li class="nav-item">
-          <a href="<?= base_url("admin/dashboard") ?>" class="nav-link <?= $page_title === "dashboard" ? "active" : "" ?>">
+          <a href="<?= base_url("admin/dashboard") ?>" class="nav-link <?= $page === "dashboard" ? "active" : "" ?>">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>Dashboard</p>
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="<?= base_url("admin/painel") ?>" class="nav-link <?= $page_title === "painel" ? "active" : "" ?>">
+          <a href="<?= base_url("admin/painel") ?>" class="nav-link <?= $page === "painel" ? "active" : "" ?>">
             <i class="nav-icon fa fa-th-large" aria-hidden="true"></i>
             <p>Painel</p>
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="<?= base_url("admin/categorias") ?>" class="nav-link <?= $page_title === "categorias" ? "active" : "" ?>">
+          <a href="<?= base_url("admin/categorias") ?>" class="nav-link <?= $page === "categorias" ? "active" : "" ?>">
             <i class="nav-icon fa fa-tags"></i>
             <p>Categorias</p>
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="<?= base_url("admin/produtos") ?>" class="nav-link <?= $page_title === "produtos" ? "active" : "" ?>">
+          <a href="<?= base_url("admin/produtos") ?>" class="nav-link <?= $page === "produtos" ? "active" : "" ?>">
             <i class="nav-icon fa fa-pizza-slice"></i>
             <p>Produtos</p>
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="<?= base_url("admin/usuarios") ?>" class="nav-link <?= $page_title === "usuarios" ? "active" : "" ?>">
+          <a href="<?= base_url("admin/usuarios") ?>" class="nav-link <?= $page === "usuarios" ? "active" : "" ?>">
             <i class="nav-icon fa fa-users"></i>
             <p>Clientes</p>
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="<?= base_url("admin/pedidos") ?>" class="nav-link <?= $page_title === "pedidos" ? "active" : "" ?>">
+          <a href="<?= base_url("admin/pedidos") ?>" class="nav-link <?= $page === "pedidos" ? "active" : "" ?>">
             <i class="nav-icon fa fa-scroll"></i>
             <p>Pedidos</p>
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="<?= base_url("admin/forma_de_pagamentos") ?>" class="nav-link <?= $page_title === "forma_de_pagamentos" ? "active" : "" ?>">
+          <a href="<?= base_url("admin/forma_de_pagamentos") ?>" class="nav-link <?= $page === "forma_de_pagamentos" ? "active" : "" ?>">
             <i class="nav-icon fas fa-credit-card"></i>
             <p>Formas de Pagamentos</p>
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="<?= base_url("admin/regioes") ?>" class="nav-link <?= $page_title === "regioes" ? "active" : "" ?>">
+          <a href="<?= base_url("admin/regioes") ?>" class="nav-link <?= $page === "regioes" ? "active" : "" ?>">
             <i class="nav-icon fas fa-map"></i>
             <p>Regiões</p>
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="<?= base_url("admin/configuracao") ?>" class="nav-link <?= $page_title === "configurações" ? "active" : "" ?>">
+          <a href="<?= base_url("admin/configuracao") ?>" class="nav-link <?= $page === "configuracoes" ? "active" : "" ?>">
             <i class="nav-icon fa fa-cog"></i>
             <p>Configurações</p>
           </a>

@@ -18,13 +18,14 @@ class PainelController extends BaseController
         $filtro_data = date("Y-m-d");
 
         $data = [
-            "page_title" => "painel",
+            "page" => "painel",
+            "page_title" => "Painel",
             "filtros" => [
                 "data" => $filtro_data
             ]
         ];
 
-        return view('page/painel', $data);
+        return view('page/' . $data["page"], $data);
     }
 
     public function kanban()

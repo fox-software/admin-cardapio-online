@@ -25,7 +25,8 @@ class DashboardController extends BaseController
     public function index()
     {
         $data = [
-            "page_title" => "dashboard",
+            "page" => "dashboard",
+            "page_title" => "Dashboard",
             "total_usuarios" => count($this->usuarioModel->getAll(["status" => ATIVO])),
             "total_categorias" => count($this->categoriaModel->getAll(["status" => ATIVO])),
             "total_produtos" => count($this->produtoModel->getAll(["status" => ATIVO])),
@@ -33,7 +34,7 @@ class DashboardController extends BaseController
             "estoque_produtos" => $this->produtoModel->getStockProducts(),
         ];
 
-        return view('page/dashboard', $data);
+        return view('page/' . $data["page"], $data);
     }
 
     public function graphic($ano)

@@ -20,11 +20,12 @@ class FormaPagamentoController extends BaseController
     public function index()
     {
         $data = [
-            "page_title" => "forma_de_pagamentos",
+            "page" => "forma_de_pagamentos",
+            "page_title" => "Forma de pagamentos",
             "pagamentos" => $this->formaPagamentoModel->getAll(),
         ];
 
-        return view('page/forma_de_pagamentos', $data);
+        return view('page/' . $data["page"], $data);
     }
 
     public function status(int $formaPagamentoId)

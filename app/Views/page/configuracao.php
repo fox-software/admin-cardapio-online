@@ -20,40 +20,32 @@
           </div>
 
           <div class="row">
+
             <div class="col-sm">
               <div class="form-group">
                 <label>Nome Fantasia</label>
                 <input type="text" class="form-control" name="nome_fantasia" placeholder="Digite o nome fantasia" value="<?= $sistema["nome_fantasia"] ?>">
               </div>
             </div>
+
             <div class="col-sm">
               <div class="form-group">
                 <label>Razão Social</label>
                 <input type="text" class="form-control" name="razao_social" placeholder="Digite a razão social" value="<?= $sistema["razao_social"] ?>">
               </div>
             </div>
+
             <div class="col-sm">
               <div class="form-group">
                 <label>CNPJ</label>
                 <input type="text" class="form-control" name="cnpj" placeholder="Digite o cnpj" value="<?= format_cpf_cnpj($sistema["cnpj"]) ?>">
               </div>
             </div>
-            <div class="col-sm">
-              <div class="form-group">
-                <label>E-mail</label>
-                <input disabled type="email" class="form-control" name="email" placeholder="Digite o email" value="<?= $sistema["email"] ?>">
-              </div>
-            </div>
-            <div class="col-sm">
-              <div class="form-group">
-                <label>Telefone</label>
-                <input type="tel" class="form-control" name="telefone" placeholder="Digite o telefone" value="<?= format_phone($sistema["telefone"]) ?>">
-              </div>
-            </div>
+
 
             <div class="col-sm">
               <div class="form-group">
-                <label>Ramo sistema</label>
+                <label>Ramo de atividade</label>
                 <select name="ramo_sistema" class="form-control">
                   <option <?= $sistema["ramo_sistema"] == "adega" ? "selected" : "" ?> value="adega">Adega</option>
                   <option <?= $sistema["ramo_sistema"] == "açaiteria" ? "selected" : "" ?> value="açaiteria">Açaiteria</option>
@@ -78,6 +70,39 @@
 
     <div class="card">
       <div class="card-header">
+        <h3 class="card-title">Contatos</h3>
+      </div>
+      <form action="<?= base_url("admin/configuracao/" . $sistema["id"] . "/editar") ?>" method="post">
+
+        <div class="card-body">
+
+          <div class="row">
+
+            <div class="col-sm">
+              <div class="form-group">
+                <label>E-mail</label>
+                <input disabled type="email" class="form-control" name="email" placeholder="Digite o email" value="<?= $sistema["email"] ?>">
+              </div>
+            </div>
+
+            <div class="col-sm">
+              <div class="form-group">
+                <label>Telefone</label>
+                <input type="tel" class="form-control" name="telefone" placeholder="Digite o telefone" value="<?= format_phone($sistema["telefone"]) ?>">
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="card-footer d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary">Atualizar Contatos</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
         <h3 class="card-title">Endereços</h3>
       </div>
       <form action="<?= base_url("admin/configuracao/" . $sistema["id"] . "/editar") ?>" method="post">
@@ -88,31 +113,32 @@
             <div class="col-sm">
               <div class="form-group">
                 <label>CEP</label>
-                <input type="text" name="cep" class="form-control" placeholder="Digite o CEP" value="<?= $sistema["cep"] ?>">
+                <input type="text" id="cep" name="cep" class="form-control" maxlength="8" placeholder="Digite o CEP" value="<?= $sistema["cep"] ?>" required>
               </div>
             </div>
             <div class="col-sm">
               <div class="form-group">
                 <label>Rua</label>
-                <input type="text" name="endereco" class="form-control" placeholder="Digite a rua" value="<?= $sistema["endereco"] ?>">
+                <input type="text" id="endereco" name="endereco" class="form-control" placeholder="Digite a rua" value="<?= $sistema["endereco"] ?>" required>
               </div>
             </div>
             <div class="col-sm">
               <div class="form-group">
                 <label>Número</label>
-                <input type="number" name="numero" class="form-control" placeholder="Digite o número" value="<?= $sistema["numero"] ?>">
+                <input type="number" name="numero" class="form-control" placeholder="Digite o número" value="<?= $sistema["numero"] ?>" required>
               </div>
             </div>
             <div class="col-sm">
               <div class="form-group">
                 <label>Cidade</label>
-                <input type="text" name="cidade" class="form-control" placeholder="Digite a cidade" value="<?= $sistema["cidade"] ?>">
+                <input type="text" id="cidade" name="cidade" class="form-control" placeholder="Digite a cidade" value="<?= $sistema["cidade"] ?>" required>
               </div>
             </div>
+
             <div class="col-sm">
               <div class="form-group">
                 <label>Estado</label>
-                <select name="estado" class="form-control">
+                <select id="estado" name="estado" class="form-control">
                   <option <?= $sistema["estado"] == "AC" ? "selected" : "" ?> value="AC">Acre</option>
                   <option <?= $sistema["estado"] == "AL" ? "selected" : "" ?> value="AL">Alagoas</option>
                   <option <?= $sistema["estado"] == "AP" ? "selected" : "" ?> value="AP">Amapá</option>
@@ -154,7 +180,6 @@
       </form>
     </div>
 
-
     <div class="card">
       <div class="card-header">
         <h3 class="card-title">Configuração Entrega</h3>
@@ -166,15 +191,15 @@
 
             <div class="col-sm">
               <div class="form-group">
-                <label>Tempo de Entrega (minutos)</label>
-                <div class="row">
-                  <div class="col-6">
-                    <input type="number" name="tempo_entrega_min" class="form-control" placeholder="Entrega minimo" value="<?= $sistema["tempo_entrega_min"] ?>">
-                  </div>
-                  <div class="col-6">
-                    <input type="number" name="tempo_entrega_max" class="form-control" placeholder="Entrega maximo" value="<?= $sistema["tempo_entrega_max"] ?>">
-                  </div>
-                </div>
+                <label>Tempo mínimo de Entrega (minutos)</label>
+                <input type="number" name="tempo_entrega_min" class="form-control" placeholder="Entrega minimo" value="<?= $sistema["tempo_entrega_min"] ?>">
+              </div>
+            </div>
+
+            <div class="col-sm">
+              <div class="form-group">
+                <label>Tempo máximo de Entrega (minutos)</label>
+                <input type="number" name="tempo_entrega_max" class="form-control" placeholder="Entrega maximo" value="<?= $sistema["tempo_entrega_max"] ?>">
               </div>
             </div>
 
@@ -193,7 +218,6 @@
 
     </div>
 
-
     <div class="card">
       <div class="card-header">
         <h3 class="card-title">Configuração Disponibilidade</h3>
@@ -203,18 +227,20 @@
         <div class="card-body">
           <div class="row">
 
-            <div class="col-md-2 col-6">
+            <div class="col-sm">
               <div class="form-group">
                 <label>Horário de abertura</label>
                 <input type="time" name="aberto" class="form-control" placeholder="Digite o horário de abertura" value="<?= $sistema["aberto"] ?>">
               </div>
             </div>
-            <div class="col-md-2 col-6">
+
+            <div class="col-sm">
               <div class="form-group">
                 <label>Horário de fechamento</label>
                 <input type="time" name="fechado" class="form-control" placeholder="Digite o horário de fechamento" value="<?= $sistema["fechado"] ?>">
               </div>
             </div>
+
           </div>
         </div>
         <div class="card-footer d-flex justify-content-end">

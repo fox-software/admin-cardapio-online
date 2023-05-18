@@ -19,12 +19,13 @@ class CategoriaController extends BaseController
         $filtros = $this->request->getVar();
 
         $data = [
-            "page_title" => "categorias",
+            "page" => "categorias",
+            "page_title" => "Categorias",
             "categorias" => $this->categoriaModel->getAll($filtros),
             "search" => !empty($filtros["search"]) ? $filtros["search"] : ""
         ];
 
-        return view('page/categorias', $data);
+        return view("page/" . $data["page"], $data);
     }
 
     public function cadastrar()

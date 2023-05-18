@@ -19,11 +19,12 @@ class PedidoController extends BaseController
         $filtros = $this->request->getVar();
 
         $data = [
-            "page_title" => "pedidos",
+            "page" => "pedidos",
+            "page_title" => "Pedidos",
             "pedidos" => $this->pedidoModel->getAll($filtros),
             "filtros" => $filtros
         ];
 
-        return view('page/pedidos', $data);
+        return view('page/' . $data["page"], $data);
     }
 }
