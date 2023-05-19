@@ -88,7 +88,7 @@
             <div class="col-sm">
               <div class="form-group">
                 <label>Telefone</label>
-                <input type="tel" class="form-control" name="telefone" placeholder="Digite o telefone" value="<?= format_phone($sistema["telefone"]) ?>">
+                <input class="form-control phone" name="telefone" placeholder="Digite o telefone" value="<?= format_phone($sistema["telefone"]) ?>">
               </div>
             </div>
           </div>
@@ -113,7 +113,7 @@
             <div class="col-sm">
               <div class="form-group">
                 <label>CEP</label>
-                <input type="text" id="cep" name="cep" class="form-control" maxlength="8" placeholder="Digite o CEP" value="<?= $sistema["cep"] ?>" required>
+                <input id="cep" name="cep" class="form-control cep" placeholder="Digite o CEP" value="<?= $sistema["cep"] ?>" required>
               </div>
             </div>
             <div class="col-sm">

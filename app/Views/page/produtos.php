@@ -37,9 +37,8 @@
         <table class="table table-condensed">
           <thead>
             <tr>
-              <th></th>
+              <th>#</th>
               <th>Nome</th>
-              <th>Descrição</th>
               <th>Categoria</th>
               <th>Preço</th>
               <th>Quantidade</th>
@@ -50,26 +49,25 @@
           <tbody>
             <?php foreach ($produtos as $item) : ?>
               <tr>
+                <td><?= $item["id"] ?></td>
                 <td>
                   <img height="32" src="<?= $item["foto"] ?>" alt="<?= $item["nome"] ?>">
+                  <?= $item["nome"] ?>
                 </td>
-                <td><?= $item["nome"] ?></td>
-                <td><?= $item["descricao"] ?></td>
                 <td><?= $item["categoria_nome"] ?></td>
                 <td><?= format_money($item["preco"]) ?></td>
                 <td><?= $item["quantidade"] ?></td>
                 <td>
-                  <a href="<?= base_url("admin/produtos/" . $item["id"] . "/status") ?>" class="btn btn-<?= $item["status"] == ATIVO ? "success" : "danger" ?>">
-                    <i class="fa fa-<?= $item["status"] == ATIVO ? "check-circle" : "times-circle" ?>"></i>
+                  <a href="<?= base_url("admin/produtos/" . $item["id"] . "/status") ?>">
+                    <span class="badge badge-<?= $item["status"] == ATIVO ? "success" : "danger" ?>">
+                      <?= $item["status"] == ATIVO ? "ATIVO" : "INATIVO" ?>
+                    </span>
                   </a>
                 </td>
-                <td style="width: 10px;">
+                <td>
                   <button type="button" class="btn btn-info" title="Editar" data-toggle="modal" data-target="#edit-produto-<?= $item["id"] ?>">
                     <i class="fas fa-edit"></i>
                   </button>
-                  <!-- <a href="" class="btn btn-warning" title="Ver">
-                    <i class="fa fa-eye"></i>
-                  </a> -->
                 </td>
               </tr>
             <?php endforeach; ?>
@@ -98,14 +96,14 @@
           <div class="row">
             <div class="col">
               <div class="form-group">
-                <label for="nome">Nome</label>
-                <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome do produto">
+                <label for="nome">Nome<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome do produto" required />
               </div>
             </div>
             <div class="col-3">
               <div class="form-group">
-                <label for="quantidade">Qtde</label>
-                <input type="number" class="form-control" name="quantidade" id="quantidade" min="0">
+                <label for="quantidade">Qtde<span class="text-danger">*</span></label>
+                <input type="number" class="form-control" name="quantidade" id="quantidade" min="0" required />
               </div>
             </div>
           </div>
@@ -114,9 +112,9 @@
 
             <div class="col">
               <div class="form-group">
-                <label for="categoria_id">Categoria</label>
-                <select class="custom-select" id="categoria_id" name="categoria_id">
-                  <option>Selecione</option>
+                <label for="categoria_id">Categoria<span class="text-danger">*</span></label>
+                <select class="custom-select" id="categoria_id" name="categoria_id" required>
+                  <option value="">Selecione</option>
                   <?php foreach ($categorias as $value) : ?>
                     <option value="<?= $value["id"] ?>"><?= $value["nome"] ?></option>
                   <?php endforeach; ?>
@@ -126,16 +124,16 @@
 
             <div class="col-3">
               <div class="form-group">
-                <label for="preco">Preço</label>
-                <input type="text" class="form-control money" name="preco" id="preco" min="0">
+                <label for="preco">Preço<span class="text-danger">*</span></label>
+                <input type="text" class="form-control money" name="preco" id="preco" min="0" required />
               </div>
             </div>
 
           </div>
 
           <div class="form-group">
-            <label for="foto">Foto</label>
-            <input type="file" class="form-control-file" id="foto" name="foto">
+            <label for="foto">Foto<span class="text-danger">*</span></label>
+            <input type="file" class="form-control-file" id="foto" name="foto" required />
           </div>
 
           <div class="form-group">
@@ -168,27 +166,30 @@
           <div class="modal-body">
 
             <div class="row">
+
               <div class="col">
                 <div class="form-group">
-                  <label for="nome">Nome</label>
-                  <input type="text" class="form-control" name="nome" id="nome" value="<?= $item["nome"] ?>" placeholder="Nome do produto">
+                  <label for="nome">Nome<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="nome" id="nome" value="<?= $item["nome"] ?>" placeholder="Nome do produto" required />
                 </div>
               </div>
+
               <div class="col-3">
                 <div class="form-group">
-                  <label for="quantidade">Qtde</label>
-                  <input type="number" class="form-control" name="quantidade" id="quantidade" value="<?= $item["quantidade"] ?>" min="0">
+                  <label for="quantidade">Qtde<span class="text-danger">*</span></label>
+                  <input type="number" class="form-control" name="quantidade" id="quantidade" value="<?= $item["quantidade"] ?>" min="0" required />
                 </div>
               </div>
+
             </div>
 
             <div class="row">
 
               <div class="col">
                 <div class="form-group">
-                  <label for="categoria_id">Categoria</label>
-                  <select class="custom-select" id="categoria_id" name="categoria_id">
-                    <option>Selecione</option>
+                  <label for="categoria_id">Categoria<span class="text-danger">*</span></label>
+                  <select class="custom-select" id="categoria_id" name="categoria_id" required>
+                    <option value="">Selecione</option>
                     <?php foreach ($categorias as $value) : ?>
                       <option value="<?= $value["id"] ?>" <?= $item["categoria_id"] == $value["id"] ? "selected" : "" ?>>
                         <?= $value["nome"] ?>
@@ -199,17 +200,17 @@
               </div>
               <div class="col-3">
                 <div class="form-group">
-                  <label for="preco">Preço</label>
-                  <input type="text" class="form-control money" name="preco" id="preco" value="<?= $item["preco"] ?>" min="0">
+                  <label for="preco">Preço<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control money" name="preco" id="preco" value="<?= $item["preco"] ?>" min="0" required />
                 </div>
               </div>
             </div>
 
             <div class="form-group">
-              <label for="foto">Foto</label>
+              <label for="foto">Foto<span class="text-danger">*</span></label>
               <div class="d-flex">
                 <img height="32" src="<?= $item["foto"] ?>" alt="<?= $item["nome"] ?>">
-                <input type="file" class="form-control-file" id="foto" name="foto">
+                <input type="file" class="form-control-file" id="foto" name="foto" value="<?= $item["foto"] ?>" />
               </div>
             </div>
 

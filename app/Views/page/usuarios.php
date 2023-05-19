@@ -34,7 +34,6 @@
               <th>#</th>
               <th>Nome</th>
               <th>Email</th>
-              <th>CPF</th>
               <th>Telefone</th>
               <th>Status</th>
             </tr>
@@ -45,11 +44,12 @@
                 <td><?= $item["id"] ?></td>
                 <td><?= $item["nome"] . " " . $item["sobrenome"] ?></td>
                 <td><?= $item["email"] ?></td>
-                <td><?= format_cpf_cnpj($item["cpf"]) ?></td>
                 <td><?= format_phone($item["telefone"]) ?></td>
                 <td>
-                  <a href="<?= base_url("admin/usuarios/" . $item["id"] . "/status") ?>" class="btn btn-<?= $item["status"] == ATIVO ? "success" : "danger" ?>">
-                    <i class="fa fa-<?= $item["status"] == ATIVO ? "check-circle" : "times-circle" ?>"></i>
+                  <a href="<?= base_url("admin/usuarios/" . $item["id"] . "/status") ?>">
+                    <span class="badge badge-<?= $item["status"] == ATIVO ? "success" : "danger" ?>">
+                      <?= $item["status"] == ATIVO ? "ATIVO" : "INATIVO" ?>
+                    </span>
                   </a>
                 </td>
               </tr>

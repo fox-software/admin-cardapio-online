@@ -14,11 +14,13 @@ function toast(title = "", message = "", type = "", position = "topRight") {
       iziToast.success({ title, message, position });
       break;
     default:
-      iziToast.show({ position, title, message });
+      iziToast.show({ title, message, position });
       break;
   }
 }
 
 $(function () {
   $('.money').mask('000.000.000.000.000,00', { reverse: true });
+  $('.phone').mask('(00) 00000-0000', { reverse: false });
+  $('.cep').mask('00000-000', { reverse: false });
 });

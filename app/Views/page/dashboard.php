@@ -233,6 +233,7 @@
             <table class="table table-striped table-valign-middle">
               <thead>
                 <tr>
+                  <th>#</th>
                   <th>Produto</th>
                   <th>Qtde</th>
                   <th>Status</th>
@@ -242,6 +243,9 @@
                 <?php foreach ($estoque_produtos as $item) : ?>
                   <tr>
                     <td>
+                      <?= $item["id"] ?>
+                    </td>
+                    <td>
                       <img src="<?= $item["foto"] ?>" alt="<?= $item["nome"] ?>" class="img-circle img-size-32 mr-2">
                       <?= $item["nome"] ?>
                     </td>
@@ -249,8 +253,10 @@
                       <?= $item["quantidade"] ?>
                     </td>
                     <td>
-                      <a href="<?= base_url("admin/produtos/" . $item["id"] . "/status?redirect=dashboard") ?>" class="btn btn-<?= $item["status"] == ATIVO ? "success" : "danger" ?>">
-                        <i class="fa fa-<?= $item["status"] == ATIVO ? "check-circle" : "times-circle" ?>"></i>
+                      <a href="<?= base_url("admin/produtos/" . $item["id"] . "/status?redirect=dashboard") ?>">
+                        <span class="badge badge-<?= $item["status"] == ATIVO ? "success" : "danger" ?>">
+                          <?= $item["status"] == ATIVO ? "ATIVO" : "INATIVO" ?>
+                        </span>
                       </a>
                     </td>
                   </tr>

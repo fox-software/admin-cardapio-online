@@ -24,8 +24,8 @@
         <table class="table table-condensed">
           <thead>
             <tr>
+              <th>#</th>
               <th>Nome</th>
-              <th>Descrição</th>
               <th>Status</th>
               <th width="150">Ações</th>
             </tr>
@@ -33,20 +33,19 @@
           <tbody>
             <?php foreach ($categorias as $item) : ?>
               <tr>
+                <td><?= $item["id"] ?></td>
                 <td><?= $item["nome"] ?></td>
-                <td><?= $item["descricao"] ?></td>
                 <td>
-                  <a href="<?= base_url("admin/categorias/" . $item["id"] . "/status") ?>" class="btn btn-<?= $item["status"] == ATIVO ? "success" : "danger" ?>">
-                    <i class="fa fa-<?= $item["status"] == ATIVO ? "check-circle" : "times-circle" ?>"></i>
+                  <a href="<?= base_url("admin/categorias/" . $item["id"] . "/status") ?>">
+                    <span class="badge badge-<?= $item["status"] == ATIVO ? "success" : "danger" ?>">
+                      <?= $item["status"] == ATIVO ? "ATIVO" : "INATIVO" ?>
+                    </span>
                   </a>
                 </td>
                 <td style="width: 10px;">
                   <button type="button" class="btn btn-info" title="Editar" data-toggle="modal" data-target="#edit-categoria-<?= $item["id"] ?>">
                     <i class="fas fa-edit"></i>
                   </button>
-                  <!-- <a href="" class="btn btn-warning" title="Ver">
-                    <i class="fa fa-eye"></i>
-                  </a> -->
                 </td>
               </tr>
             <?php endforeach; ?>
@@ -73,13 +72,8 @@
         <div class="modal-body">
 
           <div class="form-group">
-            <label for="nome">Nome</label>
-            <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome da categoria">
-          </div>
-
-          <div class="form-group">
-            <label for="descricao">Descrição</label>
-            <textarea class="form-control" id="descricao" name="descricao" rows="3"></textarea>
+            <label for="nome">Nome <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome da categoria" required>
           </div>
 
         </div>
@@ -107,13 +101,8 @@
           <div class="modal-body">
 
             <div class="form-group">
-              <label for="nome">Nome</label>
-              <input type="text" class="form-control" name="nome" id="nome" value="<?= $item["nome"] ?>" placeholder="Nome da categoria">
-            </div>
-
-            <div class="form-group">
-              <label for="descricao">Descrição</label>
-              <textarea class="form-control" id="descricao" name="descricao" rows="3"><?= $item["descricao"] ?></textarea>
+              <label for="nome">Nome <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" name="nome" id="nome" value="<?= $item["nome"] ?>" placeholder="Nome da categoria" required>
             </div>
 
           </div>

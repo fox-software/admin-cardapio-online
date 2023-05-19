@@ -21,9 +21,6 @@ class CreateCategoriasTable extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 200,
             ],
-            'descricao' => [
-                'type' => 'TEXT',
-            ],
             'status' => [
                 'type' => 'ENUM',
                 'constraint' => ["A", "I"],

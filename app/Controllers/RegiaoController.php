@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-use Exception;
-
 use App\Models\RegiaoModel;
 
 class RegiaoController extends BaseController
@@ -18,6 +16,7 @@ class RegiaoController extends BaseController
     public function index()
     {
         $filtros = $this->request->getVar();
+        $filtros["sistema"] = get_sistema_admin();
 
         $data = [
             "page" => "regioes",
@@ -32,18 +31,16 @@ class RegiaoController extends BaseController
     public function cadastrar()
     {
         $dados = $this->request->getVar();
-        $dados["sistema_id"] = session()->get("sistema")["id"];
-
+        $dados["sistema_id"] = get_sistema_admin();
         $dados["cep"] = only_numbers($dados["cep"]);
 
-        try {
-            $this->regiaoModel->insert($dados);
-            toast(TOAST_SUCCESS, "Sucesso", "Região salva com sucesso!");
-            return redirect()->to("admin/regioes");
-        } catch (Exception $e) {
-            toast(TOAST_ERROR, "Falha", $e->getMessage());
-            return redirect()->to("admin/regioes");
-        }
+        $resultado = $this->regiaoModel->add($dados);
+
+        toast_new($resultado["toast"]);
+
+        if (!$resultado["error"]) return redirect()->to("admin/regioes");
+
+        return redirect()->to("admin/regioes");
     }
 
     public function status(int $regiao_id)
@@ -51,30 +48,26 @@ class RegiaoController extends BaseController
         $regiao = $this->regiaoModel->find($regiao_id);
         $novo_status = $regiao["status"] == ATIVO ? INATIVO : ATIVO;
 
-        try {
-            $this->regiaoModel->update($regiao["id"], ["status" => $novo_status]);
-            toast(TOAST_SUCCESS, "Sucesso", "Região salva com sucesso!");
-            return redirect()->to("admin/regioes");
-        } catch (Exception $e) {
-            toast(TOAST_ERROR, "Falha", $e->getMessage());
-            return redirect()->to("admin/regioes");
-        }
+        $resultado = $this->regiaoModel->edit($regiao["id"], ["status" => $novo_status]);
+
+        toast_new($resultado["toast"]);
+
+        if (!$resultado["error"]) return redirect()->to("admin/regioes");
+
+        return redirect()->to("admin/regioes");
     }
 
     public function editar(int $regiao_id)
-    {
+    {   
         $dados = $this->request->getVar();
         $regiao = $this->regiaoModel->find($regiao_id);
 
-        $dados["cep"] = only_numbers($dados["cep"]);
+        $resultado = $this->regiaoModel->edit($regiao["id"], $dados);
 
-        try {
-            $this->regiaoModel->update($regiao["id"], $dados);
-            toast(TOAST_SUCCESS, "Sucesso", "Região salva com sucesso!");
-            return redirect()->to("admin/regioes");
-        } catch (Exception $e) {
-            toast(TOAST_ERROR, "Falha", $e->getMessage());
-            return redirect()->to("admin/regioes");
-        }
+        toast_new($resultado["toast"]);
+
+        if (!$resultado["error"]) return redirect()->to("admin/regioes");
+
+        return redirect()->to("admin/regioes");
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\CategoriaModel;
-use Exception;
 
 class CategoriaController extends BaseController
 {
@@ -17,6 +16,7 @@ class CategoriaController extends BaseController
     public function index()
     {
         $filtros = $this->request->getVar();
+        $filtros["sistema"] = get_sistema_admin();
 
         $data = [
             "page" => "categorias",
@@ -30,17 +30,16 @@ class CategoriaController extends BaseController
 
     public function cadastrar()
     {
-        $data = $this->request->getVar();
-        $data["sistema_id"] = session()->get("sistema")["id"];
+        $dados = $this->request->getVar();
+        $dados["sistema_id"] = get_sistema_admin();
 
-        try {
-            $this->categoriaModel->insert($data);
-            toast(TOAST_SUCCESS, "Sucesso", "Categoria salva com sucesso!");
-            return redirect()->to("admin/categorias");
-        } catch (Exception $e) {
-            toast(TOAST_SUCCESS, "Falha", $e->getMessage());
-            return redirect()->to("admin/categorias");
-        }
+        $resultado = $this->categoriaModel->add($dados);
+
+        toast_new($resultado["toast"]);
+
+        if (!$resultado["error"]) return redirect()->to("admin/categorias");
+
+        return redirect()->to("admin/categorias");
     }
 
     public function status(int $categoria_id)
@@ -48,14 +47,13 @@ class CategoriaController extends BaseController
         $categoria = $this->categoriaModel->find($categoria_id);
         $novo_status = $categoria["status"] == ATIVO ? INATIVO : ATIVO;
 
-        try {
-            $this->categoriaModel->update($categoria["id"], ["status" => $novo_status]);
-            toast(TOAST_SUCCESS, "Sucesso", "Categoria salva com sucesso!");
-            return redirect()->to("admin/categorias");
-        } catch (Exception $e) {
-            toast(TOAST_SUCCESS, "Falha", $e->getMessage());
-            return redirect()->to("admin/categorias");
-        }
+        $resultado = $this->categoriaModel->edit($categoria["id"], ["status" => $novo_status]);
+
+        toast_new($resultado["toast"]);
+
+        if (!$resultado["error"]) return redirect()->to("admin/categorias");
+
+        return redirect()->to("admin/categorias");
     }
 
     public function editar(int $categoria_id)
@@ -63,13 +61,12 @@ class CategoriaController extends BaseController
         $dados = $this->request->getVar();
         $categoria = $this->categoriaModel->find($categoria_id);
 
-        try {
-            $this->categoriaModel->update($categoria["id"], $dados);
-            toast(TOAST_SUCCESS, "Sucesso", "Categoria salva com sucesso!");
-            return redirect()->to("admin/categorias");
-        } catch (Exception $e) {
-            toast(TOAST_SUCCESS, "Falha", $e->getMessage());
-            return redirect()->to("admin/categorias");
-        }
+        $resultado = $this->categoriaModel->edit($categoria["id"], $dados);
+
+        toast_new($resultado["toast"]);
+
+        if (!$resultado["error"]) return redirect()->to("admin/categorias");
+
+        return redirect()->to("admin/categorias");
     }
 }

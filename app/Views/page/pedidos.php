@@ -44,28 +44,28 @@
             <?php foreach ($pedidos as $item) : ?>
               <tr>
                 <td><?= $item["codigo"] ?></td>
-                <td><?= format_date($item["data"], "d/m/Y H:i:s" ) ?></td>
+                <td><?= format_date($item["data"], "d/m/Y H:i:s") ?></td>
                 <td><?= $item["usuario_nome"] ?></td>
                 <td><?= $item["endereco"] ?></td>
                 <td><?= $item["forma_pagamento"] ?></td>
                 <td><?= format_money($item["frete"]) ?></td>
                 <td><?= format_money($item["total"]) ?></td>
                 <td>
-                  <?php if ($item["status"] == PENDENTE) : ?>
-                    <a href="#" class="btn btn-primary" title="PEDIDO PENDENTE">
-                      <i class="fa fa-info-circle"></i>
+                  <?php if ($item["status"] === PENDENTE) : ?>
+                    <a href="#" title="PEDIDO PENDENTE">
+                      <span class="badge badge-primary">PEDIDO PENDENTE</span>
                     </a>
-                  <?php elseif ($item["status"] == RECEBIDO) : ?>
-                    <a href="#" class="btn btn-success" title="PEDIDO RECEBIDO">
-                      <i class="fa fa-check-circle"></i>
+                  <?php elseif ($item["status"] === RECEBIDO) : ?>
+                    <a href="#" title="PEDIDO RECEBIDO">
+                    <span class="badge badge-success">PEDIDO RECEBIDO</span>
                     </a>
-                  <?php elseif ($item["status"] == FALHA) : ?>
-                    <a href="#" class="btn btn-danger" title="PEDIDO CANCELADO">
-                      <i class="fa fa-times-circle"></i>
+                  <?php elseif ($item["status"] === FALHA) : ?>
+                    <a href="#" title="PEDIDO CANCELADO">
+                    <span class="badge badge-danger">PEDIDO CANCELADO</span>
                     </a>
-                  <?php elseif ($item["status"] == ENTREGA) : ?>
-                    <a href="#" class="btn btn-warning" title="PEDIDO EM ROTA">
-                      <i class="fa fa-motorcycle"></i>
+                  <?php elseif ($item["status"] === ENTREGA) : ?>
+                    <a href="#" title="PEDIDO EM ROTA">
+                    <span class="badge badge-warning">PEDIDO EM ROTA</span>
                     </a>
                   <?php endif; ?>
 

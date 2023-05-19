@@ -24,6 +24,7 @@
         <table class="table table-condensed">
           <thead>
             <tr>
+              <th>#</th>
               <th>CEP</th>
               <th>Frete</th>
               <th>Status</th>
@@ -33,20 +34,20 @@
           <tbody>
             <?php foreach ($regioes as $item) : ?>
               <tr>
-                <td><?= $item["cep"] ?></td>
+                <td><?= $item["id"] ?></td>
+                <td class="cep"><?= $item["cep"] ?></td>
                 <td><?= format_money($item["frete"]) ?></td>
                 <td>
-                  <a href="<?= base_url("admin/regioes/" . $item["id"] . "/status") ?>" class="btn btn-<?= $item["status"] == ATIVO ? "success" : "danger" ?>">
-                    <i class="fa fa-<?= $item["status"] == ATIVO ? "check-circle" : "times-circle" ?>"></i>
+                  <a href="<?= base_url("admin/regioes/" . $item["id"] . "/status") ?>">
+                    <span class="badge badge-<?= $item["status"] == ATIVO ? "success" : "danger" ?>">
+                      <?= $item["status"] == ATIVO ? "ATIVO" : "INATIVO" ?>
+                    </span>
                   </a>
                 </td>
                 <td style="width: 10px;">
                   <button type="button" class="btn btn-info" title="Editar" data-toggle="modal" data-target="#edit-regiao-<?= $item["id"] ?>">
                     <i class="fas fa-edit"></i>
                   </button>
-                  <!-- <a href="" class="btn btn-warning" title="Ver">
-                    <i class="fa fa-eye"></i>
-                  </a> -->
                 </td>
               </tr>
             <?php endforeach; ?>
@@ -74,13 +75,13 @@
         <div class="modal-body">
 
           <div class="form-group">
-            <label for="cep">CEP</label>
-            <input type="text" class="form-control" name="cep" id="cep" placeholder="CEP da região">
+            <label for="cep">CEP<span class="text-danger">*</span></label>
+            <input class="form-control cep" name="cep" id="cep" placeholder="CEP da região" required />
           </div>
 
           <div class="form-group">
-            <label for="frete">Frete</label>
-            <input class="form-control money" id="frete" name="frete" placeholder="Valor do frete" />
+            <label for="frete">Frete<span class="text-danger">*</span></label>
+            <input class="form-control money" id="frete" name="frete" placeholder="Valor do frete" required />
           </div>
 
         </div>
@@ -108,13 +109,13 @@
           <div class="modal-body">
 
             <div class="form-group">
-              <label for="cep">CEP</label>
-              <input type="text" class="form-control" name="cep" id="cep" value="<?= $item["cep"] ?>" placeholder="CEP da região">
+              <label for="cep">CEP<span class="text-danger">*</span></label>
+              <input class="form-control cep" name="cep" id="cep" value="<?= $item["cep"] ?>" placeholder="CEP da região" required />
             </div>
 
             <div class="form-group">
-              <label for="frete">Frete</label>
-              <input class="form-control money" id="frete" name="frete" value="<?= $item["frete"] ?>" placeholder="Valor do frete" />
+              <label for="frete">Frete<span class="text-danger">*</span></label>
+              <input class="form-control money" id="frete" name="frete" value="<?= $item["frete"] ?>" placeholder="Valor do frete" required />
             </div>
 
           </div>

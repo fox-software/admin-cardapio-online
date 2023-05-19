@@ -22,12 +22,17 @@ class ProdutoController extends BaseController
     public function index()
     {
         $filtros = $this->request->getVar();
+        $filtros["sistema"] = get_sistema_admin();
+
+        $categorias = $this->categoriaModel->getAll(["status" => ATIVO, "sistema" => get_sistema_admin()]);
+
+        $produtos = $this->produtoModel->getAll($filtros);
 
         $data = [
             "page" => "produtos",
             "page_title" => "Produtos",
-            "produtos" => $this->produtoModel->getAll($filtros),
-            "categorias" => $this->categoriaModel->getAll(["status" => ATIVO]),
+            "categorias" => $categorias,
+            "produtos" => $produtos,
             "filtros" => $filtros
         ];
 
@@ -37,56 +42,29 @@ class ProdutoController extends BaseController
     public function cadastrar()
     {
         $dados = $this->request->getVar();
-
-        $validate = $this->validate([
-            'foto' => [
-                'uploaded[foto]',
-                'mime_in[foto,image/jpg,image/jpeg,image/png]',
-                'max_size[foto,1024]',
-            ]
-        ]);
-
         $img = $this->request->getFile('foto');
 
-        if (isset($img) && $img->isValid()) {
-            if (!$validate) {
-                toast(TOAST_ERROR, "Falha", 'Tipo de arquivo não permitido!');
-                return redirect()->to("admin/produtos");
-            } else {
-                $s3 = new AwsS3();
-                $dados["foto"] = $s3->store($_FILES['foto']);
-            }
-        }
 
-        try {
-            $this->produtoModel->insert($dados);
+        $resultado = $this->produtoModel->add($dados, $img);
 
-            toast(TOAST_SUCCESS, "Sucesso", "Produto salvo com sucesso!");
+        toast_new($resultado["toast"]);
 
-            return redirect()->to("admin/produtos");
-        } catch (Exception $e) {
-            toast(TOAST_SUCCESS, "Erro", $e->getMessage());
-            return redirect()->to("admin/produtos");
-        }
+        if (!$resultado["error"]) return redirect()->to("admin/produtos");
+
+        return redirect()->to("admin/produtos");
     }
 
     public function status(int $id)
     {
         $dados = $this->request->getVar();
-
         $produto = $this->produtoModel->find($id);
         $novo_status = $produto["status"] == ATIVO ? INATIVO : ATIVO;
 
-        try {
-            $this->produtoModel->update($produto["id"], ["status" => $novo_status]);
-            toast(TOAST_SUCCESS, "Sucesso", "Produto salvo com sucesso!");
-        } catch (Exception $e) {
-            toast(TOAST_SUCCESS, "Falha", $e->getMessage());
-        }
+        $resultado = $this->produtoModel->edit($produto["id"], ["status" => $novo_status]);
 
-        if (!empty($dados)) {
-            return redirect()->to("admin/" . $dados["redirect"]);
-        }
+        toast_new($resultado["toast"]);
+
+        if (!$resultado["error"]) return redirect()->to("admin/produtos");
 
         return redirect()->to("admin/produtos");
     }
@@ -94,36 +72,15 @@ class ProdutoController extends BaseController
     public function editar(int $id)
     {
         $dados = $this->request->getVar();
-
-        $validate = $this->validate([
-            'foto' => [
-                'uploaded[foto]',
-                'mime_in[foto,image/jpg,image/jpeg,image/png]',
-                'max_size[foto,1024]',
-            ]
-        ]);
-
         $img = $this->request->getFile('foto');
-
-        if (isset($img) && $img->isValid()) {
-            if (!$validate) {
-                toast(TOAST_ERROR, "Falha", 'Tipo de arquivo não permitido!');
-                return redirect()->to("admin/produtos");
-            } else {
-                $s3 = new AwsS3();
-                $dados["foto"] = $s3->store($_FILES['foto']);
-            }
-        }
-
         $produto = $this->produtoModel->find($id);
 
-        try {
-            $this->produtoModel->update($produto["id"], $dados);
-            toast(TOAST_SUCCESS, "Sucesso", "Produto salvo com sucesso!");
-            return redirect()->to("admin/produtos");
-        } catch (Exception $e) {
-            toast(TOAST_ERROR, "Falha", $e->getMessage());
-            return redirect()->to("admin/produtos");
-        }
+        $resultado = $this->produtoModel->edit($produto["id"], $dados, $img);
+
+        toast_new($resultado["toast"]);
+
+        if (!$resultado["error"]) return redirect()->to("admin/produtos");
+
+        return redirect()->to("admin/produtos");
     }
 }

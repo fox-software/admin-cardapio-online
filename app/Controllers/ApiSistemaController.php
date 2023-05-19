@@ -28,14 +28,9 @@ class ApiSistemaController extends ResourceController
     {
         $data = $this->sistemaModel->select("
         id, codigo, telefone, status, pix,
-        ramo_sistema, 
-        tempo_entrega_max, 
-        tempo_entrega_min,
-        razao_social,
-        nome_fantasia,
-        foto,
-        aberto,
-        fechado
+        tempo_entrega_max, tempo_entrega_min,
+        razao_social, nome_fantasia,
+        foto, aberto, fechado, ramo_sistema
         ")->find(get_sistema_api());
 
         $data["aberto"] = get_status_sistema($data["aberto"], $data["fechado"]);

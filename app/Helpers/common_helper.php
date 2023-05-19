@@ -151,6 +151,15 @@ if (!function_exists('only_numbers')) {
   }
 }
 
+if (!function_exists('format_number')) {
+  function format_number($number)
+  {
+    $number = str_replace(",", ".", $number);
+
+    return $number;
+  }
+}
+
 if (!function_exists('format_text')) {
   function format_text($text)
   {
@@ -164,9 +173,20 @@ if (!function_exists('toast')) {
   function toast($type = "", $title = "", $message = "")
   {
     session()->setFlashData([
-      "toast-$type" => true,
+      $type => true,
       'title' => $title,
       'message' => $message,
+    ]);
+  }
+}
+
+if (!function_exists('toast_new')) {
+  function toast_new($toast)
+  {
+    session()->setFlashData([
+      $toast["type"] => true,
+      'title' => $toast["title"],
+      'message' => $toast["message"],
     ]);
   }
 }
@@ -175,6 +195,14 @@ if (!function_exists('get_sistema_api')) {
   function get_sistema_api()
   {
     $sistema_id = apache_request_headers()["Sistema"];
+
+    return $sistema_id;
+  }
+}
+if (!function_exists('get_sistema_admin')) {
+  function get_sistema_admin()
+  {
+    $sistema_id = session()->get("sistema")["id"];
 
     return $sistema_id;
   }

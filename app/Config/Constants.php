@@ -95,10 +95,10 @@ define('EVENT_PRIORITY_HIGH', 10);
 
 
 // TOASTS
-defined('TOAST_INFO') || define('TOAST_INFO', 'info');
-defined('TOAST_ERROR') || define('TOAST_ERROR', 'error');
-defined('TOAST_WARNING') || define('TOAST_WARNING', 'warning');
-defined('TOAST_SUCCESS') || define('TOAST_SUCCESS', 'success');
+defined('TOAST_INFO') || define('TOAST_INFO', 'toast-info');
+defined('TOAST_ERROR') || define('TOAST_ERROR', 'toast-error');
+defined('TOAST_WARNING') || define('TOAST_WARNING', 'toast-warning');
+defined('TOAST_SUCCESS') || define('TOAST_SUCCESS', 'toast-success');
 
 // STATUS
 defined('ATIVO') || define('ATIVO', 'A');
