@@ -38,7 +38,7 @@ class CategoriaController extends BaseController
 
         toast_new($resultado["toast"]);
 
-        if (!$resultado["error"]) return redirect()->to("admin/categorias");
+        if ($resultado["error"]) return redirect()->to("admin/categorias");
 
         return redirect()->to("admin/categorias");
     }
@@ -52,7 +52,7 @@ class CategoriaController extends BaseController
 
         toast_new($resultado["toast"]);
 
-        if (!$resultado["error"]) return redirect()->to("admin/categorias");
+        if ($resultado["error"]) return redirect()->to("admin/categorias");
 
         return redirect()->to("admin/categorias");
     }

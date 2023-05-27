@@ -14,7 +14,7 @@
                 <i class="fa fa-search" aria-hidden="true"></i>
               </button>
             </div>
-            <button type="button" class="btn btn-dark" title="Adicionar" data-toggle="modal" data-target="#add-categoria">
+            <button type="button" class="btn btn-dark" title="Adicionar" data-toggle="modal" data-target="#modalAddCategoria">
               <i class="fa fa-plus" aria-hidden="true"></i>
             </button>
           </div>
@@ -43,7 +43,7 @@
                   </a>
                 </td>
                 <td style="width: 10px;">
-                  <button type="button" class="btn btn-info" title="Editar" data-toggle="modal" data-target="#edit-categoria-<?= $item["id"] ?>">
+                  <button type="button" class="btn btn-info" title="Editar" data-toggle="modal" data-target="#modalEditCategoria-<?= $item["id"] ?>">
                     <i class="fas fa-edit"></i>
                   </button>
                 </td>
@@ -59,7 +59,7 @@
 
 
 <!-- Modal ADD -->
-<div class="modal fade" id="add-categoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalAddCategoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -68,12 +68,13 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="<?= base_url("admin/categorias/cadastrar") ?>" method="post">
+      <form id="formAddCategoria" action="<?= base_url("admin/categorias/cadastrar") ?>" method="POST">
         <div class="modal-body">
 
           <div class="form-group">
             <label for="nome">Nome <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome da categoria" required>
+            <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome da categoria" value="<?= old("nome") ?>">
+            <div class="invalid-feedback"></div>
           </div>
 
         </div>
@@ -88,7 +89,7 @@
 
 <!-- Modal EDIT -->
 <?php foreach ($categorias as $item) : ?>
-  <div class="modal fade" id="edit-categoria-<?= $item["id"] ?>" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal fade" id="modalEditCategoria-<?= $item["id"] ?>" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -97,7 +98,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="<?= base_url("admin/categorias/" . $item["id"] . "/editar") ?>" method="post">
+        <form id="formEditCategoria" action="<?= base_url("admin/categorias/" . $item["id"] . "/editar") ?>" method="post">
           <div class="modal-body">
 
             <div class="form-group">
@@ -108,13 +109,12 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-            <button type="submit" class="btn btn-primary">Salvar</button>
+            <button type="submit" id="btnEditCategoria" class="btn btn-primary">Salvar</button>
           </div>
         </form>
       </div>
     </div>
   </div>
 <?php endforeach; ?>
-
 
 <?= $this->endSection() ?>

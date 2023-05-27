@@ -8,6 +8,7 @@
 Vagrantfile
 public/temp
 public/assets/uploads/*
+public/node_modules/*
 
 #-------------------------
 # Dump database

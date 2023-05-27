@@ -34,6 +34,12 @@
 
   <!-- JQUERY -->
   <script src="<?= base_url("assets/plugins/jquery/jquery.min.js") ?>"></script>
+  <script src="<?= base_url("node_modules/jquery-validation/dist/jquery.validate.min.js") ?>"></script>
+  <script src="<?= base_url("node_modules/jquery-validation/dist/additional-methods.min.js") ?>"></script>
+
+  <!-- AXIOS -->
+  <script src="<?= base_url("node_modules/axios/dist/axios.min.js") ?>"></script>
+
 </head>
 
 <body>

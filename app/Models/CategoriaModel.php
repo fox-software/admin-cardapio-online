@@ -36,14 +36,14 @@ class CategoriaModel extends Model
   {
     if (!$this->validate($dados)) {
       $resultado = [
-        "error" => false,
+        "error" => true,
         "toast" => ["type" => TOAST_ERROR, "title" => "Falha", "message" => "Falha ao salvar!"]
       ];
     } else {
       $this->insert($dados);
 
       $resultado = [
-        "error" => true,
+        "error" => false,
         "toast" => ["type" => TOAST_SUCCESS, "title" => "Sucesso", "message" => "Sucesso ao salvar!"]
       ];
     }
@@ -55,14 +55,14 @@ class CategoriaModel extends Model
   {
     if (!$this->validate($dados)) {
       $resultado = [
-        "error" => false,
+        "error" => true,
         "toast" => ["type" => TOAST_ERROR, "title" => "Falha", "message" => "Falha ao salvar!"]
       ];
     } else {
       $this->update($id, $dados);
 
       $resultado = [
-        "error" => true,
+        "error" => false,
         "toast" => ["type" => TOAST_SUCCESS, "title" => "Sucesso", "message" => "Sucesso ao salvar!"]
       ];
     }
