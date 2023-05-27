@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Api;
 
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 
-use App\Models\UsuarioModel;
 use App\Libraries\Pagarme;
 
-class ApiPagamentoController extends ResourceController
+use App\Models\UsuarioModel;
+
+class PagamentoController extends ResourceController
 {
   use ResponseTrait;
 

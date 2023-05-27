@@ -53,12 +53,6 @@ function graphic(data) {
           borderColor: '#FFF',
           data: data["chart"]["chart_pedidos"]
         },
-        {
-          label: 'Faturamentos',
-          backgroundColor: '#28a745',
-          borderColor: '#FFF',
-          data: data["chart"]["chart_faturamentos"]
-        },
       ]
     },
     options: {

@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Admin;
+
+use App\Controllers\BaseController;
 
 use App\Models\UsuarioModel;
 use App\Models\UsuarioSistemaModel;
+
 use Exception;
 
 class UsuarioController extends BaseController

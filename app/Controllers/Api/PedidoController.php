@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Api;
 
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
@@ -12,7 +12,7 @@ use App\Models\PedidoProdutoModel;
 use App\Models\ProdutoModel;
 use App\Models\UsuarioModel;
 
-class ApiPedidoController extends ResourceController
+class PedidoController extends ResourceController
 {
     use ResponseTrait;
 

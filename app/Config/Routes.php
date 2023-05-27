@@ -2,26 +2,26 @@
 
 namespace Config;
 
-use App\Controllers\ApiCartaoController;
-use App\Controllers\ApiCategoriaController;
-use App\Controllers\ApiEnderecoController;
-use App\Controllers\ApiPagamentoController;
-use App\Controllers\ApiPedidoController;
-use App\Controllers\ApiProdutoController;
-use App\Controllers\ApiSistemaController;
-use App\Controllers\ApiUsuarioController;
 
+use App\Controllers\Admin\CategoriaController;
+use App\Controllers\Admin\ConfiguracaoController;
+use App\Controllers\Admin\DashboardController;
+use App\Controllers\Admin\FormaPagamentoController;
+use App\Controllers\Admin\LoginController;
+use App\Controllers\Admin\PainelController;
+use App\Controllers\Admin\PedidoController;
+use App\Controllers\Admin\ProdutoController;
+use App\Controllers\Admin\RegiaoController;
+use App\Controllers\Admin\UsuarioController;
 
-use App\Controllers\CategoriaController;
-use App\Controllers\ConfiguracaoController;
-use App\Controllers\DashboardController;
-use App\Controllers\FormaPagamentoController;
-use App\Controllers\LoginController;
-use App\Controllers\PainelController;
-use App\Controllers\PedidoController;
-use App\Controllers\ProdutoController;
-use App\Controllers\RegiaoController;
-use App\Controllers\UsuarioController;
+use App\Controllers\Api\CartaoController;
+use App\Controllers\Api\CategoriaController as ApiCategoriaController;
+use App\Controllers\Api\EnderecoController;
+use App\Controllers\Api\PagamentoController;
+use App\Controllers\Api\PedidoController as ApiPedidoController;
+use App\Controllers\Api\ProdutoController as ApiProdutoController;
+use App\Controllers\Api\SistemaController;
+use App\Controllers\Api\UsuarioController as ApiUsuarioController;
 
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
@@ -125,29 +125,29 @@ $routes->group('api', ['filter' => 'cors'], function ($routes) {
     });
 
     $routes->group('sistema', function ($routes) {
-        $routes->get('', [ApiSistemaController::class, "index"]);
-        $routes->get('regioes/(:num)', [ApiSistemaController::class, "regioes"]);
-        $routes->get('pagamentos', [ApiSistemaController::class, "formaPagamentos"]);
+        $routes->get('', [SistemaController::class, "index"]);
+        $routes->get('regioes/(:num)', [SistemaController::class, "regioes"]);
+        $routes->get('pagamentos', [SistemaController::class, "formaPagamentos"]);
     });
-    
+
     $routes->get('produtos', [ApiProdutoController::class, "index"]);
     $routes->get('categorias', [ApiCategoriaController::class, "index"]);
 
     $routes->group('', ['filter' => 'authApi'], function ($routes) {
         $routes->group('enderecos', function ($routes) {
-            $routes->get('', [ApiEnderecoController::class, "index"]);
-            $routes->post('cadastrar', [ApiEnderecoController::class, "cadastrar"]);
-            $routes->post('editar', [ApiEnderecoController::class, "editar"]);
-            $routes->post('(:num)/status', [ApiEnderecoController::class, "status"]);
-            $routes->post('(:num)/principal', [ApiEnderecoController::class, "principal"]);
+            $routes->get('', [EnderecoController::class, "index"]);
+            $routes->post('cadastrar', [EnderecoController::class, "cadastrar"]);
+            $routes->post('editar', [EnderecoController::class, "editar"]);
+            $routes->post('(:num)/status', [EnderecoController::class, "status"]);
+            $routes->post('(:num)/principal', [EnderecoController::class, "principal"]);
         });
 
         $routes->group('cartoes', function ($routes) {
-            $routes->get('', [ApiCartaoController::class, "index"]);
-            $routes->post('cadastrar', [ApiCartaoController::class, "cadastrar"]);
-            $routes->post('editar', [ApiCartaoController::class, "editar"]);
-            $routes->post('(:num)/status', [ApiCartaoController::class, "status"]);
-            $routes->post('(:num)/principal', [ApiCartaoController::class, "principal"]);
+            $routes->get('', [CartaoController::class, "index"]);
+            $routes->post('cadastrar', [CartaoController::class, "cadastrar"]);
+            $routes->post('editar', [CartaoController::class, "editar"]);
+            $routes->post('(:num)/status', [CartaoController::class, "status"]);
+            $routes->post('(:num)/principal', [CartaoController::class, "principal"]);
         });
 
         $routes->group('pedidos', function ($routes) {
@@ -157,7 +157,7 @@ $routes->group('api', ['filter' => 'cors'], function ($routes) {
         });
 
         $routes->group('pagamentos', function ($routes) {
-            $routes->post('cartao-credito', [ApiPagamentoController::class, "checkoutCreditCard"]);
+            $routes->post('cartao-credito', [PagamentoController::class, "checkoutCreditCard"]);
         });
     });
 });

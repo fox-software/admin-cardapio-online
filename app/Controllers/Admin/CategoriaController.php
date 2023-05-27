@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Admin;
 
+use App\Controllers\BaseController;
 use App\Models\CategoriaModel;
 
 class CategoriaController extends BaseController

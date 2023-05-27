@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Api;
 
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
@@ -8,7 +8,7 @@ use CodeIgniter\API\ResponseTrait;
 use App\Models\EnderecoModel;
 use App\Models\UsuarioModel;
 
-class ApiEnderecoController extends ResourceController
+class EnderecoController extends ResourceController
 {
   use ResponseTrait;
 

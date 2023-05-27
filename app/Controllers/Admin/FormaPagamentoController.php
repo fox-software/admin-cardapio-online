@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Admin;
+
+use App\Controllers\BaseController;
 
 use App\Models\FormaPagamentoModel;
 use App\Models\FormaPagamentoSistemaModel;
+
 use Exception;
 
 class FormaPagamentoController extends BaseController

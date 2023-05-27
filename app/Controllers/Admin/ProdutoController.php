@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Admin;
 
-use Exception;
-use App\Libraries\AwsS3;
+use App\Controllers\BaseController;
 
 use App\Models\CategoriaModel;
 use App\Models\ProdutoModel;
