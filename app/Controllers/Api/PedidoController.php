@@ -73,9 +73,9 @@ class PedidoController extends ResourceController
             case CARTAO_ONLINE:
                 $responsePagamento = $pagamento->cartaoCredito($usuario_id, $data);
 
-                $data["logs"] = $responsePagamento;
+                $responsePagamento;
 
-                return $this->respond($data);
+                return $this->respond($responsePagamento);
 
 
                 $statusPagamento = $responsePagamento["data"]["response"]->status;
