@@ -73,12 +73,10 @@ class PedidoController extends ResourceController
             case CARTAO_ONLINE:
                 $responsePagamento = $pagamento->cartaoCredito($usuario_id, $data);
 
-                if (!$responsePagamento["success"])
-                    throw new Exception("Falha ao criar pedido");
-
                 $this->statusPagamentoOnline($responsePagamento["data"]["response"]->status);
 
                 $data->codigo = $responsePagamento["data"]["response"]->id;
+                
                 $data = $this->pedidoModel->cadastrar($usuario_id, $data);
 
                 break;
@@ -111,7 +109,7 @@ class PedidoController extends ResourceController
         return $this->respond($data);
     }
 
-    public function statusPagamentoOnline($status)
+    private function statusPagamentoOnline($status)
     {
         switch ($status) {
             case PAGO:

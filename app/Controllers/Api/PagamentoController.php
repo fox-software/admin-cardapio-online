@@ -32,23 +32,14 @@ class PagamentoController extends ResourceController
     $usuario = $this->usuarioModel->getUserCompleteById($usuario_id);
     $sistema = $this->sistemaModel->getById(get_sistema_api());
 
-    // CRIAR USUÁRIO NO PAGARME
-    $responseUsuarioPagarme = $this->pagarme->criarUsuarioPagarme($usuario);
-
-    if (empty($responseUsuarioPagarme))
-      throw new Exception("Não foi possível criar um cliente no gateway");
-
-    // CRIAR CARTÃO NO PAGARME
-    $responseCartaoPagarme = $this->pagarme->criarCartaoUsuarioPagarme($responseUsuarioPagarme["data"]["customer"]->id, $dados->cartao);
-
-    if (!$responseCartaoPagarme["success"])
-      throw new Exception($responseCartaoPagarme["message"]);
-
     // DADOS PAGAMENTO
     $responseDadosPagamento = $this->pagarme->dadosPagamentoCartaoCredito($usuario, $sistema, $dados);
 
     // CRIAR PAGAMENTO NO PAGARME
     $responsePagamento = $this->pagarme->criarPagamentoCartaoCredito($responseDadosPagamento);
+
+    if (!$responsePagamento["success"])
+      throw new Exception("Falha ao criar pedido");
 
     return $responsePagamento;
   }
