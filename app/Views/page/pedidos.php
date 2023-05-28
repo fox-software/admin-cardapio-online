@@ -38,12 +38,13 @@
               <th>Frete</th>
               <th>Total</th>
               <th>Status</th>
+              <th>Ações</th>
             </tr>
           </thead>
           <tbody>
             <?php foreach ($pedidos as $item) : ?>
               <tr>
-                <td><?= $item["codigo"] ?></td>
+                <td><?= $item["codigo"] == null ? $item["id"] : $item["codigo"] ?></td>
                 <td><?= format_date($item["data"], "d/m/Y H:i:s") ?></td>
                 <td><?= $item["usuario_nome"] ?></td>
                 <td><?= $item["endereco"] ?></td>
@@ -57,19 +58,26 @@
                     </a>
                   <?php elseif ($item["status"] === RECEBIDO) : ?>
                     <a href="#" title="PEDIDO RECEBIDO">
-                    <span class="badge badge-success">PEDIDO RECEBIDO</span>
+                      <span class="badge badge-success">PEDIDO RECEBIDO</span>
                     </a>
                   <?php elseif ($item["status"] === FALHA) : ?>
                     <a href="#" title="PEDIDO CANCELADO">
-                    <span class="badge badge-danger">PEDIDO CANCELADO</span>
+                      <span class="badge badge-danger">PEDIDO CANCELADO</span>
                     </a>
                   <?php elseif ($item["status"] === ENTREGA) : ?>
                     <a href="#" title="PEDIDO EM ROTA">
-                    <span class="badge badge-warning">PEDIDO EM ROTA</span>
+                      <span class="badge badge-warning">PEDIDO EM ROTA</span>
                     </a>
                   <?php endif; ?>
-
                 </td>
+
+                <td>
+                  <?php if (!$item["comprovante"] == null) : ?>
+                    <a href="<?= $item["comprovante"] ?>" target="_blank" class="btn btn-dark" title="COMPROVANTE DO PIX">
+                      <i class="fa fa-file-pdf"></i>
+                    </a>
+                  <?php endif; ?>
+                <td>
               </tr>
             <?php endforeach; ?>
           </tbody>
