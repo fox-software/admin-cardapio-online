@@ -36,8 +36,8 @@ class PagamentoController extends ResourceController
       // CRIAR PAGAMENTO NO PAGARME
       $responsePagamento = $this->pagarme->criarPagamentoCartaoCredito($usuario, $sistema, $dados);
 
-      if (!$responsePagamento["success"])
-        throw new Exception("Falha ao criar pedido");
+      // if (!$responsePagamento["success"])
+      //   throw new Exception("Falha ao criar pedido");
 
       return $responsePagamento;
     } catch (Exception $e) {
