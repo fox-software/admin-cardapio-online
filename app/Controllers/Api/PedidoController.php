@@ -75,6 +75,9 @@ class PedidoController extends ResourceController
 
                 $data["logs"] = $responsePagamento;
 
+                return $this->respond($data);
+
+
                 $statusPagamento = $responsePagamento["data"]["response"]->status;
 
                 if ($statusPagamento === PAGO) {
