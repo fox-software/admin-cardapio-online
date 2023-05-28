@@ -29,9 +29,9 @@ class Pagarme
         ];
     }
 
-    public function criarPagamentoCartaoCredito($usuario, $sistema, $dados)
+    public function criarPagamentoCartaoCredito($usuario, $dados)
     {
-        $dadosPagamento = $this->dadosPagamentoCartaoCredito($usuario, $sistema, $dados);
+        $dadosPagamento = $this->dadosPagamentoCartaoCredito($usuario, $dados);
 
         try {
             $this->requestOptions["body"] = json_encode($dadosPagamento);
@@ -55,7 +55,7 @@ class Pagarme
         }
     }
 
-    private function dadosPagamentoCartaoCredito($usuario, $sistema, $dados)
+    private function dadosPagamentoCartaoCredito($usuario, $dados)
     {
         $data = [
             "api_key" => $this->API_KEY_PAGARME,
@@ -64,7 +64,6 @@ class Pagarme
             "card_cvv" => $dados->cartao->cvv,
             "card_expiration_date" => only_numbers($dados->cartao->validade),
             "card_holder_name" => $dados->cartao->titular,
-
             "customer" => [
                 "external_id" => $usuario["id"],
                 "name" => $usuario["nome"] . " " . $usuario["sobrenome"],
@@ -79,7 +78,6 @@ class Pagarme
                 ],
                 "phone_numbers" => ["+55 " . only_numbers($usuario["telefone"])],
             ],
-
             "billing" => [
                 "name" => $usuario["nome"] . " " . $usuario["sobrenome"],
                 "address" => [
@@ -92,9 +90,8 @@ class Pagarme
                     "zipcode" => $dados->endereco->cep
                 ]
             ],
-
             "shipping" => [
-                "name" => $sistema["razao_social"],
+                "name" => $usuario["nome"] . " " . $usuario["sobrenome"],
                 "fee" => only_numbers($dados->frete),
                 "delivery_date" => date("Y-m-d"),
                 "expedited" => true,
