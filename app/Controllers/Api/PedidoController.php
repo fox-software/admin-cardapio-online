@@ -73,6 +73,8 @@ class PedidoController extends ResourceController
             case CARTAO_ONLINE:
                 $responsePagamento = $pagamento->cartaoCredito($usuario_id, $data);
 
+                $data["logs"] = $responsePagamento;
+
                 $statusPagamento = $responsePagamento["data"]["response"]->status;
 
                 if ($statusPagamento === PAGO) {
