@@ -10,6 +10,7 @@
       </div>
       <form action="<?= base_url("admin/configuracoes/" . $sistema["id"] . "/editar") ?>" method="post" enctype="multipart/form-data">
         <div class="card-body">
+
           <div class="row">
             <div class="col">
               <img class="rounded" height="80" src="<?= $sistema["foto"] ?>" alt="<?= $sistema["nome_fantasia"] ?>">
@@ -20,7 +21,6 @@
           </div>
 
           <div class="row">
-
             <div class="col-sm">
               <div class="form-group">
                 <label>Nome Fantasia</label>
@@ -42,7 +42,6 @@
               </div>
             </div>
 
-
             <div class="col-sm">
               <div class="form-group">
                 <label>Ramo de atividade</label>
@@ -60,7 +59,44 @@
 
           </div>
 
+          <div class="row">
+
+            <div class="col-sm col-lg-3">
+              <div class="form-group">
+                <label>Cor do fundo principal</label>
+                <input class="form-control" type="color" id="cor_primaria" name="cor_primaria" list="cor_primaria" value="<?= $sistema["cor_primaria"] ?>">
+                <datalist id="cor_primaria">
+                  <option value="#F8D849"></option>
+                  <option value="#6A5ACD"></option>
+                  <option value="#FFC0CB"></option>
+                  <option value="#DC143C"></option>
+                  <option value="#09b54d"></option>
+                  <option value="#FFA500"></option>
+                  <option value="#8B4513"></option>
+                </datalist>
+              </div>
+            </div>
+
+            <div class="col-sm col-lg-3">
+              <div class="form-group">
+                <label>Cor do texto sobre o fundo</label>
+                <input class="form-control" type="color" id="cor_texto" name="cor_texto" list="cor_texto" value="<?= $sistema["cor_texto"] ?>">
+                <datalist id="cor_texto">
+                  <option value="#F8D849"></option>
+                  <option value="#6A5ACD"></option>
+                  <option value="#FFC0CB"></option>
+                  <option value="#DC143C"></option>
+                  <option value="#09b54d"></option>
+                  <option value="#FFA500"></option>
+                  <option value="#8B4513"></option>
+                </datalist>
+              </div>
+            </div>
+
+          </div>
+
         </div>
+
 
         <div class="card-footer d-flex justify-content-end">
           <button type="submit" class="btn btn-primary">Atualizar Empresa</button>

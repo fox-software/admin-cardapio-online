@@ -27,7 +27,7 @@ class PagamentoController extends ResourceController
     $this->pagarme = new Pagarme();
   }
 
-  public function checkoutCreditCard($usuario_id, $dados)
+  public function cartaoCredito($usuario_id, $dados)
   {
     $usuario = $this->usuarioModel->getUserCompleteById($usuario_id);
     $sistema = $this->sistemaModel->getById(get_sistema_api());
@@ -45,7 +45,7 @@ class PagamentoController extends ResourceController
       throw new Exception($responseCartaoPagarme["message"]);
 
     // DADOS PAGAMENTO
-    $responseDadosPagamento = $this->pagarme->dadosPagamentoCartaoCredito($usuario["id"], $usuario, $sistema, $dados);
+    $responseDadosPagamento = $this->pagarme->dadosPagamentoCartaoCredito($usuario, $sistema, $dados);
 
     // CRIAR PAGAMENTO NO PAGARME
     $responsePagamento = $this->pagarme->criarPagamentoCartaoCredito($responseDadosPagamento);

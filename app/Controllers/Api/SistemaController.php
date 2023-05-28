@@ -30,7 +30,8 @@ class SistemaController extends ResourceController
         id, codigo, telefone, status, pix,
         tempo_entrega_max, tempo_entrega_min,
         razao_social, nome_fantasia,
-        foto, aberto, fechado, ramo_sistema
+        foto, aberto, fechado, ramo_sistema,
+        cor_primaria, cor_texto
         ")->find(get_sistema_api());
 
         $data["aberto"] = get_status_sistema($data["aberto"], $data["fechado"]);

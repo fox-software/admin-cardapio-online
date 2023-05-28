@@ -40,7 +40,7 @@ function graphic(data) {
   barChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junnho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'], datasets: [
+      labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'], datasets: [
         {
           label: 'Clientes',
           backgroundColor: '#0dcaf0',

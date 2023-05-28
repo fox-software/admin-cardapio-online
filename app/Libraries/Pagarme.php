@@ -48,7 +48,6 @@ class Pagarme
                 "phone_numbers" => [
                     "+55" . only_numbers($usuario["telefone"]),
                 ],
-                "birthday" => "1998-07-03"
             ];
 
             $this->requestOptions["body"] = json_encode($dadosUsuario);
@@ -130,7 +129,7 @@ class Pagarme
         }
     }
 
-    public function dadosPagamentoCartaoCredito($IdUsuarioPagarme, $usuario, $sistema, $dados)
+    public function dadosPagamentoCartaoCredito($usuario, $sistema, $dados)
     {
         $data = [
             "api_key" => $this->API_KEY_PAGARME,
@@ -141,7 +140,7 @@ class Pagarme
             "card_holder_name" => $dados->cartao->titular,
 
             "customer" => [
-                "external_id" => $IdUsuarioPagarme,
+                "external_id" => $usuario["id"],
                 "name" => $usuario["nome"] . " " . $usuario["sobrenome"],
                 "type" => "individual",
                 "country" => "br",
@@ -153,7 +152,6 @@ class Pagarme
                     ]
                 ],
                 "phone_numbers" => ["+55 " . only_numbers($usuario["telefone"])],
-                "birthday" => "1998-07-03",
             ],
 
             "billing" => [

@@ -155,10 +155,6 @@ $routes->group('api', ['filter' => 'cors'], function ($routes) {
             $routes->get('detalhes/(:num)', [ApiPedidoController::class, "detalhes"]);
             $routes->post('cadastrar', [ApiPedidoController::class, "cadastrar"]);
         });
-
-        $routes->group('pagamentos', function ($routes) {
-            $routes->post('cartao-credito', [PagamentoController::class, "checkoutCreditCard"]);
-        });
     });
 });
 

@@ -10,7 +10,7 @@ class UsuarioModel extends Model
 {
   protected $table = 'usuarios';
   protected $primaryKey = 'id';
-  protected $allowedFields = ['nome', 'sobrenome', 'email', 'senha', 'telefone', 'status'];
+  protected $allowedFields = ['nome', 'sobrenome', 'email', 'senha', 'telefone', 'cpf'];
   protected $validationRules = [];
 
   public function getAll($filtros = [])

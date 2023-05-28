@@ -11,6 +11,7 @@ use App\Models\PedidoModel;
 use App\Models\PedidoProdutoModel;
 use App\Models\ProdutoModel;
 use App\Models\UsuarioModel;
+use Exception;
 
 class PedidoController extends ResourceController
 {
@@ -70,19 +71,17 @@ class PedidoController extends ResourceController
 
         switch ($data->forma_pagamento->id) {
             case CARTAO_ONLINE:
-                $responsePagarMe = $pagamento->checkoutCreditCard($usuario_id, $data);
+                $responsePagamento = $pagamento->cartaoCredito($usuario_id, $data);
 
-                $data->codigo = $responsePagarMe["data"]["response"]->id;
+                if (!$responsePagamento["success"])
+                    throw new Exception("Falha ao criar pedido");
 
-                if (!$responsePagarMe["success"])
-                    return $this->respond(["error" => true, "message" => "Falha ao criar pedido"]);
+                $this->statusPagamentoOnline($responsePagamento["data"]["response"]->status);
 
-                $status = $responsePagarMe["data"]["response"]->status;
-
-                $this->statusPagamentoOnline($status, $usuario_id, $data);
+                $data->codigo = $responsePagamento["data"]["response"]->id;
+                $data = $this->pedidoModel->cadastrar($usuario_id, $data);
 
                 break;
-
             case PIX:
                 if (!$data->comprovante == NULL) {
                     $comprovante = md5(time() . uniqid()) . "_comprovante.jpg";
@@ -98,29 +97,24 @@ class PedidoController extends ResourceController
                 $data = $this->pedidoModel->cadastrar($usuario_id, $data);
 
                 break;
-
             case DINHEIRO:
                 $data = $this->pedidoModel->cadastrar($usuario_id, $data);
                 break;
-
             case CARTAO_ENTREGA:
                 $data = $this->pedidoModel->cadastrar($usuario_id, $data);
                 break;
-
             default:
-                $data["status"] = false;
-                $data["message"] = "Não foi possivel encontrar esse status";
+                throw new Exception("Não foi possivel encontrar esse status");
                 break;
         }
 
         return $this->respond($data);
     }
 
-    public function statusPagamentoOnline($status, $usuario_id, $data)
+    public function statusPagamentoOnline($status)
     {
         switch ($status) {
             case PAGO:
-                $data = $this->pedidoModel->cadastrar($usuario_id, $data);
                 $data["message"] = PAGO_MESSAGE;
                 break;
             case RECUSOU:
@@ -143,10 +137,8 @@ class PedidoController extends ResourceController
                 $data["message"] = REVISAO_PENDENTE_MESSAGE;
                 $data["status"] = false;
                 break;
-
             default:
-                $data["status"] = false;
-                $data["message"] = "Não foi possivel encontrar esse status";
+                throw new Exception("Não foi possivel encontrar esse status");
                 break;
         }
 
