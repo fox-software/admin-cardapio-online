@@ -32,4 +32,12 @@ class SistemaModel extends Model
 
     return $resultado;
   }
+
+  /* Retorna uma empresa pelo seu id */
+  public function getById(string $id)
+  {
+    $resultado = $this->where("id", $id)->first();
+
+    return $resultado;
+  }
 }

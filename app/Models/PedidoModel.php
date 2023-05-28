@@ -134,8 +134,6 @@ class PedidoModel extends Model
 
     if ($data->cartao->id) $data->cartao_id = (int) $data->cartao->id;
 
-    $data->codigo = rand(1, 100); //Código será gerado pelo pagarme
-
     $this->save($data);
 
     $pedido_id = $this->getInsertID();

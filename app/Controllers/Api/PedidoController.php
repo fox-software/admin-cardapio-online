@@ -64,21 +64,92 @@ class PedidoController extends ResourceController
     {
         $data = $this->request->getVar();
 
-        if (!$data->comprovante == NULL) {
-            $comprovante = md5(time() . uniqid()) . "_comprovante.jpg";
-            $decoded = base64_decode($data->comprovante);
-            if (!file_put_contents("assets/" . $comprovante, $decoded)) {
-                $data->comprovante = null;
-            } else {
-                $s3 = new AwsS3();
-                $data->comprovante = $s3->store($comprovante);
-            }
-        }
-
         $usuario_id = $this->usuarioModel->getAuthenticatedUser();
 
-        $pedido = $this->pedidoModel->cadastrar($usuario_id, $data);
+        $pagamento = new PagamentoController();
 
-        return $this->respond($pedido);
+        switch ($data->forma_pagamento->id) {
+            case CARTAO_ONLINE:
+                $responsePagarMe = $pagamento->checkoutCreditCard($usuario_id, $data);
+
+                $data->codigo = $responsePagarMe["data"]["response"]->id;
+
+                if (!$responsePagarMe["success"])
+                    return $this->respond(["error" => true, "message" => "Falha ao criar pedido"]);
+
+                $status = $responsePagarMe["data"]["response"]->status;
+
+                $this->statusPagamentoOnline($status, $usuario_id, $data);
+
+                break;
+
+            case PIX:
+                if (!$data->comprovante == NULL) {
+                    $comprovante = md5(time() . uniqid()) . "_comprovante.jpg";
+                    $decoded = base64_decode($data->comprovante);
+                    if (!file_put_contents("assets/" . $comprovante, $decoded)) {
+                        $data->comprovante = null;
+                    } else {
+                        $s3 = new AwsS3();
+                        $data->comprovante = $s3->store($comprovante);
+                    }
+                }
+
+                $data = $this->pedidoModel->cadastrar($usuario_id, $data);
+
+                break;
+
+            case DINHEIRO:
+                $data = $this->pedidoModel->cadastrar($usuario_id, $data);
+                break;
+
+            case CARTAO_ENTREGA:
+                $data = $this->pedidoModel->cadastrar($usuario_id, $data);
+                break;
+
+            default:
+                $data["status"] = false;
+                $data["message"] = "Não foi possivel encontrar esse status";
+                break;
+        }
+
+        return $this->respond($data);
+    }
+
+    public function statusPagamentoOnline($status, $usuario_id, $data)
+    {
+        switch ($status) {
+            case PAGO:
+                $data = $this->pedidoModel->cadastrar($usuario_id, $data);
+                $data["message"] = PAGO_MESSAGE;
+                break;
+            case RECUSOU:
+                $data["message"] = RECUSOU_MESSAGE;
+                $data["status"] = false;
+                break;
+            case ESTORNADA:
+                $data["message"] = ESTORNADA_MESSAGE;
+                $data["status"] = false;
+                break;
+            case AUTORIZADA:
+                $data["message"] = AUTORIZADA_MESSAGE;
+                $data["status"] = false;
+                break;
+            case PROCESSANDO:
+                $data["message"] = PROCESSANDO_MESSAGE;
+                $data["status"] = false;
+                break;
+            case REVISAO_PENDENTE:
+                $data["message"] = REVISAO_PENDENTE_MESSAGE;
+                $data["status"] = false;
+                break;
+
+            default:
+                $data["status"] = false;
+                $data["message"] = "Não foi possivel encontrar esse status";
+                break;
+        }
+
+        return $data;
     }
 }

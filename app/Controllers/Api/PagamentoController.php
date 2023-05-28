@@ -7,39 +7,49 @@ use CodeIgniter\API\ResponseTrait;
 
 use App\Libraries\Pagarme;
 
+use App\Models\SistemaModel;
 use App\Models\UsuarioModel;
+
+use Exception;
 
 class PagamentoController extends ResourceController
 {
   use ResponseTrait;
 
   protected $usuarioModel;
+  protected $sistemaModel;
   protected $pagarme;
 
   public function __construct()
   {
     $this->usuarioModel = new UsuarioModel();
+    $this->sistemaModel = new SistemaModel();
     $this->pagarme = new Pagarme();
   }
 
-  public function checkoutCreditCard()
+  public function checkoutCreditCard($usuario_id, $dados)
   {
-    $data = $this->request->getVar();
-
-    $usuario_id = $this->usuarioModel->getAuthenticatedUser();
-
     $usuario = $this->usuarioModel->getUserCompleteById($usuario_id);
+    $sistema = $this->sistemaModel->getById(get_sistema_api());
 
-    $responseUsuarioPagarme = $this->pagarme->criarUsuarioPagarme($usuario_id, $usuario);
+    // CRIAR USUÁRIO NO PAGARME
+    $responseUsuarioPagarme = $this->pagarme->criarUsuarioPagarme($usuario);
 
-    if (empty($responseUsuarioPagarme)) throw new \Exception("Não foi possível criar um cliente no gateway, entre em contato com o suporte");
+    if (empty($responseUsuarioPagarme))
+      throw new Exception("Não foi possível criar um cliente no gateway");
 
-    $responseCartaoPagarme = $this->pagarme->criarCartaoUsuarioPagarme($responseUsuarioPagarme["data"]["customer"]->id, $data->cartao);
+    // CRIAR CARTÃO NO PAGARME
+    $responseCartaoPagarme = $this->pagarme->criarCartaoUsuarioPagarme($responseUsuarioPagarme["data"]["customer"]->id, $dados->cartao);
 
-    if (!$responseCartaoPagarme["success"]) {
-      throw new \Exception($responseCartaoPagarme["message"]);
-    }
+    if (!$responseCartaoPagarme["success"])
+      throw new Exception($responseCartaoPagarme["message"]);
 
-    return $this->respond($responseCartaoPagarme);
+    // DADOS PAGAMENTO
+    $responseDadosPagamento = $this->pagarme->dadosPagamentoCartaoCredito($usuario["id"], $usuario, $sistema, $dados);
+
+    // CRIAR PAGAMENTO NO PAGARME
+    $responsePagamento = $this->pagarme->criarPagamentoCartaoCredito($responseDadosPagamento);
+
+    return $responsePagamento;
   }
 }
