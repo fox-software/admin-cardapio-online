@@ -33,8 +33,6 @@ class Pagarme
     {
         $dadosPagamento = $this->dadosPagamentoCartaoCredito($usuario, $sistema, $dados);
 
-        return $usuario;
-
         try {
             $this->requestOptions["body"] = json_encode($dadosPagamento);
 

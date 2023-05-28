@@ -36,10 +36,6 @@ class CreateEnderecosTable extends Migration
             'numero' => [
                 'type' => 'INT',
             ],
-            'cpf' => [
-                'type' => 'VARCHAR',
-                'constraint' => 200,
-            ],
             'cidade' => [
                 'type' => 'VARCHAR',
                 'constraint' => 200,
