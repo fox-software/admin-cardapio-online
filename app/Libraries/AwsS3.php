@@ -6,7 +6,7 @@ use Aws\S3\S3Client;
 
 class AwsS3
 {
-  public function store($file)
+  public function store($file, $comprovante = false)
   {
     $s3config = [
       'region'      => getenv("AWS_REGION"),
@@ -19,16 +19,27 @@ class AwsS3
 
     $s3 = new S3Client($s3config);
 
-    $key = date("Y-m-d_H-i-s") . '_' . $file['name'];
-
-    $result = $s3->putObject(
-      [
-        'Bucket'     => getenv("AWS_BUCKET"),
-        'Key'        => $key,
-        'SourceFile' => $file['tmp_name'],
-        'ACL'        => 'public-read'
-      ]
-    );
+    if ($comprovante) {
+      $key = date("Y-m-d_H-i-s") . '_' . "comprovante.jpg";
+      $result = $s3->putObject(
+        [
+          'Bucket'     => getenv("AWS_BUCKET"),
+          'Key'        => $key,
+          'Body'       => base64_decode($file),
+          'ACL'        => 'public-read'
+        ]
+      );
+    } else {
+      $key = date("Y-m-d_H-i-s") . '_' . $file['name'];
+      $result = $s3->putObject(
+        [
+          'Bucket'     => getenv("AWS_BUCKET"),
+          'Key'        => $key,
+          'SourceFile' => $file['tmp_name'],
+          'ACL'        => 'public-read'
+        ]
+      );
+    }
 
     return $result['ObjectURL'];
   }

@@ -82,14 +82,8 @@ class PedidoController extends ResourceController
                 break;
             case PIX:
                 if (!$data->comprovante == NULL) {
-                    $comprovante = md5(time() . uniqid()) . "_comprovante.jpg";
-                    $decoded = base64_decode($data->comprovante);
-                    if (!file_put_contents("assets/" . $comprovante, $decoded)) {
-                        $data->comprovante = null;
-                    } else {
-                        $s3 = new AwsS3();
-                        $data->comprovante = $s3->store($comprovante);
-                    }
+                    $s3 = new AwsS3();
+                    $data->comprovante = $s3->store($data->comprovante, true);
                 }
 
                 $data = $this->pedidoModel->cadastrar($usuario_id, $data);
