@@ -29,10 +29,12 @@ class Pagarme
         ];
     }
 
-    public function criarPagamentoCartaoCredito($dados)
+    public function criarPagamentoCartaoCredito($usuario, $sistema, $dados)
     {
+        $dadosPagamento = $this->dadosPagamentoCartaoCredito($usuario, $sistema, $dados);
+
         try {
-            $this->requestOptions["body"] = json_encode($dados);
+            $this->requestOptions["body"] = json_encode($dadosPagamento);
 
             $response = $this->http->request('POST', 'transactions', $this->requestOptions);
 
@@ -53,7 +55,7 @@ class Pagarme
         }
     }
 
-    public function dadosPagamentoCartaoCredito($usuario, $sistema, $dados)
+    private function dadosPagamentoCartaoCredito($usuario, $sistema, $dados)
     {
         $data = [
             "api_key" => $this->API_KEY_PAGARME,
