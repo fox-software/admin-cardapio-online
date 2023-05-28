@@ -29,15 +29,19 @@ class PagamentoController extends ResourceController
 
   public function cartaoCredito($usuario_id, $dados)
   {
-    $usuario = $this->usuarioModel->getUserCompleteById($usuario_id);
-    $sistema = $this->sistemaModel->getById(get_sistema_api());
+    try {
+      $usuario = $this->usuarioModel->getUserCompleteById($usuario_id);
+      $sistema = $this->sistemaModel->getById(get_sistema_api());
 
-    // CRIAR PAGAMENTO NO PAGARME
-    $responsePagamento = $this->pagarme->criarPagamentoCartaoCredito($usuario, $sistema, $dados);
+      // CRIAR PAGAMENTO NO PAGARME
+      $responsePagamento = $this->pagarme->criarPagamentoCartaoCredito($usuario, $sistema, $dados);
 
-    if (!$responsePagamento["success"])
-      throw new Exception("Falha ao criar pedido");
+      if (!$responsePagamento["success"])
+        throw new Exception("Falha ao criar pedido");
 
-    return $responsePagamento;
+      return $responsePagamento;
+    } catch (Exception $e) {
+      return ["success" => false, "message" => $e->getMessage()];
+    }
   }
 }
