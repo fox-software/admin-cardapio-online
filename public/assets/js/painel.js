@@ -56,7 +56,7 @@ function card(data) {
   cards = `
     <div class="card card-${card_color} card-outline">
         <div class="card-header">
-          <h3 class="card-title">Pedido #${data.codigo}</h3>
+          <h3 class="card-title">Pedido #${data.codigo == '' ? data.id : data.codigo}</h3>
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse">
               <i class="fas fa-minus"></i>
@@ -69,13 +69,23 @@ function card(data) {
 
               <div id="produtos-${data.id}" style="display: contents;"></div>
 
+              <hr class="w-100 m-0">
+
               <div class="d-flex flex-column">
-                <span><strong>DATA:</strong> ${data.data}</span>
+                <span><strong>CEP:</strong> ${data.cep}</span>
                 <span><strong>CLIENTE:</strong> ${data.usuario_nome}</span>
                 <span><strong>ENDEREÇO:</strong> ${data.endereco}, ${data.numero}</span>
-                <span><strong>CEP:</strong> ${data.cep}</span>
                 ${data.complemento != "" ? `<span><strong>COMPLEMENTO:</strong> ${data.complemento} </span>` : ''}
               </div>
+
+              <hr class="w-100 m-0">
+
+              <div class="d-flex flex-column">
+              <span><strong>FRETE:</strong>R$ ${data.frete}</span>
+              <span><strong>TOTAL:</strong>R$ ${data.total}</span>
+              <span><strong>DATA PEDIDO:</strong> ${data.data}</span>
+            </div>
+
           </div>
         </div>
 
