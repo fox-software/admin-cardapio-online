@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 
 use App\Models\FormaPagamentoModel;
 use App\Models\FormaPagamentoSistemaModel;
+use App\Models\GatewayModel;
 
 use Exception;
 
@@ -22,10 +23,20 @@ class FormaPagamentoController extends BaseController
 
     public function index()
     {
+        $gatewayModel = new GatewayModel();
+
+        $gateway = $gatewayModel->where([
+            "sistema_id" => get_sistema_admin(),
+            "status" => ATIVO
+        ])->first();
+
+        $pagamentos = $this->formaPagamentoModel->getAll();
+
         $data = [
             "page" => "forma_de_pagamentos",
             "page_title" => "Forma de pagamentos",
-            "pagamentos" => $this->formaPagamentoModel->getAll(),
+            "pagamentos" => $pagamentos,
+            "gateway" => $gateway
         ];
 
         return view('page/' . $data["page"], $data);

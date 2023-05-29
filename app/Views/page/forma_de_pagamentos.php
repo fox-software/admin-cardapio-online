@@ -27,9 +27,15 @@
                       </span>
                     </a>
                   <?php else : ?>
-                    <a href="<?= base_url("admin/forma_de_pagamentos/" . $item["id"] . "/adicionar") ?>" class="btn btn-dark">
-                      <i class="fa fa-plus"></i>
-                    </a>
+                    <?php if ($item["id"] === CARTAO_ONLINE && empty($gateway)) : ?>
+                      <a href="<?= base_url("admin/gateways") ?>" class="btn btn-dark" title="Para ativar este método de pagamento será necessário cadastrar ou ativar um gateway de pagamento primeiro.">
+                        <i class="fa fa-info"></i>
+                      </a>
+                    <?php else : ?>
+                      <a href="<?= base_url("admin/forma_de_pagamentos/" . $item["id"] . "/adicionar") ?>" class="btn btn-dark">
+                        <i class="fa fa-plus"></i>
+                      </a>
+                    <?php endif; ?>
                   <?php endif; ?>
                 </td>
               </tr>
