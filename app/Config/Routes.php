@@ -116,11 +116,9 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
 $routes->group('api', ['filter' => 'cors'], function ($routes) {
 
     $routes->group('usuarios', function ($routes) {
-        $routes->get('', [ApiUsuarioController::class, "index"]);
         $routes->post('login', [ApiUsuarioController::class, "login"]);
         $routes->post('cadastrar', [ApiUsuarioController::class, "cadastrar"]);
         $routes->post('logout', [ApiUsuarioController::class, "logout"]);
-        $routes->get('status', [ApiUsuarioController::class, "status"]);
         $routes->get('endereco/(:num)', [ApiUsuarioController::class, "endereco"]);
     });
 
@@ -134,6 +132,12 @@ $routes->group('api', ['filter' => 'cors'], function ($routes) {
     $routes->get('categorias', [ApiCategoriaController::class, "index"]);
 
     $routes->group('', ['filter' => 'authApi'], function ($routes) {
+
+        $routes->group('usuarios', function ($routes) {
+            $routes->get('', [ApiUsuarioController::class, "index"]);
+            $routes->get('status', [ApiUsuarioController::class, "status"]);
+        });
+
         $routes->group('enderecos', function ($routes) {
             $routes->get('', [EnderecoController::class, "index"]);
             $routes->post('cadastrar', [EnderecoController::class, "cadastrar"]);

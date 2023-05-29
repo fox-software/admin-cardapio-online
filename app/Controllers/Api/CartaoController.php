@@ -23,7 +23,7 @@ class CartaoController extends ResourceController
 
     public function index()
     {
-        $usuario_id = $this->usuarioModel->getAuthenticatedUser();
+        $usuario_id = $this->request->getPost()["id"];
 
         $data = $this->cartaoModel->getByUserId($usuario_id);
 
@@ -34,7 +34,7 @@ class CartaoController extends ResourceController
     {
         $data = $this->request->getVar();
 
-        $usuario_id = $this->usuarioModel->getAuthenticatedUser();
+        $usuario_id = $this->request->getPost()["id"];
 
         $data->cpf = only_numbers($data->cpf);
         $data->usuario_id = $usuario_id;
@@ -62,7 +62,7 @@ class CartaoController extends ResourceController
 
     public function principal($cartaoId)
     {
-        $usuario_id = $this->usuarioModel->getAuthenticatedUser();
+        $usuario_id = $this->request->getPost()["id"];
 
         $resultado = $this->cartaoModel->setPrincipal($usuario_id, $cartaoId);
 

@@ -5,17 +5,16 @@ namespace App\Filters;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
 use Exception;
 
+use App\Models\TokenModel;
 use App\Models\UsuarioModel;
+use PHPUnit\Util\Json;
 
 class AuthApi implements FilterInterface
 {
   public function before(RequestInterface $request, $arguments = null)
   {
-    $key = getenv('JWT_SECRET');
     $header = $request->getHeader("Authorization");
     $token = null;
 
@@ -28,25 +27,40 @@ class AuthApi implements FilterInterface
 
     // check if token is null or empty
     if (is_null($token) || empty($token)) {
-      log_message('info', 'JWT token not provided');
+      log_message('info', 'Acesso negado - Token JWT não fornecido');
       $response = service('response');
-      $response->setBody('Access denied - JWT token not provided');
+      $response->setBody('Acesso negado - Token JWT não fornecido');
       $response->setStatusCode(401);
       return $response;
     }
 
-    try {
-      $decoded_obj = JWT::decode($token, new Key($key, 'HS256'));
-      $decoded = (array) $decoded_obj;
+    $usuarioModel = new UsuarioModel();
+    $tokenModel = new TokenModel();
 
-      $model = new UsuarioModel();
-      $usuario = $model->select(['id', 'nome', 'sobrenome', 'email'])->where('id', $decoded['usuario_id'])->first();
+    try {
+      $responseToken = $tokenModel->getByToken($token);
+
+      $dataAtual = date("Y-m-d H:i:s");
+
+      $usuario = $usuarioModel->select(['id', 'nome', 'sobrenome', 'email'])
+        ->where('id', $responseToken['usuario_id'])
+        ->first();
 
       $request->setGlobal('post', $usuario);
     } catch (Exception $ex) {
-      log_message('info', 'JWT Failed ' . $ex);
+      if ($dataAtual > $responseToken["expiracao"]) {
+        $novoToken = $usuarioModel->createToken($responseToken["usuario_id"], 60);
+
+        $response = service('response');
+        $response->setBody($novoToken);
+        $response->setBody("NOVO TOKEN");
+        $response->setStatusCode(200);
+        return $response;
+      }
+
+      log_message('info', 'Acesso negado - Falha no JWT ' . $ex);
       $response = service('response');
-      $response->setBody('Access denied - JWT Failed');
+      $response->setBody("Acesso negado - Falha no JWT");
       $response->setStatusCode(401);
       return $response;
     }

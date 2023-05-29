@@ -118,11 +118,11 @@ class UsuarioModel extends Model
     }
   }
 
-  public function createToken($usuario_id)
+  public function createToken($usuario_id, $expiracao = 3600)
   {
     $key = getenv('JWT_SECRET');
     $iat = time(); // current timestamp value
-    $exp = $iat + 3600;
+    $exp = $iat + $expiracao;
 
     $payload = array(
       "iss" => "Issuer of the JWT",
@@ -136,25 +136,16 @@ class UsuarioModel extends Model
 
     $token = JWT::encode($payload, $key, 'HS256');
 
+    $tokenModel = new TokenModel();
+
+    $dados = [
+      "usuario_id" => $usuario_id,
+      "authorization" => $token,
+      "expiracao" => date("Y-m-d H:i:s", $exp),
+    ];
+
+    $tokenModel->add($dados);
+
     return $token;
-  }
-
-  public function getAuthenticatedUser()
-  {
-    $authorization = apache_request_headers()["Authorization"];
-
-    $find_bearer = "Bearer";
-
-    if (preg_match("/{$find_bearer}/i", $authorization)) {
-      $token = explode("Bearer ", $authorization)[1];
-    } else {
-      $token = $authorization;
-    }
-
-    $key = getenv('JWT_SECRET');
-
-    $token_decoded = JWT::decode($token, new Key($key, 'HS256'));
-
-    return $token_decoded->usuario_id;
   }
 }

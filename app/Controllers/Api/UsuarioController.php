@@ -8,6 +8,7 @@ use CodeIgniter\API\ResponseTrait;
 use App\Models\UsuarioModel;
 use App\Models\EnderecoModel;
 
+
 class UsuarioController extends ResourceController
 {
     use ResponseTrait;
@@ -23,23 +24,25 @@ class UsuarioController extends ResourceController
 
     public function index()
     {
-        $usuario_id = $this->usuarioModel->getAuthenticatedUser();
+        $usuario_id = $this->request->getPost()["id"];
 
-        $usuario = $this->usuarioModel->find($usuario_id);
+        $usuario = $this->usuarioModel
+            ->select(['id', 'nome', 'sobrenome', 'email', 'cpf', 'telefone'])
+            ->find($usuario_id);
 
         return $this->respond($usuario);
     }
 
     public function status()
     {
-        $usuario_id = $this->usuarioModel->getAuthenticatedUser();
+        $usuario_id = $this->request->getPost()["id"];
 
         $usuario = $this->usuarioModel
             ->select("usuarios.*, usuarios_sistemas.sistema_id, usuarios_sistemas.status")
             ->join("usuarios_sistemas", "usuario_id = usuarios.id")
             ->find($usuario_id);
 
-        return $this->respond($usuario["status"] == ATIVO ? true : false);
+        return $this->respond($usuario["status"] === ATIVO ? true : false);
     }
 
     public function login()
@@ -61,7 +64,8 @@ class UsuarioController extends ResourceController
 
         $response = [
             'message' => 'Login bem-sucedido',
-            'authorization' => $this->usuarioModel->createToken($usuario["id"])
+            'refresh' => $this->usuarioModel->createToken($usuario["id"], 600),
+            'authorization' => $this->usuarioModel->createToken($usuario["id"], 60)
         ];
 
         return $this->respond($response, 200);

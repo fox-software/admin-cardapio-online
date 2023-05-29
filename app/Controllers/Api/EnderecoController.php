@@ -23,7 +23,7 @@ class EnderecoController extends ResourceController
 
   public function index()
   {
-    $usuario_id = $this->usuarioModel->getAuthenticatedUser();
+    $usuario_id = $this->request->getPost()["id"];
 
     $data = $this->enderecoModel->getByUserId($usuario_id);
 
@@ -34,7 +34,7 @@ class EnderecoController extends ResourceController
   {
     $data = $this->request->getVar();
 
-    $usuario_id = $this->usuarioModel->getAuthenticatedUser();
+    $usuario_id = $this->request->getPost()["id"];
 
     $resultado = $this->enderecoModel->cadastrar($usuario_id, $data);
 
@@ -45,7 +45,7 @@ class EnderecoController extends ResourceController
   {
     $data = $this->request->getVar();
 
-    $usuario_id = $this->usuarioModel->getAuthenticatedUser();
+    $usuario_id = $this->request->getPost()["id"];
 
     $resultado = $this->enderecoModel->editar($usuario_id, $data);
 
@@ -61,7 +61,7 @@ class EnderecoController extends ResourceController
   
   public function principal($enderecoId)
   {
-    $usuario_id = $this->usuarioModel->getAuthenticatedUser();
+    $usuario_id = $this->request->getPost()["id"];
 
     $resultado = $this->enderecoModel->setPrincipal($usuario_id, $enderecoId);
 

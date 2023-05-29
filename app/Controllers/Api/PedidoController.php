@@ -32,7 +32,7 @@ class PedidoController extends ResourceController
 
     public function index()
     {
-        $usuario_id = $this->usuarioModel->getAuthenticatedUser();
+        $usuario_id = $this->request->getPost()["id"];
 
         $data = $this->pedidoModel->where([
             "sistema_id" => get_sistema_api(),
@@ -65,7 +65,7 @@ class PedidoController extends ResourceController
     {
         $data = $this->request->getVar();
 
-        $usuario_id = $this->usuarioModel->getAuthenticatedUser();
+        $usuario_id = $this->request->getPost()["id"];
 
         $pagamento = new PagamentoController();
 
