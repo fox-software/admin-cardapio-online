@@ -21,6 +21,7 @@ class Cors implements FilterInterface
 
     $allowed_domains = array(
       'https://app-cardapio-online.vercel.app',
+      'https://dan-drinks.vercel.app',
       'http://localhost:8100'
     );
 
