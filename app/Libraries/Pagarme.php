@@ -2,6 +2,7 @@
 
 namespace App\Libraries;
 
+use App\Models\GatewayModel;
 use Exception;
 use GuzzleHttp\Client;
 
@@ -10,14 +11,8 @@ class Pagarme
     private $http;
     private $requestOptions;
 
-    protected $API_KEY_PAGARME;
-    protected $SECRET_KEY_PAGARME;
-
     public function __construct()
     {
-        $this->API_KEY_PAGARME = getenv('API_KEY_PAGARME');
-        $this->SECRET_KEY_PAGARME = getenv('SECRET_KEY_PAGARME');
-
         $this->http = new Client(['base_uri' => "https://api.pagar.me/1/"]);
 
         $this->requestOptions = [
@@ -58,7 +53,7 @@ class Pagarme
     private function dadosPagamentoCartaoCredito($usuario, $dados)
     {
         $data = [
-            "api_key" => $this->API_KEY_PAGARME,
+            "api_key" => $this->dadosGateway(),
             "amount" => only_numbers($dados->total),
             "card_number" => only_numbers($dados->cartao->numero),
             "card_cvv" => $dados->cartao->cvv,
@@ -119,5 +114,21 @@ class Pagarme
         }
 
         return $data;
+    }
+
+    private function dadosGateway()
+    {
+        try {
+            $gatewayModel = new GatewayModel();
+
+            $gateway = $gatewayModel->where([
+                "sistema_id" => (int) get_sistema_api(),
+                "status" => ATIVO
+            ])->first();
+
+            return $gateway["api_key"];
+        } catch (Exception $e) {
+            return ["success" => false, "message" => $e->getMessage()];
+        }
     }
 }

@@ -7,6 +7,7 @@ use App\Controllers\Admin\CategoriaController;
 use App\Controllers\Admin\ConfiguracaoController;
 use App\Controllers\Admin\DashboardController;
 use App\Controllers\Admin\FormaPagamentoController;
+use App\Controllers\Admin\GatewayController;
 use App\Controllers\Admin\LoginController;
 use App\Controllers\Admin\PainelController;
 use App\Controllers\Admin\PedidoController;
@@ -75,6 +76,13 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
         $routes->post('cadastrar', [CategoriaController::class, "cadastrar"]);
         $routes->get('(:num)/status', [CategoriaController::class, "status"]);
         $routes->post('(:num)/editar', [CategoriaController::class, "editar"]);
+    });
+
+    $routes->group('gateways', function ($routes) {
+        $routes->get('', [GatewayController::class, "index"]);
+        $routes->post('cadastrar', [GatewayController::class, "cadastrar"]);
+        $routes->get('(:num)/status', [GatewayController::class, "status"]);
+        $routes->post('(:num)/editar', [GatewayController::class, "editar"]);
     });
 
     $routes->group('regioes', function ($routes) {

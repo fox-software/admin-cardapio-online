@@ -52,6 +52,13 @@
         </li>
 
         <li class="nav-item">
+          <a href="<?= base_url("admin/regioes") ?>" class="nav-link <?= $page === "regioes" ? "active" : "" ?>">
+            <i class="nav-icon fas fa-map"></i>
+            <p>Regiões</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
           <a href="<?= base_url("admin/usuarios") ?>" class="nav-link <?= $page === "usuarios" ? "active" : "" ?>">
             <i class="nav-icon fa fa-users"></i>
             <p>Clientes</p>
@@ -73,9 +80,9 @@
         </li>
 
         <li class="nav-item">
-          <a href="<?= base_url("admin/regioes") ?>" class="nav-link <?= $page === "regioes" ? "active" : "" ?>">
-            <i class="nav-icon fas fa-map"></i>
-            <p>Regiões</p>
+          <a href="<?= base_url("admin/gateways") ?>" class="nav-link <?= $page === "gateways" ? "active" : "" ?>">
+            <i class="nav-icon fa fa-wallet"></i>
+            <p>Gateways de Pagamento</p>
           </a>
         </li>
 
