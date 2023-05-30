@@ -43,27 +43,21 @@ class ProdutoController extends BaseController
         $dados = $this->request->getVar();
         $img = $this->request->getFile('foto');
 
-
         $resultado = $this->produtoModel->add($dados, $img);
 
         toast_new($resultado["toast"]);
-
-        if (!$resultado["error"]) return redirect()->to("admin/produtos");
 
         return redirect()->to("admin/produtos");
     }
 
     public function status(int $id)
     {
-        $dados = $this->request->getVar();
         $produto = $this->produtoModel->find($id);
         $novo_status = $produto["status"] == ATIVO ? INATIVO : ATIVO;
 
         $resultado = $this->produtoModel->edit($produto["id"], ["status" => $novo_status]);
 
         toast_new($resultado["toast"]);
-
-        if (!$resultado["error"]) return redirect()->to("admin/produtos");
 
         return redirect()->to("admin/produtos");
     }
@@ -77,8 +71,6 @@ class ProdutoController extends BaseController
         $resultado = $this->produtoModel->edit($produto["id"], $dados, $img);
 
         toast_new($resultado["toast"]);
-
-        if (!$resultado["error"]) return redirect()->to("admin/produtos");
 
         return redirect()->to("admin/produtos");
     }

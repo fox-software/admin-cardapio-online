@@ -39,7 +39,7 @@
 
         <li class="nav-item">
           <a href="<?= base_url("admin/categorias") ?>" class="nav-link <?= $page === "categorias" ? "active" : "" ?>">
-            <i class="nav-icon fa fa-tags"></i>
+            <i class="nav-icon fa fa-layer-group"></i>
             <p>Categorias</p>
           </a>
         </li>
@@ -69,6 +69,13 @@
           <a href="<?= base_url("admin/pedidos") ?>" class="nav-link <?= $page === "pedidos" ? "active" : "" ?>">
             <i class="nav-icon fa fa-scroll"></i>
             <p>Pedidos</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="<?= base_url("admin/cupons") ?>" class="nav-link <?= $page === "cupons" ? "active" : "" ?>">
+            <i class="nav-icon fa fa-tags"></i>
+            <p>Cupons</p>
           </a>
         </li>
 

@@ -5,6 +5,7 @@ namespace Config;
 
 use App\Controllers\Admin\CategoriaController;
 use App\Controllers\Admin\ConfiguracaoController;
+use App\Controllers\Admin\CupomController;
 use App\Controllers\Admin\DashboardController;
 use App\Controllers\Admin\FormaPagamentoController;
 use App\Controllers\Admin\GatewayController;
@@ -17,6 +18,7 @@ use App\Controllers\Admin\UsuarioController;
 
 use App\Controllers\Api\CartaoController;
 use App\Controllers\Api\CategoriaController as ApiCategoriaController;
+use App\Controllers\Api\CupomController as ApiCupomController;
 use App\Controllers\Api\EnderecoController;
 use App\Controllers\Api\PagamentoController;
 use App\Controllers\Api\PedidoController as ApiPedidoController;
@@ -76,6 +78,13 @@ $routes->group('admin', ['filter' => 'authAdmin'], function ($routes) {
         $routes->post('cadastrar', [CategoriaController::class, "cadastrar"]);
         $routes->get('(:num)/status', [CategoriaController::class, "status"]);
         $routes->post('(:num)/editar', [CategoriaController::class, "editar"]);
+    });
+
+    $routes->group('cupons', function ($routes) {
+        $routes->get('', [CupomController::class, "index"]);
+        $routes->post('cadastrar', [CupomController::class, "cadastrar"]);
+        $routes->get('(:num)/status', [CupomController::class, "status"]);
+        $routes->post('(:num)/editar', [CupomController::class, "editar"]);
     });
 
     $routes->group('gateways', function ($routes) {
@@ -138,6 +147,7 @@ $routes->group('api', ['filter' => 'cors'], function ($routes) {
 
     $routes->get('produtos', [ApiProdutoController::class, "index"]);
     $routes->get('categorias', [ApiCategoriaController::class, "index"]);
+    $routes->get('cupons/(:any)', [ApiCupomController::class, "validarCupom"]);
 
     $routes->group('', ['filter' => 'authApi'], function ($routes) {
 
