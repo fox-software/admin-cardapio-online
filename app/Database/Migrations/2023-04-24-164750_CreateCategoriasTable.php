@@ -14,9 +14,6 @@ class CreateCategoriasTable extends Migration
                 'type' => 'INT',
                 'auto_increment' => true
             ],
-            'sistema_id' => [
-                'type' => 'INT',
-            ],
             'nome' => [
                 'type' => 'VARCHAR',
                 'constraint' => 200,
