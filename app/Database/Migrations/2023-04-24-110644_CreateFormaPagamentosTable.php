@@ -5,7 +5,7 @@ namespace App\Database\Migrations;
 use CodeIgniter\Database\Migration;
 use CodeIgniter\Database\RawSql;
 
-class CreateCategoriasTable extends Migration
+class CreateFormaPagamentosTable extends Migration
 {
     public function up()
     {
@@ -14,18 +14,9 @@ class CreateCategoriasTable extends Migration
                 'type' => 'INT',
                 'auto_increment' => true
             ],
-            'sistema_id' => [
-                'type' => 'INT',
-            ],
-            'nome' => [
+            'descricao' => [
                 'type' => 'VARCHAR',
                 'constraint' => 200,
-            ],
-            'status' => [
-                'type' => 'ENUM',
-                'constraint' => ["A", "I"],
-                "comment" => "A: ATIVO | I: INATIVO",
-                "default" => "A",
             ],
             'created_at' => [
                 'type' => 'TIMESTAMP',
@@ -39,13 +30,11 @@ class CreateCategoriasTable extends Migration
 
         $this->forge->addKey('id', true);
 
-        $this->forge->addForeignKey('sistema_id', 'sistemas', 'id');
-
-        $this->forge->createTable('categorias');
+        $this->forge->createTable('forma_pagamentos', true);
     }
 
     public function down()
     {
-        $this->forge->dropTable('categorias', true);
+        $this->forge->dropTable('forma_pagamentos', true);
     }
 }

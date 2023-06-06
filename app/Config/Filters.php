@@ -2,8 +2,10 @@
 
 namespace Config;
 
+use App\Filters\AuthAdmin;
+use App\Filters\AuthApi;
 use App\Filters\Cors;
-use Fluent\Cors\Filters\CorsFilter;
+// use Fluent\Cors\Filters\CorsFilter;
 
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
@@ -24,6 +26,8 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'authAdmin'     => AuthAdmin::class,
+        'authApi'       => AuthApi::class,
         'cors'          => Cors::class,
         // 'cors'          => CorsFilter::class,
     ];
@@ -67,9 +71,9 @@ class Filters extends BaseConfig
      * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
      */
     public array $filters = [
-        'cors' => [
-            'before' => ['api/*'],
-            'after' => ['api/*']
-        ],
+        // 'cors' => [
+        // 'before' => ['api/*'],
+        // 'after' => ['api/*']
+        // ],
     ];
 }

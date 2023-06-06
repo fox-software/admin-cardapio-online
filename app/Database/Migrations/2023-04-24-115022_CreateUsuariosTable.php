@@ -5,7 +5,7 @@ namespace App\Database\Migrations;
 use CodeIgniter\Database\Migration;
 use CodeIgniter\Database\RawSql;
 
-class CreateCategoriasTable extends Migration
+class CreateUsuariosTable extends Migration
 {
     public function up()
     {
@@ -14,18 +14,29 @@ class CreateCategoriasTable extends Migration
                 'type' => 'INT',
                 'auto_increment' => true
             ],
-            'sistema_id' => [
-                'type' => 'INT',
-            ],
             'nome' => [
                 'type' => 'VARCHAR',
                 'constraint' => 200,
             ],
-            'status' => [
-                'type' => 'ENUM',
-                'constraint' => ["A", "I"],
-                "comment" => "A: ATIVO | I: INATIVO",
-                "default" => "A",
+            'sobrenome' => [
+                'type' => 'VARCHAR',
+                'constraint' => 200,
+            ],
+            'email' => [
+                'type' => 'VARCHAR',
+                'constraint' => 200,
+            ],
+            'cpf' => [
+                'type' => 'VARCHAR',
+                'constraint' => 200,
+                'null' => true,
+            ],
+            'telefone' => [
+                'type' => 'VARCHAR',
+                'constraint' => 200,
+            ],
+            'senha' => [
+                'type' => 'TEXT',
             ],
             'created_at' => [
                 'type' => 'TIMESTAMP',
@@ -38,14 +49,16 @@ class CreateCategoriasTable extends Migration
         ]);
 
         $this->forge->addKey('id', true);
+        
+        $this->forge->addUniqueKey('email');
+        $this->forge->addUniqueKey('cpf');
+        $this->forge->addUniqueKey('telefone');
 
-        $this->forge->addForeignKey('sistema_id', 'sistemas', 'id');
-
-        $this->forge->createTable('categorias');
+        $this->forge->createTable('usuarios');
     }
 
     public function down()
     {
-        $this->forge->dropTable('categorias', true);
+        $this->forge->dropTable('usuarios', true);
     }
 }

@@ -5,7 +5,7 @@ namespace App\Database\Migrations;
 use CodeIgniter\Database\Migration;
 use CodeIgniter\Database\RawSql;
 
-class CreateCategoriasTable extends Migration
+class CreateRegioesTable extends Migration
 {
     public function up()
     {
@@ -17,9 +17,12 @@ class CreateCategoriasTable extends Migration
             'sistema_id' => [
                 'type' => 'INT',
             ],
-            'nome' => [
+            'cep' => [
                 'type' => 'VARCHAR',
                 'constraint' => 200,
+            ],
+            'frete' => [
+                'type' => 'DOUBLE(10,2)',
             ],
             'status' => [
                 'type' => 'ENUM',
@@ -41,11 +44,11 @@ class CreateCategoriasTable extends Migration
 
         $this->forge->addForeignKey('sistema_id', 'sistemas', 'id');
 
-        $this->forge->createTable('categorias');
+        $this->forge->createTable('regioes');
     }
 
     public function down()
     {
-        $this->forge->dropTable('categorias', true);
+        $this->forge->dropTable('regioes', true);
     }
 }

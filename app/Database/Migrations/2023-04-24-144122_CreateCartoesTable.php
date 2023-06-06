@@ -5,7 +5,7 @@ namespace App\Database\Migrations;
 use CodeIgniter\Database\Migration;
 use CodeIgniter\Database\RawSql;
 
-class CreateCategoriasTable extends Migration
+class CreateCartoesTable extends Migration
 {
     public function up()
     {
@@ -14,10 +14,34 @@ class CreateCategoriasTable extends Migration
                 'type' => 'INT',
                 'auto_increment' => true
             ],
-            'sistema_id' => [
+            'usuario_id' => [
                 'type' => 'INT',
             ],
             'nome' => [
+                'type' => 'VARCHAR',
+                'constraint' => 200,
+            ],
+            'principal' => [
+                'type' => 'INT',
+                'default' => 0
+            ],
+            'numero' => [
+                'type' => 'VARCHAR',
+                'constraint' => 200,
+            ],
+            'titular' => [
+                'type' => 'VARCHAR',
+                'constraint' => 200,
+            ],
+            'cpf' => [
+                'type' => 'VARCHAR',
+                'constraint' => 200,
+            ],
+            'validade' => [
+                'type' => 'VARCHAR',
+                'constraint' => 200,
+            ],
+            'cvv' => [
                 'type' => 'VARCHAR',
                 'constraint' => 200,
             ],
@@ -39,13 +63,13 @@ class CreateCategoriasTable extends Migration
 
         $this->forge->addKey('id', true);
 
-        $this->forge->addForeignKey('sistema_id', 'sistemas', 'id');
+        $this->forge->addForeignKey('usuario_id', 'usuarios', 'id');
 
-        $this->forge->createTable('categorias');
+        $this->forge->createTable('cartoes');
     }
 
     public function down()
     {
-        $this->forge->dropTable('categorias', true);
+        $this->forge->dropTable('cartoes', true);
     }
 }
